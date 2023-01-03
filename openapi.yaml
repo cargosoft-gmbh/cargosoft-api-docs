@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: CargoSoft API Markdown Power 2020.4
   description:
-    $ref: /test.md
+    $ref: ./test.md
   x-logo:
     url: 'https://www.cargosoft.de/wp-content/uploads/logo_cargosoft.jpg'
     backgroundColor: '#FFFFFF'

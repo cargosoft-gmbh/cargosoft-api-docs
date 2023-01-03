@@ -28,6 +28,8 @@ info:
     
     
     Noch mehr Text
+![Drag Racing](qr.jpg '#width=200px;height=200px;')
+
     <iframe width="560" height="315" src="https://www.youtube.com/watch?v=fkBdu9xaTlw&t=127s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   x-logo:
     url: 'https://www.cargosoft.de/wp-content/uploads/logo_cargosoft.jpg'

@@ -1,8 +1,26 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API Markdown Power
-  description:
-    $ref: ./test.md
+  description: |
+    | Syntax      | Description |
+    | ----------- | ----------- |
+    | Header      | Title       |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
+    | Paragraph   | Text        |
   contact:
     name: Uwe Droste der II
     url: https://www.cargosoft.de

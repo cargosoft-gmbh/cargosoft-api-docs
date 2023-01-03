@@ -25,6 +25,10 @@ info:
     | Paragraph   | 2020.4      |
     
     Noch mehr Text
+  x-logo:
+    url: 'https://www.cargosoft.de/wp-content/uploads/logo_cargosoft.jpg'
+    backgroundColor: '#FFFFFF'
+    altText: 'CargoSoft Logo'
   contact:
     name: Uwe Droste der II
     url: https://www.cargosoft.de

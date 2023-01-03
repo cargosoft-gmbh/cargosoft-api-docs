@@ -1,10 +1,10 @@
 openapi: 3.0.1
 info:
-  title: CargoSoft API
+  title: CargoSoft API Markdown Power
   description:
     $ref: ./test.md
   contact:
-    name: Uwe Droste
+    name: Uwe Droste der II
     url: https://www.cargosoft.de
     email: support@cargosoft.de
   version: "2020.4"

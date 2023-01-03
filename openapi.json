@@ -3,7 +3,7 @@
   "info" : {
     "title" : "CargoSoft API",
     "description" : {
-      "$ref": "#/test.md"
+      "$ref": "./test.md"
     },
     "contact" : {
       "name" : "Uwe Droste",

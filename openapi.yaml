@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: CargoSoft API Markdown Power
+  title: CargoSoft API Markdown Power 2020.4
   description: |
     Anfang **des** Text
     
@@ -10,19 +10,19 @@ info:
     | Paragraph   | Text        |
     | Paragraph   | Text        |
     | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
-    | Paragraph   | Text        |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
+    | Paragraph   | 2020.4      |
     
     Noch mehr Text
   contact:

@@ -24,7 +24,7 @@ info:
     | Paragraph   | 2020.4      |
     | Paragraph   | 2020.4      |
     
-    ![Drag Racing](resources/qr.jpg)
+    ![Drag Racing](./resources/qr.jpg)
     
     Noch mehr Text
     <iframe width="560" height="315" src="https://www.youtube.com/watch?v=fkBdu9xaTlw&t=127s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

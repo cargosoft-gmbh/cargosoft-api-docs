@@ -1,14 +1,15 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API
-  description: |2
+  description: |2-
 
 
      Documentation of the CargoSoft API
     <iframe width="560" height="315" src="https://www.youtube.com/embed/fkBdu9xaTlw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    | Col 1 | Col 2 |
+    | Col1 | Col2 |
     | ---- | ---- |
     | 1 | 2 |
+    **Eine weitere fette Zeile**
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de

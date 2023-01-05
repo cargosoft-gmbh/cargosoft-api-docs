@@ -40,7 +40,7 @@ info:
     Ende Test Bilder
 
     Referenz MD File
-    $ref: ./test2.md
+    $ref: test2.md
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de

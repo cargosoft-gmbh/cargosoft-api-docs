@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API
-  description: |2
+  description: |2-
 
 
      Documentation of the CargoSoft API
@@ -35,9 +35,12 @@ info:
     [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
 
     Bild lokal:
-    ![alt text](./resources/qr.jpg "QR-Code")
+    ![alt text](qr.jpg "QR-Code")
 
     Ende Test Bilder
+
+    Referenz MD File
+    $ref: ./test2.md
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de

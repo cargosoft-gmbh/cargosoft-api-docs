@@ -1,10 +1,14 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API
-  description: |2-
+  description: |2
 
 
-     test   Documentation of the CargoSoft API<iframe width="560" height="315" src="https://www.youtube.com/embed/fkBdu9xaTlw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>   | Col 1 | Col 2 |   | ---- | ---- |   | 1 | 2 |
+     Documentation of the CargoSoft API
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/fkBdu9xaTlw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    | Col 1 | Col 2 |
+    | ---- | ---- |
+    | 1 | 2 |
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de
@@ -23869,6 +23873,42 @@ paths:
         schema:
           type: integer
           format: int32
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - Java Web Token: []
+  /update/{requestedFile}:
+    get:
+      operationId: retrieveUpdateFile
+      parameters:
+      - name: requestedFile
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/octet-stream: {}
+      security:
+      - Java Web Token: []
+    options:
+      operationId: retrieveFolderList
+      parameters:
+      - name: requestedFile
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: list_folders
+        in: query
+        schema:
+          type: boolean
+          default: false
       responses:
         default:
           description: default response

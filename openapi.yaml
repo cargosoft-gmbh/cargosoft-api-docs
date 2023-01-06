@@ -46,6 +46,12 @@ info:
     url: https://www.cargosoft.de
     email: support@cargosoft.de
   version: "2020.4"
+tags:
+- name: Accounting
+  description: |2-
+
+
+    $ref: ./resources/account_header_description.md
 paths:
   /cargosoft/accounting/invoice:
     get:
@@ -28203,5 +28209,6 @@ components:
   securitySchemes:
     Java Web Token:
       type: http
+      in: header
       scheme: bearer
       bearerFormat: JWT

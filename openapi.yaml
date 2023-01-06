@@ -1,25 +1,23 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API
-  description:
-    $ref: ./resources/api_description.md
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de
     email: support@cargosoft.de
   version: "2020.4"
+externalDocs:
+  url: ./resources/api_description.md
 tags:
 - name: Accounting
-  description:
-    $ref: ./resources/account_header_description.md
+  description: "$ref: ./resources/account_header_description.md"
 paths:
   /cargosoft/accounting/invoice:
     get:
       tags:
       - Accounting
       summary: Retrieve all records
-      description:
-        $ref: ./resources/retriev_all_default_description.md
+      description: "$ref: ./resources/retriev_all_default_description.md"
       operationId: retrieveAll
       parameters:
       - name: page_no

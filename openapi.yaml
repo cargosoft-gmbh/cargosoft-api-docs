@@ -4,7 +4,7 @@ info:
   description: |2-
 
 
-    $ref: ./resources/api_description.md
+    $ref: /resources/api_description.md
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de

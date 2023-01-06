@@ -10,9 +10,7 @@ info:
   version: "2020.4"
 tags:
 - name: Accounting
-  description: |2-
-
-
+  description:
     $ref: ./resources/account_header_description.md
 paths:
   /cargosoft/accounting/invoice:

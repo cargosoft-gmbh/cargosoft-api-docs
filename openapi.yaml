@@ -1,6 +1,7 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API
+  description: "<!--include:./resources/api_description.md-->"
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de

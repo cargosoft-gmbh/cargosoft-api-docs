@@ -1,24 +1,61 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API
-  description: "<!--include:./resources/api_description.md-->"
+  description: |2
+
+
+    Documentation of the CargoSoft API
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/fkBdu9xaTlw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+    | Col1 | Col2 |
+    | ---- | ---- |
+    | 1 | 2 |
+
+    **Eine weitere fette Zeile**
+
+    > This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote.
+
+    # H1
+    ## H2
+    ### H3
+    #### H4
+    ##### H5
+    ###### H6
+
+    ```java
+    public interface CargoSoftOpenApiDefinition {
+    }
+    ```
+
+    Bildchen Test
+
+    Bild aus dem Internet:
+    ![alt text][logo]
+
+    [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+
+    Bild lokal:
+    ![alt text](./resources/qr.jpg "QR-Code")
+
+    Ende Test Bilder
+
+    Referenz MD File
+    $ref: ./resources/test2.md
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de
     email: support@cargosoft.de
   version: "2020.4"
-externalDocs:
-  url: ./resources/api_description.md
-tags:
-- name: Accounting
-  description: "$ref: ./resources/account_header_description.md"
 paths:
   /cargosoft/accounting/invoice:
     get:
       tags:
       - Accounting
-      summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      summary: Overwritten Retrieve all records from super interface
+      description: |2-
+
+
+        Markdown documentation are possible on **this position**
       operationId: retrieveAll
       parameters:
       - name: page_no
@@ -35,7 +72,7 @@ paths:
           default: 50
       responses:
         "204":
-          description: No record found
+          description: Markdown are also posible for describing api response
           content:
             application/json: {}
         "500":
@@ -338,7 +375,7 @@ paths:
       tags:
       - Address
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_1
       parameters:
       - name: page_no
@@ -659,7 +696,7 @@ paths:
       tags:
       - Address Qualifier
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_2
       parameters:
       - name: page_no
@@ -971,7 +1008,7 @@ paths:
       tags:
       - Code Conversion
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_3
       parameters:
       - name: page_no
@@ -1289,7 +1326,7 @@ paths:
       tags:
       - Country
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_4
       parameters:
       - name: page_no
@@ -1606,7 +1643,7 @@ paths:
       tags:
       - Department
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_5
       parameters:
       - name: page_no
@@ -1923,7 +1960,7 @@ paths:
       tags:
       - Basicdata document
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_6
       parameters:
       - name: page_no
@@ -2240,7 +2277,7 @@ paths:
       tags:
       - Basicdata Efile
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_7
       parameters:
       - name: page_no
@@ -2557,7 +2594,7 @@ paths:
       tags:
       - Employee
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_8
       parameters:
       - name: page_no
@@ -2958,7 +2995,7 @@ paths:
       tags:
       - Permissions
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_9
       parameters:
       - name: page_no
@@ -3276,7 +3313,7 @@ paths:
       tags:
       - Employee Client Permissions
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_10
       parameters:
       - name: page_no
@@ -3594,7 +3631,7 @@ paths:
       tags:
       - User Permissions
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_11
       parameters:
       - name: page_no
@@ -3911,7 +3948,7 @@ paths:
       tags:
       - Permission Groups
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_12
       parameters:
       - name: page_no
@@ -4228,7 +4265,7 @@ paths:
       tags:
       - Basicdata rule
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_13
       parameters:
       - name: page_no
@@ -4541,7 +4578,7 @@ paths:
       tags:
       - Basicdata sequence
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_14
       parameters:
       - name: page_no
@@ -4843,7 +4880,7 @@ paths:
   /cargosoft/basicdata/cargosoftsetting:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_15
       parameters:
       - name: page_no
@@ -5104,7 +5141,7 @@ paths:
       tags:
       - Basicdata shipment number definition
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_16
       parameters:
       - name: page_no
@@ -5440,7 +5477,7 @@ paths:
       tags:
       - Basicdata status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_17
       parameters:
       - name: page_no
@@ -5744,7 +5781,7 @@ paths:
       tags:
       - Basicdata status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_18
       parameters:
       - name: page_no
@@ -6057,7 +6094,7 @@ paths:
       tags:
       - Basicdata status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_19
       parameters:
       - name: page_no
@@ -6357,7 +6394,7 @@ paths:
       tags:
       - Basicdata status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_20
       parameters:
       - name: page_no
@@ -6668,7 +6705,7 @@ paths:
       tags:
       - Basicdata status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_21
       parameters:
       - name: page_no
@@ -6967,7 +7004,7 @@ paths:
   /cargosoft/cargocom/mailreceipient:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_22
       parameters:
       - name: page_no
@@ -7226,7 +7263,7 @@ paths:
   /cargosoft/cargocom/mail:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_23
       parameters:
       - name: page_no
@@ -7485,7 +7522,7 @@ paths:
   /cargosoft/cargocom/task:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_24
       parameters:
       - name: page_no
@@ -7746,7 +7783,7 @@ paths:
       tags:
       - Company
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_25
       parameters:
       - name: page_no
@@ -8063,7 +8100,7 @@ paths:
       tags:
       - E-File
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_26
       parameters:
       - name: page_no
@@ -8490,7 +8527,7 @@ paths:
       tags:
       - Shipment Trigger
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_28
       parameters:
       - name: page_no
@@ -8801,7 +8838,7 @@ paths:
       tags:
       - Inbox
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_27
       parameters:
       - name: page_no
@@ -9116,7 +9153,7 @@ paths:
       tags:
       - Inbox
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_29
       parameters:
       - name: page_no
@@ -9432,7 +9469,7 @@ paths:
       tags:
       - Inbox
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_30
       parameters:
       - name: page_no
@@ -9749,7 +9786,7 @@ paths:
       tags:
       - Inbox
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_31
       parameters:
       - name: page_no
@@ -10065,7 +10102,7 @@ paths:
       tags:
       - Inbox
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_32
       parameters:
       - name: page_no
@@ -10382,7 +10419,7 @@ paths:
       tags:
       - Inbox
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_33
       parameters:
       - name: page_no
@@ -10698,7 +10735,7 @@ paths:
       tags:
       - Inbox
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_34
       parameters:
       - name: page_no
@@ -11036,7 +11073,7 @@ paths:
   /cargosoft/lockedobject:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_35
       parameters:
       - name: page_no
@@ -11306,7 +11343,7 @@ paths:
       tags:
       - EDI Monitor
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_36
       parameters:
       - name: page_no
@@ -11618,7 +11655,7 @@ paths:
       tags:
       - EDI Monitor
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_37
       parameters:
       - name: page_no
@@ -11931,7 +11968,7 @@ paths:
       tags:
       - EDI Monitor
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_38
       parameters:
       - name: page_no
@@ -12245,7 +12282,7 @@ paths:
       tags:
       - Provider
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_39
       parameters:
       - name: page_no
@@ -12549,7 +12586,7 @@ paths:
       tags:
       - Provider
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_40
       parameters:
       - name: page_no
@@ -12860,7 +12897,7 @@ paths:
       tags:
       - Basic Data
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_41
       parameters:
       - name: page_no
@@ -13177,7 +13214,7 @@ paths:
       tags:
       - Service File
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_42
       parameters:
       - name: page_no
@@ -13495,7 +13532,7 @@ paths:
       tags:
       - Shipment
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_43
       parameters:
       - name: page_no
@@ -14247,7 +14284,7 @@ paths:
       tags:
       - Shipment Address
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_44
       parameters:
       - name: bl_type
@@ -14373,7 +14410,7 @@ paths:
       tags:
       - Shipment consolidation
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_45
       parameters:
       - name: page_no
@@ -14675,7 +14712,7 @@ paths:
       tags:
       - Shipment consolidation
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_46
       parameters:
       - name: truckmanifestId
@@ -15053,7 +15090,7 @@ paths:
       tags:
       - Shipment consolidation
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_47
       parameters:
       - name: page_no
@@ -15660,7 +15697,7 @@ paths:
       tags:
       - Shipment goods description
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_49
       parameters:
       - name: pageNo
@@ -15961,7 +15998,7 @@ paths:
       tags:
       - Shipment goods description
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_50
       parameters:
       - name: page_no
@@ -16261,7 +16298,7 @@ paths:
       tags:
       - Shipment Status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_51
       parameters:
       - name: page_no
@@ -16569,7 +16606,7 @@ paths:
       tags:
       - Shipment Status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_52
       parameters:
       - name: page_no
@@ -16868,7 +16905,7 @@ paths:
       tags:
       - Shipment Status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_53
       parameters:
       - name: page_no
@@ -17168,7 +17205,7 @@ paths:
       tags:
       - Shipment Status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_54
       parameters:
       - name: page_no
@@ -17468,7 +17505,7 @@ paths:
       tags:
       - Shipment Status
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_55
       parameters:
       - name: page_no
@@ -17790,7 +17827,7 @@ paths:
       tags:
       - Tender Offer
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_56
       parameters:
       - name: page_no
@@ -18160,7 +18197,7 @@ paths:
       tags:
       - Administration - Blob
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_57
       parameters:
       - name: page_no
@@ -18423,7 +18460,7 @@ paths:
   /admin/permissiongroup:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_58
       parameters:
       - name: page_no
@@ -18699,7 +18736,7 @@ paths:
   /admin/permission:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_59
       parameters:
       - name: page_no
@@ -19110,7 +19147,7 @@ paths:
       tags:
       - Administration - REST requests
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_60
       parameters:
       - name: page_no
@@ -19306,7 +19343,7 @@ paths:
       tags:
       - Administration - REST responses
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_61
       parameters:
       - name: page_no
@@ -19416,7 +19453,7 @@ paths:
       tags:
       - API Administration
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_62
       parameters:
       - name: page_no
@@ -19799,7 +19836,7 @@ paths:
       tags:
       - API Administration
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_63
       parameters:
       - name: page_no
@@ -20255,7 +20292,7 @@ paths:
   /admin/webhookconfig:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_64
       parameters:
       - name: pageNo
@@ -20530,7 +20567,7 @@ paths:
   /cargosoft/statusapi/providerforeigncode:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_65
       parameters:
       - name: page_no
@@ -20791,7 +20828,7 @@ paths:
   /cargosoft/statusapi/provider:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_66
       parameters:
       - name: page_no
@@ -21422,7 +21459,7 @@ paths:
   /cargosoft/statusapi/providerconfigadditional:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_68
       parameters:
       - name: page_no
@@ -21681,7 +21718,7 @@ paths:
   /cargosoft/statusapi/providerconfig:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_69
       parameters:
       - name: page_no
@@ -21940,7 +21977,7 @@ paths:
   /cargosoft/statusapi/provideridentifiermatch:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_70
       parameters:
       - name: page_no
@@ -22220,7 +22257,7 @@ paths:
   /cargosoft/statusapi/providerrequest:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_71
       parameters:
       - name: page_no
@@ -22486,7 +22523,7 @@ paths:
   /cargosoft/statusapi/providerresponse:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_72
       parameters:
       - name: page_no
@@ -22786,7 +22823,7 @@ paths:
   /cargosoft/statusapi/providerresponsestatus:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_73
       parameters:
       - name: page_no
@@ -23070,7 +23107,7 @@ paths:
   /cargosoft/statusapi/providersubscription:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_74
       parameters:
       - name: page_no
@@ -23332,7 +23369,7 @@ paths:
   /cargosoft/statusapi/usersubscription:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_75
       parameters:
       - name: page_no
@@ -23598,7 +23635,7 @@ paths:
   /cargosoft/statusapi/transaction:
     get:
       summary: Retrieve all records
-      description: "$ref: ./resources/retriev_all_default_description.md"
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll_76
       parameters:
       - name: page_no
@@ -28167,7 +28204,8 @@ components:
       discriminator:
         propertyName: match_mode
   securitySchemes:
-    Java Web Token:
+    JWT:
       type: http
+      in: header
       scheme: bearer
       bearerFormat: JWT

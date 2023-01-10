@@ -28204,7 +28204,9 @@ components:
       discriminator:
         propertyName: match_mode
   securitySchemes:
-    type: http
-    in: header
-    scheme: bearer
-    bearerFormat: JWT
+    JWT:
+      type: http
+      name: JWT
+      in: header
+      scheme: bearer
+      bearerFormat: JWT

@@ -28206,7 +28206,5 @@ components:
   securitySchemes:
     JWT:
       type: http
-      name: JWT
-      in: header
       scheme: bearer
       bearerFormat: JWT

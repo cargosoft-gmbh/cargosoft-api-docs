@@ -72,7 +72,17 @@ paths:
           default: 50
       responses:
         "204":
-          description: Markdown are also posible for describing api response
+          description: |2-
+
+            Markdown are also __possible__ for describing api response?
+
+            | Col1 | Col2 |
+            | ---- | ---- |
+            | 1 | 2 |
+
+            ---
+
+             After h line!
           content:
             application/json: {}
         "500":
@@ -28204,7 +28214,7 @@ components:
       discriminator:
         propertyName: match_mode
   securitySchemes:
-    JWT:
+    Java Web Token:
       type: http
       scheme: bearer
       bearerFormat: JWT

@@ -60,6 +60,10 @@ paths:
       parameters:
       - name: page_no
         in: query
+        description: |2-
+
+
+          Markdown description of the **page_no** param
         schema:
           type: integer
           format: int32

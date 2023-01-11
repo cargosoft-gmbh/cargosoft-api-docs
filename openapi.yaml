@@ -89,12 +89,6 @@ paths:
              After h line!
           content:
             application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
         "200":
           description: Records retrieved
           content:
@@ -103,6 +97,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Invoice'
+              example: "{id: 1234,client: \"001\",office: \"BRE\",}"
       security:
       - Java Web Token: []
     post:

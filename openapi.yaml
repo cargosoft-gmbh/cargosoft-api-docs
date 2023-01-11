@@ -98,9 +98,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Invoice'
               examples:
-                jsonObject:
+                ive1:
                   description: The following example shows an minimal response
-                  $ref: './resources/Invoice_example.json'
       security:
       - Java Web Token: []
     post:
@@ -23986,9 +23985,11 @@ components:
           type: integer
           description: The id of the DTO
           format: int32
+          example: 151354
         client:
           type: string
           description: the CargoSoft client
+          example: "001"
         office:
           type: string
           description: The office

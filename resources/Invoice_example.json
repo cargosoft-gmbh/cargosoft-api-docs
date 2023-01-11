@@ -1,32 +1,3 @@
-{
-  "id": 0,
-  "client": "001",
-  "office": "BRE",
-  "corporation": "string",
-  "language": "string",
-  "barcode": "string",
-  "currency": "string",
-  "amount": 0,
-  "shipment_number": "string",
-  "invoice_type": "string",
-  "invoice_number": 0,
-  "voucher_type": "string",
-  "invoice_date": "2023-01-11",
-  "booking_period": 0,
-  "printed_address": {
-    "address_type": "string",
-    "address_number": 0,
-    "line_1": "string",
-    "line_2": "string",
-    "line_3": "string",
-    "line_4": "string",
-    "line_5": "string"
-  },
-  "invoice_reference": "string",
-  "processed_flag": "string",
-  "tax_amount": 0,
-  "gross_amount": 0,
-  "created_date_time": "2023-01-11T13:38:35.496Z",
-  "sequential_number": 0,
-  "employee_login": "string"
-}
+id: 0
+client: 001
+office: BRE

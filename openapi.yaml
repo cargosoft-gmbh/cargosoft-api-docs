@@ -97,7 +97,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Invoice'
-              example: "{id: 1234,client: \"001\",office: \"BRE\",}"
+              examples:
+                ive1:
+                  description: The following example shows an minimal response
+                  value: "{id: 1234,client: \\\"001\\\",office: \"BRE\",}"
       security:
       - Java Web Token: []
     post:
@@ -23981,11 +23984,14 @@ components:
       properties:
         id:
           type: integer
+          description: The id of the DTO
           format: int32
         client:
           type: string
+          description: the CargoSoft client
         office:
           type: string
+          description: The office
         corporation:
           type: string
         language:
@@ -23998,6 +24004,8 @@ components:
           type: number
         shipment_number:
           type: string
+          description: The shipment number of the shipment. This number may unique
+            in combination of the client property.
         invoice_type:
           type: string
         invoice_number:

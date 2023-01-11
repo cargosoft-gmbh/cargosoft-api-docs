@@ -100,7 +100,7 @@ paths:
               examples:
                 ive1:
                   description: The following example shows an minimal response
-                  value: "{id: 1234,client: 001,office: BRE,}"
+                  $ref: ./resources/Invoice_example.json
       security:
       - Java Web Token: []
     post:
@@ -24035,6 +24035,7 @@ components:
           format: int32
         employee_login:
           type: string
+      description: Description of the Invoice DTO Schema
     PrintedAddress:
       type: object
       properties:

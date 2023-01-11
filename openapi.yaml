@@ -100,7 +100,7 @@ paths:
               examples:
                 ive1:
                   description: The following example shows an minimal response
-                  value: "{id: 1234,client: \\\"001\\\",office: \"BRE\",}"
+                  value: "{id: 1234,client: 001,office: BRE,}"
       security:
       - Java Web Token: []
     post:

@@ -98,9 +98,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Invoice'
               examples:
-                ive1:
+                jsonObject:
                   description: The following example shows an minimal response
-                  $ref: ./resources/Invoice_example.json
+                  $ref: './resources/Invoice_example.json'
       security:
       - Java Web Token: []
     post:

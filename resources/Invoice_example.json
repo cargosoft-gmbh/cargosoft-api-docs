@@ -1,3 +1,19 @@
-id: 0
-client: 001
-office: BRE
+type: object
+title: Vehicle
+properties:
+color:
+type: string
+description: The color of the vehicle
+example: red
+make:
+type: string
+description: The make of the vehicle
+example: Toyota
+model:
+type: string
+description: The model of the vehicle
+example: MR2
+year:
+type: integer
+description: The year of the vehicle
+example: 1995

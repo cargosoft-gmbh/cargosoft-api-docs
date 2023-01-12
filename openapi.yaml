@@ -97,41 +97,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Invoice'
-              examples:
-                ive1:
-                  description: The following example shows an minimal response
-                  value: |-
-                    [
-                      {
-                        "id": 151354184,
-                        "client": "001",
-                        "office": "BRE",
-                        "corporation": "Test",
-                        "language": "D",
-                        "barcode": "231332543546547657823543",
-                        "currency": "EUR",
-                        "amount": 1000,
-                        "shipment_number": "BRE-001-12012023-876",
-                        "invoice_type": "R",
-                        "invoice_number": 12012023-876,
-                        "voucher_type": "R",
-                        "invoice_date": "2023-01-12",
-                        "booking_period": 012023,
-                        "printed_address": {
-                          "address_type": "SHP",
-                          "address_number": D1030,
-                          "line_1": "CargoSoft GmbH",
-                          "line_2": "Buschhoehe 10"
-                        },
-                        "invoice_reference": "23546547657",
-                        "processed_flag": "string",
-                        "tax_amount": 1090,
-                        "gross_amount": 10000,
-                        "created_date_time": "2023-01-12T07:06:54.934Z",
-                        "sequential_number": 0,
-                        "employee_login": "cargo"
-                      }
-                    ]
       security:
       - Java Web Token: []
     post:
@@ -24069,6 +24034,16 @@ components:
         employee_login:
           type: string
       description: Description of the Invoice DTO Schema
+      example: "{\"id\": 151354189, \"client\": \"001\", \"office\": \"BRE\", \"corporation\"\
+        : \"Test\", \"language\": \"D\", \"barcode\": \"231332543546547657823543\"\
+        , \"currency\": \"EUR\", \"amount\": 1000, \"shipment_number\": \"BRE-001-12012023-876\"\
+        , \"invoice_type\": \"R\", \"invoice_number\": 12012023-876, \"voucher_type\"\
+        : \"R\", \"invoice_date\": \"2023-01-12\", \"booking_period\": 012023, \"\
+        printed_address\": {\"address_type\": \"SHP\", \"address_number\": D1030,\
+        \ \"line_1\": \"CargoSoft GmbH\", \"line_2\": \"Buschhoehe 10\"}, \"invoice_reference\"\
+        : \"23546547657\", \"processed_flag\": \"string\", \"tax_amount\": 1090, \"\
+        gross_amount\": 10000, \"created_date_time\": \"2023-01-12T07:06:54.934Z\"\
+        , \"sequential_number\": 0, \"employee_login\": \"cargo\"}"
     PrintedAddress:
       type: object
       properties:
@@ -28257,5 +28232,6 @@ components:
   securitySchemes:
     Java Web Token:
       type: http
+      in: header
       scheme: bearer
       bearerFormat: JWT

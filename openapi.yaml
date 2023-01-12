@@ -24033,7 +24033,7 @@ components:
           format: int32
         employee_login:
           type: string
-      description: Description of the Invoice DTO Schema
+      description: Description of the Invoice DTO Schema test
       example: "{\"id\": 151354189, \"client\": \"001\", \"office\": \"BRE\", \"corporation\"\
         : \"Test\", \"language\": \"D\", \"barcode\": \"231332543546547657823543\"\
         , \"currency\": \"EUR\", \"amount\": 1000, \"shipment_number\": \"BRE-001-12012023-876\"\

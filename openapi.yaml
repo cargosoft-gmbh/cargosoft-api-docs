@@ -250,18 +250,6 @@ paths:
                     : \"string\", \"tax_amount\": 1090, \"gross_amount\": 10000, \"\
                     created_date_time\": \"2023-01-12T07:06:54.934Z\", \"sequential_number\"\
                     : 0, \"employee_login\": \"cargo\"}]"
-                ReferenzBeispiel1:
-                  description: ReferenzBeispiel1
-                  externalValue: ./resources/Invoice_example.json
-                ReferenzBeispiel2:
-                  description: ReferenzBeispiel2
-                  externalValue: '#/resources/Invoice_example.json'
-                ReferenzBeispiel3:
-                  description: ReferenzBeispiel3
-                  externalValue: /resources/Invoice_example.json
-                ReferenzBeispiel4:
-                  description: ReferenzBeispiel4
-                  externalValue: resources/Invoice_example.json
                 ReferenzBeispiel5:
                   description: ReferenzBeispiel5
                   $ref: ./resources/Invoice_example.json

@@ -28247,6 +28247,5 @@ components:
   securitySchemes:
     Java Web Token:
       type: http
-      in: header
       scheme: bearer
       bearerFormat: JWT

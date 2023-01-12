@@ -245,7 +245,7 @@ paths:
                   summary: Full example of an invoice
                   description: The following DTO shows an invoice with all possible
                     fields.
-                  $ref: ./resources/invoice_example_object.yaml
+                  $ref: ./resources/Invoice_example_object.yaml
       security:
       - Java Web Token: []
     put:
@@ -28231,6 +28231,5 @@ components:
   securitySchemes:
     Java Web Token:
       type: http
-      in: header
       scheme: bearer
       bearerFormat: JWT

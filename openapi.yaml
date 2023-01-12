@@ -97,6 +97,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Invoice'
+              examples:
+                2334:
+                  description: The following example shows an minimal response
+                  $ref: ./resources/Invoice_example_array_objects.yaml
       security:
       - Java Web Token: []
     post:

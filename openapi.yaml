@@ -252,7 +252,7 @@ paths:
                     : 0, \"employee_login\": \"cargo\"}]"
                 ReferenzBeispiel5:
                   description: ReferenzBeispiel5
-                  $ref: ./resources/Invoice_example.json
+                  $ref: ./resources/Invoice_example.yaml
       security:
       - Java Web Token: []
     put:

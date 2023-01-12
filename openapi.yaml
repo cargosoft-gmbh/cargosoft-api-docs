@@ -114,16 +114,16 @@ paths:
                     : 0, \"employee_login\": \"cargo\"}"
                 ReferenzBeispiel1:
                   description: ReferenzBeispiel1
-                  $ref: ./resources/Invoice_example.json
+                  externalValue: ./resources/Invoice_example.json
                 ReferenzBeispiel2:
                   description: ReferenzBeispiel2
-                  $ref: '#/resources/Invoice_example.json'
+                  externalValue: '#/resources/Invoice_example.json'
                 ReferenzBeispiel3:
                   description: ReferenzBeispiel3
-                  $ref: /resources/Invoice_example.json
+                  externalValue: /resources/Invoice_example.json
                 ReferenzBeispiel4:
                   description: ReferenzBeispiel4
-                  $ref: resources/Invoice_example.json
+                  externalValue: resources/Invoice_example.json
       security:
       - Java Web Token: []
     post:

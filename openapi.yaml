@@ -124,6 +124,9 @@ paths:
                 ReferenzBeispiel4:
                   description: ReferenzBeispiel4
                   externalValue: resources/Invoice_example.json
+                ReferenzBeispiel5:
+                  description: ReferenzBeispiel5
+                  $ref: ./resources/Invoice_example.json
       security:
       - Java Web Token: []
     post:

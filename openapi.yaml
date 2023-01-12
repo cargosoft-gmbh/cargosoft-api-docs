@@ -112,6 +112,18 @@ paths:
                     : \"string\", \"tax_amount\": 1090, \"gross_amount\": 10000, \"\
                     created_date_time\": \"2023-01-12T07:06:54.934Z\", \"sequential_number\"\
                     : 0, \"employee_login\": \"cargo\"}"
+                ReferenzBeispiel1:
+                  description: ReferenzBeispiel1
+                  $ref: ./resources/Invoice_example.json
+                ReferenzBeispiel2:
+                  description: ReferenzBeispiel2
+                  $ref: '#/resources/Invoice_example.json'
+                ReferenzBeispiel3:
+                  description: ReferenzBeispiel3
+                  $ref: /resources/Invoice_example.json
+                ReferenzBeispiel4:
+                  description: ReferenzBeispiel4
+                  $ref: resources/Invoice_example.json
       security:
       - Java Web Token: []
     post:
@@ -28235,5 +28247,6 @@ components:
   securitySchemes:
     Java Web Token:
       type: http
+      in: header
       scheme: bearer
       bearerFormat: JWT

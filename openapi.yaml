@@ -31,10 +31,12 @@ info:
 
     Bild aus dem Internet:
     ![alt text][logo]
+    
     [logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
 
     Bild lokal:
     ![QR-Code Text][qrcode]
+    
     [qrcode]: https://raw.githubusercontent.com/hgulich/public_api_resources/main/qr.jpg "QR-Code"
 
     Ende Test Bilder

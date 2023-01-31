@@ -1,8 +1,7 @@
 openapi: 3.0.1
 info:
   title: CargoSoft API
-  description:
-    $ref: ./resources/api_description.md
+  description: Documentation of the CargoSoft API
   contact:
     name: Uwe Droste
     url: https://www.cargosoft.de
@@ -13,19 +12,12 @@ paths:
     get:
       tags:
       - Accounting
-      summary: Overwritten Retrieve all records from super interface
-      description: |2-
-
-
-        Markdown documentation are possible on **this position**
+      summary: Retrieve all records
+      description: 'Scroll through all existing records. '
       operationId: retrieveAll
       parameters:
       - name: page_no
         in: query
-        description: |2-
-
-
-          Markdown description of the **page_no** param
         schema:
           type: integer
           format: int32
@@ -38,19 +30,15 @@ paths:
           default: 50
       responses:
         "204":
-          description: |2-
-
-            Markdown are also __possible__ for describing api response?
-
-            | Col1 | Col2 |
-            | ---- | ---- |
-            | 1 | 2 |
-
-            ---
-
-             After h line!
+          description: No record found
           content:
             application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
         "200":
           description: Records retrieved
           content:
@@ -59,11 +47,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Invoice'
-              examples:
-                InvoiceArrayFullExample:
-                  summary: Array of two full invoices
-                  description: The following example shows an minimal response
-                  $ref: ./resources/Invoice_example_array_objects.yaml
       security:
       - Java Web Token: []
     post:
@@ -202,12 +185,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Invoice'
-              examples:
-                InvoiceSingleFullExample:
-                  summary: Full example of an invoice
-                  description: The following DTO shows an invoice with all possible
-                    fields.
-                  $ref: ./resources/Invoice_example_object.yaml
       security:
       - Java Web Token: []
     put:
@@ -313,7 +290,6 @@ paths:
             - INVOICE_TYPE
             - SHIPMENT_NUMBER
             - OFFICE
-            - FOREIGN_INVOICE_NUMBER
       - name: order_mode
         in: query
         schema:
@@ -23920,11 +23896,6 @@ paths:
         required: true
         schema:
           type: string
-      - name: list_folders
-        in: query
-        schema:
-          type: boolean
-          default: false
       responses:
         default:
           description: default response
@@ -23953,14 +23924,11 @@ components:
       properties:
         id:
           type: integer
-          description: The id of the DTO
           format: int32
         client:
           type: string
-          description: the CargoSoft client
         office:
           type: string
-          description: The office
         corporation:
           type: string
         language:
@@ -23973,8 +23941,6 @@ components:
           type: number
         shipment_number:
           type: string
-          description: The shipment number of the shipment. This number may unique
-            in combination of the client property.
         invoice_type:
           type: string
         invoice_number:
@@ -24004,7 +23970,6 @@ components:
           format: int32
         employee_login:
           type: string
-      description: Description of the Invoice DTO Schema
     PrintedAddress:
       type: object
       properties:
@@ -24164,8 +24129,6 @@ components:
           type: string
         country:
           type: string
-        disabled:
-          type: boolean
         address_type:
           type: string
         address_number:
@@ -25469,8 +25432,6 @@ components:
           - PUBLIC_LINK
           - RECIPIENT_NAME
           - VESSEL_FLAG
-          - LONGITUDE
-          - LATITUDE
         reference:
           type: string
     RoadCarriageParameter:
@@ -25498,8 +25459,6 @@ components:
       - $ref: '#/components/schemas/CarriageParameter'
       - type: object
         properties:
-          barge:
-            type: boolean
           sea_ship_type:
             type: string
           sea_cargo_type:
@@ -26374,10 +26333,6 @@ components:
                           nano:
                             type: integer
                             format: int32
-                          negative:
-                            type: boolean
-                          zero:
-                            type: boolean
                           units:
                             type: array
                             items:
@@ -26389,6 +26344,10 @@ components:
                                   type: boolean
                                 durationEstimated:
                                   type: boolean
+                          zero:
+                            type: boolean
+                          negative:
+                            type: boolean
                       gap:
                         type: boolean
                       dateTimeBefore:
@@ -28193,5 +28152,6 @@ components:
   securitySchemes:
     Java Web Token:
       type: http
+      in: header
       scheme: bearer
       bearerFormat: JWT

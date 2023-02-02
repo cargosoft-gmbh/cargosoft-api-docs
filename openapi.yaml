@@ -143,7 +143,7 @@ paths:
           description: Records found
           headers:
             X-Page-Count:
-              description: The total number of pages.
+              description: The total number of pages... :)
               style: simple
           content:
             application/json:

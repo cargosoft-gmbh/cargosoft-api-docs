@@ -88,9 +88,15 @@ Example to look up a shipment and retrieve after that all shipment events:
 ### Pagination
 Many endpoints of the CargoSoft API use pagination mechanics. The moste of them are retrieve or lookup endpoints.
 
-The pagination information will send as query parameter up to the API endpoint. The pagination contains the following two query parameter:
+The pagination information will send as request query parameter up to the API endpoint. The pagination contains the following two query parameter:
 1. _page_no_: The current number of the page
 2. _page_size_: The size of the page
+
+The response contains two additional headers:
+1. _X-Page-Count_: The total number of pages.
+2. _X-Row-Count_: The total number of found objects.
+
+With this both headers is it possible retrieve next paged results.
 
 # Use cases
 

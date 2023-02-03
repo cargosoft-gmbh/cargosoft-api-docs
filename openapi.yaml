@@ -1,0 +1,688 @@
+openapi: 3.0.1
+info:
+  title: CargoSoft API
+  description: 
+    $ref: ./resources/api_info_description.md
+  contact:
+    name: Uwe Droste
+    url: https://www.cargosoft.de
+    email: support@cargosoft.de
+  version: '2021.4'
+  x-logo:
+    backgroundColor: '#FFFFF'
+    altText: CargoSoft GmbH
+    url: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/CargoSoftLogo.jpg
+servers:
+- url: https://api-demo.cargosoft.de
+  description: Test CargoSoft API server.
+  variables: {}
+tags:
+- name: Shipment
+  description: The following chapter will give you an overview about the shipment
+    endpoints and their function.
+paths:
+  /cargosoft/shipment/lookup:
+    post:
+      tags:
+      - Shipment
+      summary: Lookup for shipments
+      description: This endpoint looks up for shipments. The result should be limit
+        by using search criterias in the request body. For a complete list of search
+        criteria see the ShipmentIdentifier enumeration. Depending on the search criteria
+        you will receive zero up to n shipments.
+      operationId: lookup
+      parameters:
+      - name: page_no
+        in: query
+        description: The page number for pagination.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        description: The page size for pagination.
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: order_by
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the shipment lookup identifier
+            enum:
+            - ID
+            - HBL
+            - MBL
+            - FILENUMBER
+            - SHIPMENT_ID
+            - ADDRESS_REFERENCE
+            - DIRECTION
+            - MODE_OF_TRANSPORT
+            - MONTH_OF_SERVICE
+            - CLIENT
+            - CREATION_DATE
+            - RUNNING_SEQUENCE_NUMBER
+            x-enumDescriptions:
+              SHIPMENT_ID: TBD
+              HBL: House bl number
+              MBL: Master BL number
+              ADDRESS_REFERENCE: TBD
+              RUNNING_SEQUENCE_NUMBER: TBD
+              DIRECTION: "Direction of the shipment. Possible values are [I, E]. I\
+                \ = import shipments, E = export shipments"
+              MONTH_OF_SERVICE: TBD
+              CREATION_DATE: TBD
+              ID: Unique ID of the Shipment
+              MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
+                \ AIR, RD, RL]"
+              FILENUMBER: Shipment number. The shipment number is unique in combination
+                with the client.
+              CLIENT: TBD
+      - name: order_mode
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the order mode for ordering API results sending
+              back as response
+            enum:
+            - ASC
+            - DESC
+            x-enumDescriptions:
+              ASC: ascending
+              DESC: descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                description: Description of the shipment lookup identifier
+                enum:
+                - ID
+                - HBL
+                - MBL
+                - FILENUMBER
+                - SHIPMENT_ID
+                - ADDRESS_REFERENCE
+                - DIRECTION
+                - MODE_OF_TRANSPORT
+                - MONTH_OF_SERVICE
+                - CLIENT
+                - CREATION_DATE
+                - RUNNING_SEQUENCE_NUMBER
+                x-enumDescriptions:
+                  SHIPMENT_ID: TBD
+                  HBL: House bl number
+                  MBL: Master BL number
+                  ADDRESS_REFERENCE: TBD
+                  RUNNING_SEQUENCE_NUMBER: TBD
+                  DIRECTION: "Direction of the shipment. Possible values are [I, E].\
+                    \ I = import shipments, E = export shipments"
+                  MONTH_OF_SERVICE: TBD
+                  CREATION_DATE: TBD
+                  ID: Unique ID of the Shipment
+                  MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are\
+                    \ [SEA, AIR, RD, RL]"
+                  FILENUMBER: Shipment number. The shipment number is unique in combination
+                    with the client.
+                  CLIENT: TBD
+            examples:
+              LookupShipmentIdentifierExample:
+                summary: Example of looking up shipment
+                description: TBD
+                $ref: ./resources/Lookup_shipment_example.yaml
+      responses:
+        "200":
+          description: Records found
+          headers:
+            X-Page-Count:
+              description: The total number of pages.
+              required: true
+              style: simple
+            X-Row-Count:
+              description: The total number of found objects.
+              required: true
+              style: simple
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shipment'
+              examples:
+                ShipmentExample:
+                  summary: Example of a shipment
+                  description: TBD
+                  $ref: ./resources/Shipment_example_object.yaml
+      security:
+      - JavaWebToken: []
+  /cargosoft/shipment/{id}/goods:
+    get:
+      tags:
+      - Shipment
+      summary: Retrieve shipment goods
+      description: "This endpoint retrieves all goodds of a shipment. To retrieve\
+        \ all goods the shipment ID is required. If the shipment ID does not exist\
+        \ in the database, you will receive an error."
+      operationId: retrieveGoods
+      parameters:
+      - name: id
+        in: path
+        description: The unique shipment id.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Records retrieved
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/shipment/{shipmentId}/event:
+    get:
+      tags:
+      - Shipment Events
+      description: |-
+        | Possible Types (?type=...) |
+        |--------------------|
+        | ACTUAL|
+        | ESTIMATED                |
+      operationId: retrieveAll
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - ACTUAL
+          - ESTIMATED
+      responses:
+        "200":
+          description: Record retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShipmentEvent'
+      security:
+      - JavaWebToken: []
+  /auth/token:
+    post:
+      tags:
+      - Authorization
+      summary: Retrieve JWT
+      description: Retrieve a Java Web Token to authenticate against the API
+      operationId: retrieveAuthToken
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - password
+              - username
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Your username
+                password:
+                  type: string
+                  description: Your password
+      responses:
+        "200":
+          description: Java Web Token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jwt'
+        "401":
+          description: Wrong username and/or password
+components:
+  schemas:
+    Shipment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id of the Shipment
+          format: int32
+        client:
+          type: string
+          description: The CargoSoft client
+        direction:
+          type: string
+          description: The shipment direction.
+        department:
+          type: string
+          description: The shipment office.
+        numberOfGoods:
+          type: integer
+          format: int32
+        shipment_number:
+          type: string
+          description: The shipment number of the shipment. This number may unique
+            in combination of the client property.
+        master_reference:
+          type: string
+          description: The shipment master BL number.
+        house_reference:
+          type: string
+          description: The shipment house BL number.
+        bl_type:
+          type: string
+          description: BL type of the shipment.
+        mode_of_transport:
+          type: string
+          description: Transport mode of the shipment.
+        month_of_service:
+          type: string
+          description: The shipment direction.
+        total_packages:
+          type: integer
+          description: The total number of packages of the shipment.
+          format: int32
+        total_gross_weight:
+          type: number
+          description: The gross weight if the shipment.
+      description: Description of the Shipment DTO Schema
+    ContainsIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - type: object
+        properties:
+          key:
+            $ref: '#/components/schemas/LookupIdentifier'
+          value:
+            type: string
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+    EqualsIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - type: object
+        properties:
+          key:
+            $ref: '#/components/schemas/LookupIdentifier'
+          value:
+            type: string
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+    GreaterEqualIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - type: object
+        properties:
+          key:
+            $ref: '#/components/schemas/LookupIdentifier'
+          value:
+            type: string
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    GreaterThanIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - type: object
+        properties:
+          key:
+            $ref: '#/components/schemas/LookupIdentifier'
+          value:
+            type: string
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    IdentifierListIdentifierShipmentIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    IdentifierLookupIdentifier:
+      type: object
+      properties:
+        match_mode:
+          type: string
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+      discriminator:
+        propertyName: match_mode
+    IdentifierShipmentIdentifier:
+      type: object
+      properties:
+        match_mode:
+          type: string
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+      discriminator:
+        propertyName: match_mode
+    InIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - type: object
+        properties:
+          key:
+            $ref: '#/components/schemas/LookupIdentifier'
+          values:
+            type: array
+            items:
+              type: string
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+    LessEqualIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - type: object
+        properties:
+          key:
+            $ref: '#/components/schemas/LookupIdentifier'
+          value:
+            type: string
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    LessThanIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - type: object
+        properties:
+          key:
+            $ref: '#/components/schemas/LookupIdentifier'
+          value:
+            type: string
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    LookupIdentifier:
+      type: object
+    OrIdentifier:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - type: object
+        properties:
+          identifiers:
+            type: array
+            items:
+              $ref: '#/components/schemas/IdentifierLookupIdentifier'
+    APIErrorResponse:
+      type: object
+      properties:
+        error_code:
+          $ref: '#/components/schemas/ApiError'
+        error_message:
+          type: string
+        error_source:
+          type: string
+    ApiError:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+    DateAndTime:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        time:
+          $ref: '#/components/schemas/LocalTime'
+        zone_offset:
+          type: object
+          properties:
+            totalSeconds:
+              type: integer
+              format: int32
+            id:
+              type: string
+            rules:
+              type: object
+              properties:
+                fixedOffset:
+                  type: boolean
+                transitions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      offsetBefore:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      duration:
+                        type: object
+                        properties:
+                          seconds:
+                            type: integer
+                            format: int64
+                          nano:
+                            type: integer
+                            format: int32
+                          negative:
+                            type: boolean
+                          zero:
+                            type: boolean
+                          units:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                dateBased:
+                                  type: boolean
+                                timeBased:
+                                  type: boolean
+                                durationEstimated:
+                                  type: boolean
+                      gap:
+                        type: boolean
+                      dateTimeBefore:
+                        type: string
+                        format: date-time
+                      dateTimeAfter:
+                        type: string
+                        format: date-time
+                      instant:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                transitionRules:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      month:
+                        type: string
+                        enum:
+                        - JANUARY
+                        - FEBRUARY
+                        - MARCH
+                        - APRIL
+                        - MAY
+                        - JUNE
+                        - JULY
+                        - AUGUST
+                        - SEPTEMBER
+                        - OCTOBER
+                        - NOVEMBER
+                        - DECEMBER
+                      timeDefinition:
+                        type: string
+                        enum:
+                        - UTC
+                        - WALL
+                        - STANDARD
+                      standardOffset:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetBefore:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      dayOfWeek:
+                        type: string
+                        enum:
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
+                        - SUNDAY
+                      dayOfMonthIndicator:
+                        type: integer
+                        format: int32
+                      localTime:
+                        $ref: '#/components/schemas/LocalTime'
+                      midnightEndOfDay:
+                        type: boolean
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+    Location:
+      type: object
+      properties:
+        codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationCode'
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+    LocationCode:
+      required:
+      - code
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - CARGOSOFT
+          - UNLOC
+          - IATA
+          - FOREIGN
+          - POSTAL_CODE
+          - UN_COUNTRY
+        code:
+          type: string
+    ShipmentEvent:
+      type: object
+      properties:
+        event:
+          type: string
+          enum:
+          - DISPATCH
+          - PICKUP
+          - WAREHOUSE
+          - POL_ARRIVAL
+          - LOADING_START
+          - LOADING_END
+          - POL_DEPARTURE
+          - POD_ARRIVAL
+          - CLEARANCE_START
+          - CLEARANCE_END
+          - CUSTOMS_CLEARANCE
+          - AVAILABLE
+          - ACCEPTANCE
+          - FINAL_DESTINATION
+          - TRANSSHIPMENT
+          - GATE_OUT
+          - POD_DEPARTURE
+          - CUSTOMS_RELEASE
+          - DELIVERY_DATE
+        type:
+          type: string
+          enum:
+          - ACTUAL
+          - ESTIMATED
+        shipment_id:
+          type: integer
+          format: int32
+        date_time:
+          $ref: '#/components/schemas/DateAndTime'
+        location:
+          $ref: '#/components/schemas/Location'
+    Jwt:
+      type: object
+      properties:
+        token:
+          type: string
+  securitySchemes:
+    JavaWebToken:
+      type: http
+      description: 
+        $ref: ./resources/api_security_description.md
+      scheme: bearer
+      bearerFormat: JWT

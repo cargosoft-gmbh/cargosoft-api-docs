@@ -1,32 +1,5 @@
-# Introduction
-
-## Reading guide
-
-### UML
-
-
-## Environment
-The CargoSoft API is not one instance which runs in a CargoSoft data center.   
-> For more information please contact our support and take a look to our installation guide. 
-
-### Data center
-
-
-### Local 
-One of the most common installations are locale on our customer environment. The API instance runs in the customer network with the customer domain. The security properties depends on the customer. 
-
-
-## Support
-If you have further questions about the API, please contact our sales department at support@cargosoft.de
-
-
-
-___
-
-
-
-
 # About the CargoSoft API
+
 ## Authorization
 The following chapter will explain the authorization prozess to access the CargoSoft API Endpoints. The use case figure below shows a common example how to retrieve the JWT and how to use it.
 
@@ -55,17 +28,18 @@ Lookups should be used to search functional objects with given criteria. The cri
 
 The search criterias will be sent in the request body up to the API lookup endpoint. A criteria contains the following three information:
 1. _match_mode_: The match mode is used to compare the criteria against the object in the database. Possible matche mods are **[EQUALS, CONTAINS, IN, OR, GT, LT, GE, LE]**
-2. _key_: The key of the criteria for the functional object to lookup
+2. _key_: The key of the criteria for the functional object to lookup. Which keys are possible please see to the corresponding implementation.
 3. _value_: The value of the criteria
 
-Example request body to search a shipment:
+**Example**: Lookup request body to search a shipment:
 ```json
 [
     {
         "match_mode": "EQUALS",
         "key": "MBL",   
         "value": "MASTER_12345"
-    },{
+    },
+   {
         "match_mode": "EQUALS",
         "key": "MODE_OF_TRANSPORT",
         "value": "SEA"
@@ -80,8 +54,8 @@ The look up may contains ordering by the criteria. The ordering will pass as que
 The result set of a lookup include zero up to n functional objects depending on the search criteria.
 Each functional object contains an ID. The ID can be used to retrieve additional information by passing the id as path parameter of the retrieve endpoint.
 
-Example to look up a shipment and retrieve after that all shipment events:
-1. Looking up a shipment with given criteria for instance the BL number. For more details please [see](tag/Shipment#operation/lookup).
+**Example**: Lookup a shipment and retrieve after that all shipment events:
+1. Looking up a shipment with given criteria for instance with the BL number. For more details please [see](tag/Shipment#operation/lookup).
 2. Extract the ID of the shipment result object.
 3. Call the [Events](tag/Shipment#operation/{id}/events) endpoint with the shipment ID as path parameter.
 
@@ -96,7 +70,7 @@ The response contains two additional headers:
 1. _X-Page-Count_: The total number of pages.
 2. _X-Row-Count_: The total number of found objects.
 
-With this both headers is it possible retrieve next paged results.
+With this both headers is it possible to retrieve next paged results.
 
 # Use cases
 

@@ -263,12 +263,13 @@ components:
             $ref: '#/components/schemas/LookupIdentifier'
           value:
             type: string
+            description: The value of the Identifier
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
     LookupIdentifier:
       type: object
     ContainsIdentifier:
       type: object
-      description: contains Identifier
+      description: Contains Identifier
       allOf:
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       - type: object

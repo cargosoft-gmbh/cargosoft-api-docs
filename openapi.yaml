@@ -107,7 +107,10 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Identifier'
+                type: string
+                anyOf:
+                - $ref: '#/components/schemas/EqualsIdentifier'
+                - $ref: '#/components/schemas/ContainsIdentifier'
             examples:
               LookupShipmentIdentifierExample:
                 summary: Example of looking up shipment
@@ -249,8 +252,9 @@ components:
           type: number
           description: The gross weight if the shipment.
       description: Description of the Shipment DTO Schema
-    ContainsIdentifier:
+    EqualsIdentifier:
       type: object
+      description: Equals Identifier
       allOf:
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       - type: object
@@ -260,8 +264,11 @@ components:
           value:
             type: string
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-    EqualsIdentifier:
+    LookupIdentifier:
       type: object
+    ContainsIdentifier:
+      type: object
+      description: contains Identifier
       allOf:
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       - type: object
@@ -293,12 +300,17 @@ components:
           value:
             type: string
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    Identifier:
+    IdentifierListIdentifierShipmentIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    IdentifierLookupIdentifier:
       type: object
       properties:
         match_mode:
           type: string
           description: The following list will give an overview about the match modes.
+          default: EQUALS
           enum:
           - EQUALS
           - CONTAINS
@@ -322,12 +334,13 @@ components:
         identifier.
       discriminator:
         propertyName: match_mode
-    IdentifierLookupIdentifier:
+    IdentifierShipmentIdentifier:
       type: object
       properties:
         match_mode:
           type: string
           description: The following list will give an overview about the match modes.
+          default: EQUALS
           enum:
           - EQUALS
           - CONTAINS
@@ -386,8 +399,6 @@ components:
           value:
             type: string
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    LookupIdentifier:
-      type: object
     OrIdentifier:
       type: object
       allOf:
@@ -398,39 +409,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/IdentifierLookupIdentifier'
-    IdentifierListIdentifierShipmentIdentifier:
-      type: array
-      items:
-        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    IdentifierShipmentIdentifier:
-      type: object
-      properties:
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: match_mode
     APIErrorResponse:
       type: object
       properties:

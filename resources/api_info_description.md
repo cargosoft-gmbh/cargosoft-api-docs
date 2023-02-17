@@ -15,9 +15,30 @@ For more details [see](tag/Authorization#operation/retrieveAuthToken).
 > Please note: The JWT is valid for 24 hours. After that you have to request a new one.
 
 ### Access API endpoints
-To access a CargoSoft API endpoint a JWT is needed. The JWT have to be sent in the HTTP header.
+To access a CargoSoft API endpoint a JWT is needed. The JWT have to be sent in the HTTP authorization header.
+
+**Example**: This example shows a minimal curl with a bearer authorization header. The token is not valid because we only want to illustrate the structure. 
+
+```
+curl --location --request POST 'https://api-demo.cargosoft.de/cargosoft/shipment/lookup' \
+--header 'Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1cGRhdGUiLCJjYXJnb3NvZnQtand0LNjc2NDQ1NTAzfQ.mK82rjSu0ltd0bf3mvXUqwpME05ck5OEuqnzsAQ8WPFPo' \
+--data-raw '[]'"
+```
 
 > Attention: Your user may be restricted. The CargoSoft API use user groups and roles to define user access against the CargoSoft API endpoint. If your user is restricted or it's not allowed to use an endpoint you needed please contact our support.
+
+### Access webhook
+The webhook uses as authorization method basic auth.
+
+**Example**: This example shows a minimal curl to access the webhook. The basic auth is not valid.
+
+```
+curl --location --request POST 'https://api-demo.cargosoft.de/external/webhook' \
+--header 'Authorization: Basic cG9ydg53xcvgawawb3J0YmFzZWNj' \
+--data-raw '{}'"
+```
+
+> Please note: Your user need a special role to access the webhook endpoint via basic auth.
 
 ## CRUD
 The CargoSoft API works generally with the CRUD operations.
@@ -31,7 +52,7 @@ The search criterias will be sent in the request body up to the API lookup endpo
 2. _key_: The key of the criteria for the functional object to lookup. Which keys are possible please see to the corresponding implementation.
 3. _value_: The value of the criteria
 
-**Example**: Lookup request body to search a shipment:
+**Example**: Lookup request body to search a shipment
 ```json
 [
     {
@@ -54,7 +75,7 @@ The look up may contains ordering by the criteria. The ordering will pass as que
 The result set of a lookup include zero up to n functional objects depending on the search criteria.
 Each functional object contains an ID. The ID can be used to retrieve additional information by passing the id as path parameter of the retrieve endpoint.
 
-**Example**: Lookup a shipment and retrieve after that all shipment events:
+**Example**: Lookup a shipment and retrieve after that all shipment events
 1. Looking up a shipment with given criteria for instance with the BL number. For more details please [see](tag/Shipment#operation/lookup).
 2. Extract the ID of the shipment result object.
 3. Call the [Events](tag/Shipment#operation/{id}/events) endpoint with the shipment ID as path parameter.

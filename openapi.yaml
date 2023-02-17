@@ -1,167 +1,29 @@
 openapi: 3.0.1
-info:
-  title: CargoSoft API
-  description: 
-    $ref: ./resources/api_info_description.md
-  contact:
-    name: Uwe Droste
-    url: https://www.cargosoft.de
-    email: support@cargosoft.de
-  version: '2021.4'
-  x-logo:
-    backgroundColor: '#FFFFF'
-    altText: CargoSoft GmbH
-    url: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/CargoSoftLogo.jpg
-servers:
-- url: https://api-demo.cargosoft.de
-  description: Test CargoSoft API server.
-  variables: {}
 tags:
-- name: Shipment
-  description: The following chapter will give you an overview about the shipment
-    endpoints and their function.
+- name: Webhook
+  description: The following chapter will give you an overview about the Webhook.
 paths:
-  /cargosoft/shipment/lookup:
+  /external/webhook:
     post:
       tags:
-      - Shipment
-      summary: Lookup for shipments
-      description: This endpoint looks up for shipments. The result should be limit
-        by using search criterias in the request body. For a complete list of search
-        criteria see the ShipmentIdentifier enumeration. Depending on the search criteria
-        you will receive zero up to n shipments.
-      operationId: lookup
+      - Webhook
+      summary: Provide a webhook response
+      description: "Provide a new response for a existing subscription, which will\
+        \ be delivered to all subscribers."
+      operationId: receiveWebhookRequest
       parameters:
-      - name: page_no
-        in: query
-        description: The page number for pagination.
+      - name: x-WEBHOOKUSER
+        in: header
         schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
-        description: The page size for pagination.
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      - name: order_by
-        in: query
-        description: The order by criteria for ordering API results sending back as
-          response.
-        schema:
-          type: array
-          items:
-            type: string
-            description: The following list will give an overview about the implemented
-              shipment identifier and a short description.
-            enum:
-            - ID
-            - HBL
-            - MBL
-            - FILENUMBER
-            - SHIPMENT_ID
-            - ADDRESS_REFERENCE
-            - DIRECTION
-            - MODE_OF_TRANSPORT
-            - MONTH_OF_SERVICE
-            - CLIENT
-            - CREATION_DATE
-            - RUNNING_SEQUENCE_NUMBER
-            x-enumDescriptions:
-              SHIPMENT_ID: A foreign shipment ID of a third party system. This ID
-                should be unique.
-              HBL: House bl number
-              MBL: Master BL number
-              ADDRESS_REFERENCE: TBD
-              RUNNING_SEQUENCE_NUMBER: TBD
-              DIRECTION: "Direction of the shipment. Possible values are [I, E]. I\
-                \ = import shipments, E = export shipments"
-              MONTH_OF_SERVICE: TBD
-              CREATION_DATE: System date when the shipment was created.
-              ID: Unique database ID of the Shipment.
-              MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-                \ AIR, RD, RL]"
-              FILENUMBER: Shipment number. The shipment number is unique in combination
-                with the client.
-              CLIENT: The CargoSoft client.
-      - name: order_mode
-        in: query
-        description: The order mode for ordering API results sending back as response.
-        schema:
-          type: array
-          items:
-            type: string
-            description: Description of the order mode for ordering API results sending
-              back as response
-            enum:
-            - ASC
-            - DESC
-            x-enumDescriptions:
-              ASC: ascending
-              DESC: descending
+          type: string
       requestBody:
+        description: File passed by the status provider
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Identifier'
-            examples:
-              LookupShipmentIdentifierExample:
-                summary: Example of looking up shipment
-                description: TBD
-                $ref: ./resources/Lookup_shipment_example.yaml
-      responses:
-        "200":
-          description: Records found
-          headers:
-            X-Page-Count:
-              description: The total number of pages.
-              required: true
-              style: simple
-              schema:
-                type: integer
-            X-Row-Count:
-              description: The total number of found objects.
-              required: true
-              style: simple
-              schema:
-                type: integer
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Shipment'
-              examples:
-                ShipmentExample:
-                  summary: Example of a shipment
-                  description: TBD
-                  $ref: ./resources/Shipment_example_object.yaml
-      security:
-      - JavaWebToken: []
-  /cargosoft/shipment/{id}/goods:
-    get:
-      tags:
-      - Shipment
-      summary: Retrieve shipment goods
-      description: "This endpoint retrieves all goodds of a shipment. To retrieve\
-        \ all goods the shipment ID is required. If the shipment ID does not exist\
-        \ in the database, you will receive an error."
-      operationId: retrieveGoods
-      parameters:
-      - name: id
-        in: path
-        description: The unique shipment id.
+              type: string
         required: true
-        schema:
-          type: integer
-          format: int32
       responses:
-        "200":
-          description: Records retrieved
         "500":
           description: Internal server error
           content:
@@ -169,274 +31,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIErrorResponse'
       security:
-      - JavaWebToken: []
-  /auth/token:
-    post:
-      tags:
-      - Authorization
-      summary: Retrieve JWT
-      description: Retrieve a Java Web Token to authenticate against the API
-      operationId: retrieveAuthToken
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              required:
-              - password
-              - username
-              type: object
-              properties:
-                username:
-                  type: string
-                  description: Your username
-                password:
-                  type: string
-                  description: Your password
-      responses:
-        "200":
-          description: Java Web Token
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Jwt'
-        "401":
-          description: Wrong username and/or password
+      - BASIC: []
 components:
   schemas:
-    Shipment:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The id of the Shipment.
-          format: int32
-        client:
-          type: string
-          description: The CargoSoft client.
-        direction:
-          type: string
-          description: The shipment direction.
-        department:
-          type: string
-          description: The shipment office.
-        numberOfGoods:
-          type: integer
-          format: int32
-        shipment_number:
-          type: string
-          description: The shipment number of the shipment. This number may unique
-            in combination of the client property.
-        master_reference:
-          type: string
-          description: The shipment master BL number.
-        house_reference:
-          type: string
-          description: The shipment house BL number.
-        bl_type:
-          type: string
-          description: BL type of the shipment.
-        mode_of_transport:
-          type: string
-          description: Transport mode of the shipment.
-        month_of_service:
-          type: string
-          description: The shipment direction.
-        total_packages:
-          type: integer
-          description: The total number of packages of the shipment.
-          format: int32
-        total_gross_weight:
-          type: number
-          description: The gross weight if the shipment.
-      description: Description of the Shipment DTO Schema.
-    ContainsIdentifier:
-      type: object
-      description: Contains Identifier
-      allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      - type: object
-        properties:
-          key:
-            $ref: '#/components/schemas/LookupIdentifier'
-          value:
-            type: string
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-    EqualsIdentifier:
-      type: object
-      description: Equals Identifier
-      allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      - type: object
-        properties:
-          key:
-            $ref: '#/components/schemas/LookupIdentifier'
-          value:
-            type: string
-            description: The value of the Identifier
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-    GreaterEqualIdentifier:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - type: object
-        properties:
-          key:
-            $ref: '#/components/schemas/LookupIdentifier'
-          value:
-            type: string
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    GreaterThanIdentifier:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - type: object
-        properties:
-          key:
-            $ref: '#/components/schemas/LookupIdentifier'
-          value:
-            type: string
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    Identifier:
-      type: object
-      properties:
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          default: EQUALS
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: match_mode
-    IdentifierLookupIdentifier:
-      type: object
-      properties:
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          default: EQUALS
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: match_mode
-    InIdentifier:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      - type: object
-        properties:
-          key:
-            $ref: '#/components/schemas/LookupIdentifier'
-          values:
-            type: array
-            items:
-              type: string
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-    LessEqualIdentifier:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - type: object
-        properties:
-          key:
-            $ref: '#/components/schemas/LookupIdentifier'
-          value:
-            type: string
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    LessThanIdentifier:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - type: object
-        properties:
-          key:
-            $ref: '#/components/schemas/LookupIdentifier'
-          value:
-            type: string
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    LookupIdentifier:
-      type: object
-    OrIdentifier:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      - type: object
-        properties:
-          identifiers:
-            type: array
-            items:
-              $ref: '#/components/schemas/IdentifierLookupIdentifier'
-    IdentifierListIdentifierShipmentIdentifier:
-      type: array
-      items:
-        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    IdentifierShipmentIdentifier:
-      type: object
-      properties:
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          default: EQUALS
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: match_mode
     APIErrorResponse:
       type: object
       properties:
@@ -451,15 +48,8 @@ components:
       properties:
         errorMessage:
           type: string
-    Jwt:
-      type: object
-      properties:
-        token:
-          type: string
   securitySchemes:
-    JavaWebToken:
+    BASIC:
       type: http
-      description: 
-        $ref: ./resources/api_security_description.md
-      scheme: bearer
-      bearerFormat: JWT
+      description: Basic Auth
+      scheme: Basic

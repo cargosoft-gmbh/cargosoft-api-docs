@@ -1,5 +1,11 @@
 # About the CargoSoft API
 
+## Generell
+
+> Attention: API wird immer weiter entwicklet, es können sich immer wieder Objekte und Endpunkte ändern.
+Technischer Newsletter für Änderungen der API Strukturen -> Comming soon.
+
+
 ## Authorization
 The following chapter will explain the authorization prozess to access the CargoSoft API Endpoints. The use case figure below shows a common example how to retrieve the JWT and how to use it.
 

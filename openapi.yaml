@@ -142,32 +142,35 @@ paths:
                   $ref: ./resources/Shipment_example_object.yaml
       security:
       - JavaWebToken: []
-  /cargosoft/shipment/{id}/goods:
+  /cargosoft/shipment/{id}/events:
     get:
       tags:
       - Shipment
-      summary: Retrieve shipment goods
-      description: "This endpoint retrieves all goodds of a shipment. To retrieve\
-        \ all goods the shipment ID is required. If the shipment ID does not exist\
-        \ in the database, you will receive an error."
-      operationId: retrieveGoods
+      summary: Retrieve shipment events
+      description: This endpoint retrieves all events of the shipment. To retrieves
+        all events the shipment id is needed.
+      operationId: retrieveEvents
       parameters:
       - name: id
         in: path
-        description: The unique shipment id.
         required: true
         schema:
           type: integer
           format: int32
       responses:
         "200":
-          description: Records retrieved
-        "500":
-          description: Internal server error
+          description: Records found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/APIErrorResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShipmentEvent'
+              examples:
+                ShipmentEventExample:
+                  summary: Example of shipment events
+                  description: TBD
+                  $ref: ./resources/Retrieve_shipment_events_example.yaml
       security:
       - JavaWebToken: []
   /auth/token:
@@ -248,7 +251,7 @@ components:
         total_gross_weight:
           type: number
           description: The gross weight if the shipment.
-      description: Description of the Shipment DTO Schema.
+      description: Description of the Shipment DTO shema.
     ContainsIdentifier:
       type: object
       description: Contains Identifier
@@ -437,20 +440,269 @@ components:
         identifier.
       discriminator:
         propertyName: match_mode
-    APIErrorResponse:
+    DateAndTime:
       type: object
       properties:
-        error_code:
-          $ref: '#/components/schemas/ApiError'
-        error_message:
+        date:
           type: string
-        error_source:
-          type: string
-    ApiError:
+          format: date
+        time:
+          $ref: '#/components/schemas/LocalTime'
+        zone_offset:
+          type: object
+          properties:
+            totalSeconds:
+              type: integer
+              format: int32
+            id:
+              type: string
+            rules:
+              type: object
+              properties:
+                fixedOffset:
+                  type: boolean
+                transitions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      offsetBefore:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      duration:
+                        type: object
+                        properties:
+                          seconds:
+                            type: integer
+                            format: int64
+                          nano:
+                            type: integer
+                            format: int32
+                          negative:
+                            type: boolean
+                          zero:
+                            type: boolean
+                          units:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                dateBased:
+                                  type: boolean
+                                timeBased:
+                                  type: boolean
+                                durationEstimated:
+                                  type: boolean
+                      gap:
+                        type: boolean
+                      dateTimeBefore:
+                        type: string
+                        format: date-time
+                      dateTimeAfter:
+                        type: string
+                        format: date-time
+                      instant:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                transitionRules:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      month:
+                        type: string
+                        enum:
+                        - JANUARY
+                        - FEBRUARY
+                        - MARCH
+                        - APRIL
+                        - MAY
+                        - JUNE
+                        - JULY
+                        - AUGUST
+                        - SEPTEMBER
+                        - OCTOBER
+                        - NOVEMBER
+                        - DECEMBER
+                      timeDefinition:
+                        type: string
+                        enum:
+                        - UTC
+                        - WALL
+                        - STANDARD
+                      standardOffset:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetBefore:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        type: object
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      dayOfWeek:
+                        type: string
+                        enum:
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
+                        - SUNDAY
+                      dayOfMonthIndicator:
+                        type: integer
+                        format: int32
+                      localTime:
+                        $ref: '#/components/schemas/LocalTime'
+                      midnightEndOfDay:
+                        type: boolean
+      description: The date and time of this event.
+    LocalTime:
       type: object
       properties:
-        errorMessage:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+    Location:
+      type: object
+      properties:
+        codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationCode'
+        name:
           type: string
+          description: The written name of this location
+        latitude:
+          type: number
+          description: The latitude of this location
+        longitude:
+          type: number
+          description: The longitude of this location
+      description: Description of the Location DTO schema.
+    LocationCode:
+      required:
+      - code
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - CARGOSOFT
+          - UNLOC
+          - IATA
+          - FOREIGN
+          - POSTAL_CODE
+          - UN_COUNTRY
+        code:
+          type: string
+    ShipmentEvent:
+      type: object
+      properties:
+        event:
+          type: string
+          description: The following list will give an overview about the shipment
+            events and a short description.
+          enum:
+          - DISPATCH
+          - PICKUP
+          - WAREHOUSE
+          - POL_ARRIVAL
+          - LOADING_START
+          - LOADING_END
+          - POL_DEPARTURE
+          - POD_ARRIVAL
+          - CLEARANCE_START
+          - CLEARANCE_END
+          - CUSTOMS_CLEARANCE
+          - AVAILABLE
+          - ACCEPTANCE
+          - FINAL_DESTINATION
+          - TRANSSHIPMENT
+          - GATE_OUT
+          - POD_DEPARTURE
+          - CUSTOMS_RELEASE
+          - DELIVERY_DATE
+          x-enumDescriptions:
+            GATE_OUT: TBD.
+            WAREHOUSE: The goods are within the warehouse.
+            CLEARANCE_END: The goods are cleared.
+            FINAL_DESTINATION: The goods are at the final destination.
+            TRANSSHIPMENT: The  goods  are  at  the  transshipment port (seafreight
+              only).
+            DISPATCH: The goods were dispatched.
+            LOADING_START: The goods will be loaded into the vessel / airplane.
+            CUSTOMS_RELEASE: TBD.
+            LOADING_END: The goods are loaded into the vessel airplane.
+            POL_ARRIVAL: The goods arrived the port of loading.
+            CUSTOMS_CLEARANCE: The goods are cleared by customs.
+            AVAILABLE: The goods are available at the port.
+            POD_DEPARTURE: TBD.
+            POL_DEPARTURE: The  goods  are  departured  (ETD  and ATD).
+            DELIVERY_DATE: TBD.
+            POD_ARRIVAL: The goods arrived at the port of discharge (ETA and ATA).
+            ACCEPTANCE: The goods can be picked up at the port.
+            PICKUP: The  goods  are  picked  up  from  the starting location.
+            CLEARANCE_START: The goods will be cleared.
+        type:
+          type: string
+          description: The following list will give an overview about the event types
+            and a short description.
+          enum:
+          - ACTUAL
+          - ESTIMATED
+          x-enumDescriptions:
+            ESTIMATED: Estimated date and time
+            ACTUAL: Actual date and time.
+        shipment_id:
+          type: integer
+          description: The id of the Shipment.
+          format: int32
+        date_time:
+          $ref: '#/components/schemas/DateAndTime'
+        location:
+          $ref: '#/components/schemas/Location'
+      description: Description of the ShipmentEvent DTO schema.
     Jwt:
       type: object
       properties:

@@ -148,7 +148,9 @@ paths:
       - Shipment
       summary: Retrieve shipment events
       description: This endpoint retrieves all events of the shipment. To retrieves
-        all events the shipment id is needed.
+        the events the shipment id is needed. It is possible that not all events are
+        included in the response because they are not entered or know in the shipment
+        unitil now.
       operationId: retrieveEvents
       parameters:
       - name: id
@@ -445,6 +447,7 @@ components:
       properties:
         date:
           type: string
+          description: The date.
           format: date
         time:
           $ref: '#/components/schemas/LocalTime'
@@ -586,6 +589,8 @@ components:
                         $ref: '#/components/schemas/LocalTime'
                       midnightEndOfDay:
                         type: boolean
+          description: The time zone of this date and time.
+          format: ISO-8601
       description: The date and time of this event.
     LocalTime:
       type: object
@@ -607,17 +612,18 @@ components:
       properties:
         codes:
           type: array
+          description: A list of all location codes and their types of this location.
           items:
             $ref: '#/components/schemas/LocationCode'
         name:
           type: string
-          description: The written name of this location
+          description: The written name of this location.
         latitude:
           type: number
-          description: The latitude of this location
+          description: The latitude of this location.
         longitude:
           type: number
-          description: The longitude of this location
+          description: The longitude of this location.
       description: Description of the Location DTO schema.
     LocationCode:
       required:
@@ -627,6 +633,8 @@ components:
       properties:
         type:
           type: string
+          description: The following list will give an overview about the types of
+            a location.
           enum:
           - CARGOSOFT
           - UNLOC
@@ -634,8 +642,18 @@ components:
           - FOREIGN
           - POSTAL_CODE
           - UN_COUNTRY
+          x-enumDescriptions:
+            FOREIGN: Foreign location code of a third party system.
+            UNLOC: The location code is an UN location code.
+            IATA: The location code is an IATA location code.
+            CARGOSOFT: The location code is a CargoSoft internal defined location
+              code.
+            UN_COUNTRY: The location code is an UN country code.
         code:
           type: string
+          description: The code of this location.
+      description: Description of the LocationCode DTO schema. Each location in CargoSoft
+        can be describe by serveral location types and codes.
     ShipmentEvent:
       type: object
       properties:

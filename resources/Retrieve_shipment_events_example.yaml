@@ -10,7 +10,7 @@ value:
     codes:
       - type: "UNLOC"
         code: "DEBRE"
-      - type: "CS"
+      - type: "CARGOSOFT"
         code: "DEBRE"
     name: "Bremen"
     latitude: null
@@ -26,7 +26,7 @@ value:
     codes:
       - type: "UNLOC"
         code: "DEBRE"
-      - type: "CS"
+      - type: "CARGOSOFT"
         code: "DEBRE"
     name: "Bremen"
     latitude: null

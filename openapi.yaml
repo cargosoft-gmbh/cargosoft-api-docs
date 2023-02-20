@@ -107,10 +107,7 @@ paths:
             schema:
               type: array
               items:
-                type: string
-                anyOf:
-                - $ref: '#/components/schemas/EqualsIdentifier'
-                - $ref: '#/components/schemas/ContainsIdentifier'
+                $ref: '#/components/schemas/Identifier'
             examples:
               LookupShipmentIdentifierExample:
                 summary: Example of looking up shipment

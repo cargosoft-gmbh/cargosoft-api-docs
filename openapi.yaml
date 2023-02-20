@@ -107,7 +107,10 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Identifier'
+                type: string
+                anyOf:
+                - $ref: '#/components/schemas/EqualsIdentifier'
+                - $ref: '#/components/schemas/ContainsIdentifier'
             examples:
               LookupShipmentIdentifierExample:
                 summary: Example of looking up shipment
@@ -147,14 +150,16 @@ paths:
       tags:
       - Shipment
       summary: Retrieve shipment events
-      description: This endpoint retrieves all events of the shipment. To retrieves
-        the events the shipment id is needed. It is possible that not all events are
-        included in the response because they are not entered or know in the shipment
-        unitil now.
+      description: "This endpoint retrieves all events of the shipment. To retrieves\
+        \ the events, the shipment id is needed. It is possible that not all events\
+        \ are included in the response because they are not entered or know in the\
+        \ shipment unitil now. To retrive the shipment id, use the lookup endpoint\
+        \ of this chapter."
       operationId: retrieveEvents
       parameters:
       - name: id
         in: path
+        description: The shipment id.
         required: true
         schema:
           type: integer
@@ -258,7 +263,7 @@ components:
       type: object
       description: Contains Identifier
       allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           key:
@@ -266,11 +271,12 @@ components:
           value:
             type: string
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     EqualsIdentifier:
       type: object
       description: Equals Identifier
       allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           key:
@@ -279,6 +285,7 @@ components:
             type: string
             description: The value of the Identifier
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     GreaterEqualIdentifier:
       type: object
       allOf:
@@ -289,6 +296,7 @@ components:
             $ref: '#/components/schemas/LookupIdentifier'
           value:
             type: string
+      - $ref: '#/components/schemas/Identifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     GreaterThanIdentifier:
       type: object
@@ -300,6 +308,7 @@ components:
             $ref: '#/components/schemas/LookupIdentifier'
           value:
             type: string
+      - $ref: '#/components/schemas/Identifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     Identifier:
       type: object
@@ -330,7 +339,10 @@ components:
         match mode and identifiers of a functional object for instance the shipment
         identifier.
       discriminator:
-        propertyName: match_mode
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
     IdentifierLookupIdentifier:
       type: object
       properties:
@@ -360,11 +372,14 @@ components:
         match mode and identifiers of a functional object for instance the shipment
         identifier.
       discriminator:
-        propertyName: match_mode
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
     InIdentifier:
       type: object
       allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           key:
@@ -374,6 +389,7 @@ components:
             items:
               type: string
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     LessEqualIdentifier:
       type: object
       allOf:
@@ -384,6 +400,7 @@ components:
             $ref: '#/components/schemas/LookupIdentifier'
           value:
             type: string
+      - $ref: '#/components/schemas/Identifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     LessThanIdentifier:
       type: object
@@ -395,19 +412,21 @@ components:
             $ref: '#/components/schemas/LookupIdentifier'
           value:
             type: string
+      - $ref: '#/components/schemas/Identifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     LookupIdentifier:
       type: object
     OrIdentifier:
       type: object
       allOf:
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           identifiers:
             type: array
             items:
               $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     IdentifierListIdentifierShipmentIdentifier:
       type: array
       items:
@@ -441,7 +460,10 @@ components:
         match mode and identifiers of a functional object for instance the shipment
         identifier.
       discriminator:
-        propertyName: match_mode
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
     DateAndTime:
       type: object
       properties:

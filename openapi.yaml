@@ -340,6 +340,12 @@ components:
         mapping:
           EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
           ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
     IdentifierLookupIdentifier:
       type: object
       properties:
@@ -373,8 +379,15 @@ components:
         mapping:
           EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
           ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
     InIdentifier:
       type: object
+      description: InIdentifier
       allOf:
       - $ref: '#/components/schemas/Identifier'
       - type: object
@@ -383,8 +396,10 @@ components:
             $ref: '#/components/schemas/LookupIdentifier'
           values:
             type: array
+            description: A list of values of the Identifier
             items:
               type: string
+              description: A list of values of the Identifier
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     LessEqualIdentifier:
@@ -461,6 +476,12 @@ components:
         mapping:
           EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
           ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
     DateAndTime:
       type: object
       properties:

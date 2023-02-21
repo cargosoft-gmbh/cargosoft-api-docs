@@ -2,8 +2,7 @@
 
 ## Generell
 
-> Attention: API wird immer weiter entwicklet, es können sich immer wieder Objekte und Endpunkte ändern.
-Technischer Newsletter für Änderungen der API Strukturen -> Comming soon.
+> Attention: The CargoSoft API is still in continuous development and will change over the time. This means that existing endpoints and objects will be renamed, moved, restructured, extended, etc. and also expect new endpoints to be added. Subscribe our technical newsletter to be up to date about all changes made -> Comming soon.
 
 
 ## Authorization
@@ -157,9 +156,5 @@ A status always represents exactly one instance - planned or actual and the info
 ## Receive shipment details
 
 # Testing
-Server für Testdemo gehostet.
-Zugangsdaten am Support anfragen.
-Testaccount zugriff auf alle Endpunkte aus der Doku
-
-Demo bestand an Daten wird täglich (Nachts?) resettet. 
+For testing purposes cargosoft hosted a server with the API. To use the test environment, please check out the "Try it" console.To login into the server the user has to request the login information from the cargosoft support. The received information gives access to a test account which should be able to use all endpoints. If any endpoint is missing, please contact cargosoft and explain which are missing and it will be taken care of as soon as possible. Please have in mind that the test environment will be reset every night!
 

@@ -107,7 +107,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Das ist die Hilfsklasse für Swagger!'
+                $ref: '#/components/schemas/Identifier'
             examples:
               LookupShipmentIdentifierExample:
                 summary: Example of looking up shipment
@@ -267,69 +267,6 @@ components:
             type: string
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    Das ist die Hilfsklasse für Swagger!:
-      type: object
-      properties:
-        key:
-          type: string
-          description: The following list will give an overview about the implemented
-            shipment identifier and a short description.
-          enum:
-          - ID
-          - HBL
-          - MBL
-          - FILENUMBER
-          - SHIPMENT_ID
-          - ADDRESS_REFERENCE
-          - DIRECTION
-          - MODE_OF_TRANSPORT
-          - MONTH_OF_SERVICE
-          - CLIENT
-          - CREATION_DATE
-          - RUNNING_SEQUENCE_NUMBER
-          x-enumDescriptions:
-            SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
-              be unique.
-            HBL: House bl number
-            MBL: Master BL number
-            ADDRESS_REFERENCE: TBD
-            RUNNING_SEQUENCE_NUMBER: TBD
-            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments"
-            MONTH_OF_SERVICE: TBD
-            CREATION_DATE: System date when the shipment was created.
-            ID: Unique database ID of the Shipment.
-            MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-              \ AIR, RD, RL]"
-            FILENUMBER: Shipment number. The shipment number is unique in combination
-              with the client.
-            CLIENT: The CargoSoft client.
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          default: EQUALS
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-      anyOf:
-      - $ref: '#/components/schemas/EqualsIdentifier'
-      - $ref: '#/components/schemas/InIdentifier'
-      - $ref: '#/components/schemas/ContainsIdentifier'
     EqualsIdentifier:
       type: object
       description: Equals Identifier

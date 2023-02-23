@@ -4,14 +4,13 @@
 
 > Attention: The CargoSoft API is still in continuous development and will change over the time. This means that existing endpoints and objects will be renamed, moved, restructured, extended, etc. and also expect new endpoints to be added. Subscribe our technical newsletter to be up to date about all changes made -> Comming soon.
 
-
 ## Authorization
+<p id='CHAPTER_AUTHORIZATION'></p>
 The following chapter will explain the authorization prozess to access the CargoSoft API Endpoints. The use case figure below shows a common example how to retrieve the JWT and how to use it.
 
 ![Authorization][useCaseAuthorization]
 
 [useCaseAuthorization]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Use_Case_Authentifizierung.svg "Use case Authorization"
-
 
 ### Retrieve a token
 First of all each client have to request a bearer Java Web Toke (JWT) from the CargoSoft API. To receive a JWT, username and password are required. Username and password can only create by CargoSoft. 
@@ -46,16 +45,16 @@ curl --location --request POST 'https://api-demo.cargosoft.de/external/webhook' 
 > Please note: Your user need a special role to access the webhook endpoint via basic auth.
 
 ## CRUD
-The CargoSoft API works generally with the CRUD operations.
+The CargoSoft API works generally with CRUD operations. We attempt  to implement each CRUD operation for each functional group of endpoints if that makes sense. The delete operation is one of the most sensitive function and will not available to each function group.
 
 ### Lookup
 The CargoSoft API extends the CRUD retrieve operations with lookup operations. Each functional group of endpoints should have a lookup method implemented. 
-Lookups should be used to search functional objects with given criteria. The criteria may be different to each functional group. Which functional criteria are possible take a look to the functional group.
+Lookups should be used to search functional objects with given criteria named identifier. The identifier may be different to each functional group. Which functional identifier are possible take a look to the functional group.
 
-The search criterias will be sent in the request body up to the API lookup endpoint. A criteria contains the following three information:
-1. _match_mode_: The match mode is used to compare the criteria against the object in the database. Possible matche mods are **[EQUALS, CONTAINS, IN, OR, GT, LT, GE, LE]**
+The identifier will be sent in the request body up to the API lookup endpoint. An identifier contains the following three information:
+1. _match_mode_: The match mode is used to compare the criteria against the object in the database. Possible match mods are **[EQUALS, CONTAINS, IN, OR, GT, LT, GE, LE]**.
 2. _key_: The key of the criteria for the functional object to lookup. Which keys are possible please see to the corresponding implementation.
-3. _value_: The value of the criteria
+3. _value_: The value of the criteria.
 
 **Example**: Lookup request body to search a shipment
 ```json
@@ -75,7 +74,7 @@ The search criterias will be sent in the request body up to the API lookup endpo
 
 > Please note: When using one of any lookup methods please define search criteria as precisely as possible to limit the result of objects.
 
-The look up may contains ordering by the criteria. The ordering will pass as query parameter. 
+The lookup may contain ordering by the criteria. The ordering will pass as query parameter. 
 
 The result set of a lookup include zero up to n functional objects depending on the search criteria.
 Each functional object contains an ID. The ID can be used to retrieve additional information by passing the id as path parameter of the retrieve endpoint.
@@ -92,19 +91,51 @@ The pagination information will send as request query parameter up to the API en
 1. _page_no_: The current number of the page
 2. _page_size_: The size of the page
 
+**Example**: Lookup a shipment with pagination query parameter
+```
+curl --location --request POST 'https://api-demo.cargosoft.de/cargosoft/shipment/lookup?page_no=1&page_size=5' \
+--header 'Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1cGRhdGUiLCJjYXJnb3NvZnQtand0LNjc2NDQ1NTAzfQ.mK82rjSu0ltd0bf3mvXUqwpME05ck5OEuqnzsAQ8WPFPo' \
+--header 'Content-Type: application/json' \
+--data '[
+    {
+        "match_mode": "EQUALS",
+        "key": "MBL",   
+        "value": "MASTER_12345"
+    },
+   {
+        "match_mode": "EQUALS",
+        "key": "MODE_OF_TRANSPORT",
+        "value": "SEA"
+    }
+]'
+```
+
 The response contains two additional headers:
 1. _X-Page-Count_: The total number of pages.
 2. _X-Row-Count_: The total number of found objects.
 
-With this both headers is it possible to retrieve next paged results.
+With these both headers it is possible to retrieve next page results.
+
+## Testing
+For testing purposes CargoSoft hosted a server with the last released Cargosoft API. 
+
+**URL**: https://api-demo.cargosoft.de
+
+To use the test environment, please use the "Try it" console in this documentation. Login credentials are needed to use the test API. The credentials have to request from the Cargosoft support. The received information gives access to a test account which should be able to use all endpoints. If any endpoint is restricted, please contact Cargosoft. Please have in mind that the test environment will be reset every night!
 
 # Use cases
 
-## Receive shipment status
-The use case for reading out the status information from CargoSoft can be used in very different ways.
-The following graphic shows the process for retrieving status information schematically.
+## Retrieve a shipment
+To retrieve a shipment, the [lookup](tag/Shipment#operation/lookup) endpoint of the shipment functional group is one of the common possibilities that should be use. The following figure shows the use case to look up a shipment. To keep the figure simple, the authorization process is referred.
 
-PLATZHALTER SEQUENZDIAGRAMM
+![RetrieveShipment][useCaseRetrieveShipment]
+
+[useCaseRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Use_Case_retrieve_Shipment.svg "Use case to retrieve a shipment"
+
+1. To access the lookup endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
+2. When a JWT is present, the shipment lookup endpoint can be called. Shipment identifier have to be sent in the request body to reduce the response result. For a complete list of shipment identifier see [here](tag/Shipment#operation/lookup).
+
+## Retrieve shipment status
 
 CargoSoft has different pools in which status information is stored.
 These are described in detail in the next subsections. However, in order to understand the differences
@@ -114,6 +145,10 @@ PLATZHALTER STATUSDURCHLAUF VON PROVIDER -> STAUS -> TRANSPORTWEGREITER
 
 All three types of status information can be retrieved via the API, but
 the appropriate endpoint must always be called.
+
+
+
+
 
 ### Shipment Provider Status
 These status messages come from external status providers
@@ -134,27 +169,9 @@ The CargoSoft customer can add this status information manually, but an existing
 
 
 ### Shipment Events
-Shipment events are status events that are defined by CargoSoft. These codes, which are listed in the table below, are fixed and can always be called up - unless they have not been recorded in CargoSoft.
+Shipment events are status events that are defined by CargoSoft. These events are fixed and can always be called up - unless they have not been recorded in CargoSoft. For a complete list of shipment event codes see [here](tag/Shipment#operation/retrieveEvents)
+A shipment event can be created automatically from a shipment or provider status if this is set in the CargoSoft master data. A status always represents exactly one instance - planned or actual and the information can be changed at any time by hand, but also by background processes.
 
-A shipment event can be created automatically from a shipment status if this is set in the CargoSoft master data.
+![RetrieveShipmentEvents][useCaseRetrieveShipmentEvents]
 
-A status always represents exactly one instance - planned or actual and the information can be changed at any time by hand, but also by background processes.
-
-| **Code**          | **Description**                       |
-|-------------------|---------------------------------------|
-| PICKUP            | The date and time of the pickup event |
-| POL_DEPARTURE     | anything                              |
-| FINAL_DESTINATION | xya                                   |
-
-
-
-
-
-
-
-
-## Receive shipment details
-
-# Testing
-For testing purposes cargosoft hosted a server with the API. To use the test environment, please check out the "Try it" console.To login into the server the user has to request the login information from the cargosoft support. The received information gives access to a test account which should be able to use all endpoints. If any endpoint is missing, please contact cargosoft and explain which are missing and it will be taken care of as soon as possible. Please have in mind that the test environment will be reset every night!
-
+[useCaseRetrieveShipmentEvents]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Use_Case_retrieve_Shipment_event.svg "Use case to retrieve shipment events"

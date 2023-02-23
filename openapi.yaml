@@ -28,8 +28,8 @@ paths:
       summary: Lookup for shipments
       description: This endpoint looks up for shipments. The result should be limit
         by using search criterias in the request body. For a complete list of search
-        criteria see the ShipmentIdentifier enumeration. Depending on the search criteria
-        you will receive zero up to n shipments.
+        criteria see the ShipmentIdentifier enumeration below. Depending on the search
+        criteria you will receive zero up to n shipments.
       operationId: lookup
       parameters:
       - name: page_no
@@ -48,11 +48,11 @@ paths:
           default: 50
       - name: order_by
         in: query
-        description: The order by criteria for ordering API results sending back as
-          response.
+        description: The order by for ordering API results sending back as response.
         schema:
           type: array
           items:
+            title: ShipmentIdentifier
             type: string
             description: The following list will give an overview about the implemented
               shipment identifier and a short description.
@@ -72,19 +72,19 @@ paths:
             x-enumDescriptions:
               SHIPMENT_ID: A foreign shipment ID of a third party system. This ID
                 should be unique.
-              HBL: House bl number
-              MBL: Master BL number
+              HBL: House bl number of the Shipment.
+              MBL: Master bL number of the Shipment.
               ADDRESS_REFERENCE: TBD
               RUNNING_SEQUENCE_NUMBER: TBD
               DIRECTION: "Direction of the shipment. Possible values are [I, E]. I\
-                \ = import shipments, E = export shipments"
+                \ = import shipments, E = export shipments."
               MONTH_OF_SERVICE: TBD
               CREATION_DATE: System date when the shipment was created.
               ID: Unique database ID of the Shipment.
               MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-                \ AIR, RD, RL]"
-              FILENUMBER: Shipment number. The shipment number is unique in combination
-                with the client.
+                \ AIR, RD, RL]."
+              FILENUMBER: CargoSoft shipment number. The shipment number is unique
+                in combination with the client.
               CLIENT: The CargoSoft client.
       - name: order_mode
         in: query
@@ -118,17 +118,17 @@ paths:
           description: Records found
           headers:
             X-Page-Count:
-              description: The total number of pages.
+              description: The total number of pages for pagination.
               required: true
               style: simple
               schema:
-                type: integer
+                type: integer <int32>
             X-Row-Count:
-              description: The total number of found objects.
+              description: The total number of found objects for pagination.
               required: true
               style: simple
               schema:
-                type: integer
+                type: integer <int32>
           content:
             application/json:
               schema:
@@ -147,7 +147,7 @@ paths:
       tags:
       - Shipment
       summary: Retrieve shipment events
-      description: "This endpoint retrieves all events of the shipment. To retrieves\
+      description: "This endpoint retrieves all events of the shipment. To retrieve\
         \ the events, the shipment id is needed. It is possible that not all events\
         \ are included in the response because they are not entered or know in the\
         \ shipment unitil now. To retrive the shipment id, use the lookup endpoint\
@@ -222,7 +222,8 @@ components:
           description: The CargoSoft client.
         direction:
           type: string
-          description: The shipment direction.
+          description: "The shipment direction. Possible values are [I, E]. I = import\
+            \ shipments, E = export shipments."
         department:
           type: string
           description: The shipment office.
@@ -231,23 +232,24 @@ components:
           format: int32
         shipment_number:
           type: string
-          description: The shipment number of the shipment. This number may unique
-            in combination of the client property.
+          description: The CargoSoft shipment number of the shipment. This number
+            may unique in combination of the client property.
         master_reference:
           type: string
-          description: The shipment master BL number.
+          description: The shipment master bl number.
         house_reference:
           type: string
-          description: The shipment house BL number.
+          description: The shipment house bl number.
         bl_type:
           type: string
-          description: BL type of the shipment.
+          description: Bl type of the shipment.
         mode_of_transport:
           type: string
-          description: Transport mode of the shipment.
+          description: "Transport mode of the shipment. Possible values are [SEA,\
+            \ AIR, RD, RL]"
         month_of_service:
           type: string
-          description: The shipment direction.
+          description: TBD.
         total_packages:
           type: integer
           description: The total number of packages of the shipment.
@@ -255,7 +257,7 @@ components:
         total_gross_weight:
           type: number
           description: The gross weight if the shipment.
-      description: Description of the Shipment DTO shema.
+      description: Description of the Shipment DTO schema.
     ContainsIdentifier:
       type: object
       description: Contains Identifier
@@ -433,6 +435,7 @@ components:
       type: object
       properties:
         key:
+          title: ShipmentIdentifier
           type: string
           description: The following list will give an overview about the implemented
             shipment identifier and a short description.
@@ -452,19 +455,19 @@ components:
           x-enumDescriptions:
             SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
               be unique.
-            HBL: House bl number
-            MBL: Master BL number
+            HBL: House bl number of the Shipment.
+            MBL: Master bL number of the Shipment.
             ADDRESS_REFERENCE: TBD
             RUNNING_SEQUENCE_NUMBER: TBD
             DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments"
+              \ import shipments, E = export shipments."
             MONTH_OF_SERVICE: TBD
             CREATION_DATE: System date when the shipment was created.
             ID: Unique database ID of the Shipment.
             MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-              \ AIR, RD, RL]"
-            FILENUMBER: Shipment number. The shipment number is unique in combination
-              with the client.
+              \ AIR, RD, RL]."
+            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
+              combination with the client.
             CLIENT: The CargoSoft client.
         match_mode:
           type: string
@@ -500,6 +503,7 @@ components:
       type: object
       properties:
         key:
+          title: ShipmentIdentifier
           type: string
           description: The following list will give an overview about the implemented
             shipment identifier and a short description.
@@ -519,19 +523,19 @@ components:
           x-enumDescriptions:
             SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
               be unique.
-            HBL: House bl number
-            MBL: Master BL number
+            HBL: House bl number of the Shipment.
+            MBL: Master bL number of the Shipment.
             ADDRESS_REFERENCE: TBD
             RUNNING_SEQUENCE_NUMBER: TBD
             DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments"
+              \ import shipments, E = export shipments."
             MONTH_OF_SERVICE: TBD
             CREATION_DATE: System date when the shipment was created.
             ID: Unique database ID of the Shipment.
             MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-              \ AIR, RD, RL]"
-            FILENUMBER: Shipment number. The shipment number is unique in combination
-              with the client.
+              \ AIR, RD, RL]."
+            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
+              combination with the client.
             CLIENT: The CargoSoft client.
         match_mode:
           type: string
@@ -577,163 +581,14 @@ components:
           description: The date.
           format: date
         time:
-          $ref: '#/components/schemas/LocalTime'
+          type: string
+          description: The time date and time.
+          format: ISO-8601
         zone_offset:
-          type: object
-          properties:
-            totalSeconds:
-              type: integer
-              format: int32
-            id:
-              type: string
-            rules:
-              type: object
-              properties:
-                fixedOffset:
-                  type: boolean
-                transitions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      offsetBefore:
-                        type: object
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      offsetAfter:
-                        type: object
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      duration:
-                        type: object
-                        properties:
-                          seconds:
-                            type: integer
-                            format: int64
-                          nano:
-                            type: integer
-                            format: int32
-                          negative:
-                            type: boolean
-                          zero:
-                            type: boolean
-                          units:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                dateBased:
-                                  type: boolean
-                                timeBased:
-                                  type: boolean
-                                durationEstimated:
-                                  type: boolean
-                      gap:
-                        type: boolean
-                      dateTimeBefore:
-                        type: string
-                        format: date-time
-                      dateTimeAfter:
-                        type: string
-                        format: date-time
-                      instant:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                transitionRules:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      month:
-                        type: string
-                        enum:
-                        - JANUARY
-                        - FEBRUARY
-                        - MARCH
-                        - APRIL
-                        - MAY
-                        - JUNE
-                        - JULY
-                        - AUGUST
-                        - SEPTEMBER
-                        - OCTOBER
-                        - NOVEMBER
-                        - DECEMBER
-                      timeDefinition:
-                        type: string
-                        enum:
-                        - UTC
-                        - WALL
-                        - STANDARD
-                      standardOffset:
-                        type: object
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      offsetBefore:
-                        type: object
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      offsetAfter:
-                        type: object
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      dayOfWeek:
-                        type: string
-                        enum:
-                        - MONDAY
-                        - TUESDAY
-                        - WEDNESDAY
-                        - THURSDAY
-                        - FRIDAY
-                        - SATURDAY
-                        - SUNDAY
-                      dayOfMonthIndicator:
-                        type: integer
-                        format: int32
-                      localTime:
-                        $ref: '#/components/schemas/LocalTime'
-                      midnightEndOfDay:
-                        type: boolean
-          description: The time zone of this date and time.
+          type: string
+          description: The UTC time zone of this date and time.
           format: ISO-8601
       description: The date and time of this event.
-    LocalTime:
-      type: object
-      properties:
-        hour:
-          type: integer
-          format: int32
-        minute:
-          type: integer
-          format: int32
-        second:
-          type: integer
-          format: int32
-        nano:
-          type: integer
-          format: int32
     Location:
       type: object
       properties:

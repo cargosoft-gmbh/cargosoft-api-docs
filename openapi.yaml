@@ -259,47 +259,56 @@ components:
           description: The gross weight if the shipment.
       description: Description of the Shipment DTO schema.
     ContainsIdentifier:
+      title: ContainsIdentifier
       type: object
-      description: Contains Identifier
+      description: This identifier should use when value have to contain.
       allOf:
       - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           value:
             type: string
+            description: The value of the identifier.
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     EqualsIdentifier:
+      title: EqualsIdentifier
       type: object
-      description: Equals Identifier
+      description: The equals identifier should use to match the value exactly.
       allOf:
       - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           value:
             type: string
-            description: The value of the Identifier
+            description: The value of the identifier.
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     GreaterEqualIdentifier:
+      title: GreaterEqualIdentifier
       type: object
+      description: This identifier should use when the value is greater or equals.
       allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           value:
             type: string
-      - $ref: '#/components/schemas/Identifier'
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     GreaterThanIdentifier:
+      title: GreaterThanIdentifier
       type: object
+      description: This identifier should use when the value is greater than.
       allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           value:
             type: string
-      - $ref: '#/components/schemas/Identifier'
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     Identifier:
       type: object
@@ -384,50 +393,63 @@ components:
           GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
           LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
     InIdentifier:
+      title: InIdentifier
       type: object
-      description: InIdentifier
+      description: This identifier should use when more than one value can be match.
       allOf:
       - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           values:
             type: array
-            description: A list of values of the Identifier
+            description: A list of values of the identifier.
             items:
               type: string
-              description: A list of values of the Identifier
+              description: A list of values of the identifier.
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     LessEqualIdentifier:
+      title: LessEqualsIdentifier
       type: object
+      description: This identifier should use when the value is less or equals.
       allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           value:
             type: string
-      - $ref: '#/components/schemas/Identifier'
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     LessThanIdentifier:
+      title: LessThanIdentifier
       type: object
+      description: This identifier should use when the value is less than.
       allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           value:
             type: string
-      - $ref: '#/components/schemas/Identifier'
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     LookupIdentifier:
       type: object
+      description: Identifier key. For instance a ShipmentIdentifier
     OrIdentifier:
+      title: OrIdentifier
       type: object
+      description: This identifier combines a list of identifier with the logical
+        or.
       allOf:
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/Identifier'
       - type: object
         properties:
           identifiers:
             type: array
+            description: A list of identifier
             items:
               $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
@@ -495,6 +517,11 @@ components:
       - $ref: '#/components/schemas/EqualsIdentifier'
       - $ref: '#/components/schemas/InIdentifier'
       - $ref: '#/components/schemas/ContainsIdentifier'
+      - $ref: '#/components/schemas/OrIdentifier'
+      - $ref: '#/components/schemas/LessThanIdentifier'
+      - $ref: '#/components/schemas/LessEqualIdentifier'
+      - $ref: '#/components/schemas/GreaterThanIdentifier'
+      - $ref: '#/components/schemas/GreaterEqualIdentifier'
     IdentifierListIdentifierShipmentIdentifier:
       type: array
       items:

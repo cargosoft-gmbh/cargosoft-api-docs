@@ -122,13 +122,13 @@ paths:
               required: true
               style: simple
               schema:
-                type: integer <int32>
+                type: integer
             X-Row-Count:
               description: The total number of found objects for pagination.
               required: true
               style: simple
               schema:
-                type: integer <int32>
+                type: integer
           content:
             application/json:
               schema:

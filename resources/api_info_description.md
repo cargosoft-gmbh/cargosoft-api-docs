@@ -1,5 +1,4 @@
-[SeqAuthorization]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_authentifizierung.svg "Use case Authorization"
-[SeqRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"
+
 [useCaseShipmentStatus]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Use_case_shipment_status.svg "Use case to retrieve shipment events"
 [SeqRetrieveShipmentEvents]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"
 
@@ -14,6 +13,8 @@
 The following chapter will explain the authorization prozess to access the CargoSoft API Endpoints. The use case figure below shows a common example how to retrieve the JWT and how to use it.
 
 ![Authorization][SeqAuthorization]
+
+[SeqAuthorization]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_authentifizierung.svg "Use case Authorization"
 
 ### Retrieve a token
 First of all each client have to request a bearer Java Web Toke (JWT) from the CargoSoft API. To receive a JWT, username and password are required. Username and password can only create by CargoSoft. 
@@ -165,3 +166,8 @@ Shipment events are status events that are defined by CargoSoft. These events ar
 A shipment event can be created automatically from a shipment or provider status if this is set in the CargoSoft master data. A status always represents exactly one instance - planned or actual and the information can be changed at any time by hand, but also by background processes.
 
 ![RetrieveShipmentEvents][SeqRetrieveShipmentEvents]
+
+
+
+
+[SeqRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"

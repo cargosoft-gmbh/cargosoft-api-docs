@@ -66,7 +66,7 @@ The CargoSoft API extends the CRUD retrieve operations with lookup operations. E
 have a lookup method implemented.
 Lookups should be used to search functional objects with given criteria named identifiers. The identifiers may be
 different to each functional group. To find out which functional identifier are possible, please take a look at the
-corresponding the functional group.
+corresponding functional group.
 
 The identifier will be sent in the request body to the API lookup endpoint. An identifier contains the following
 three information:

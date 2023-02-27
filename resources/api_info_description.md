@@ -1,7 +1,3 @@
-[useCaseShipmentStatus]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Use_case_shipment_status.svg "Use case to retrieve shipment events"
-
-[SeqRetrieveShipmentEvents]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"
-
 # About the CargoSoft API
 
 ## Generell
@@ -11,7 +7,6 @@
 > added. Subscribe our technical newsletter to be up to date about all changes made -> Comming soon.
 
 ## Authorization
-
 <p id='CHAPTER_AUTHORIZATION'></p>
 The following chapter will explain the authorization prozess to access the CargoSoft API Endpoints. The use case figure below shows a common example how to retrieve the JWT and how to use it.
 
@@ -45,7 +40,6 @@ curl --location --request POST 'https://api-demo.cargosoft.de/cargosoft/shipment
 > support.
 
 ### Access webhook
-
 The webhook uses as authorization method basic auth.
 
 **Example**: This example shows a minimal curl to access the webhook. The basic auth is not valid.
@@ -119,12 +113,10 @@ Many endpoints of the CargoSoft API use pagination mechanics. The moste of them 
 
 The pagination information will send as request query parameter up to the API endpoint. The pagination contains the
 following two query parameter:
-
 1. _page_no_: The current number of the page
 2. _page_size_: The size of the page
 
 **Example**: Lookup a shipment with pagination query parameter
-
 ```
 curl --location --request POST 'https://api-demo.cargosoft.de/cargosoft/shipment/lookup?page_no=1&page_size=5' \
 --header 'Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1cGRhdGUiLCJjYXJnb3NvZnQtand0LNjc2NDQ1NTAzfQ.mK82rjSu0ltd0bf3mvXUqwpME05ck5OEuqnzsAQ8WPFPo' \
@@ -144,7 +136,6 @@ curl --location --request POST 'https://api-demo.cargosoft.de/cargosoft/shipment
 ```
 
 The response contains two additional headers:
-
 1. _X-Page-Count_: The total number of pages.
 2. _X-Row-Count_: The total number of found objects.
 
@@ -171,6 +162,8 @@ figure simple, the authorization process is referred.
 
 ![RetrieveShipment][SeqRetrieveShipment]
 
+[SeqRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"
+
 1. To access the lookup endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
 2. When a JWT is present, the shipment lookup endpoint can be called. Shipment identifier have to be sent in the request
    body to reduce the response result. For a complete list of shipment identifier
@@ -183,6 +176,8 @@ subsections. However, in order to understand the differences
 exactly, the following graphic tries to clarify how the status message flow works exactly.
 
 ![ShipmentStatus][useCaseShipmentStatus]
+
+[useCaseShipmentStatus]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Use_case_shipment_status.svg "Use case to retrieve shipment events"
 
 ### Shipment provider status
 
@@ -222,5 +217,4 @@ by hand, but also by background processes.
 
 ![RetrieveShipmentEvents][SeqRetrieveShipmentEvents]
 
-
-[SeqRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"
+[SeqRetrieveShipmentEvents]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"

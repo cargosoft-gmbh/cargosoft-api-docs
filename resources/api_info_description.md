@@ -17,7 +17,7 @@ The following chapter will explain the authorization prozess to access the Cargo
 
 First of all each client has to request a bearer Java Web Toke (JWT) from the CargoSoft API. To receive a JWT, username
 and password are required. Username and password can only be created by CargoSoft.
-For more details [see](tag/Authorization#operation/retrieveAuthToken).
+For more details [see](#operation/retrieveAuthToken).
 
 > Please note: The JWT is valid for 24 hours. After that you have to request a new one.
 

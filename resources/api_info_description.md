@@ -105,9 +105,9 @@ parameter of the retrieve endpoint.
 **Example**: Lookup a shipment and retrieve all shipment events
 
 1. Looking up a shipment with given criteria, for instance with the BL number. For more details
-   please [see](tag/Shipment#operation/lookup).
+   please [see](#operation/lookup).
 2. Extract the ID of the shipment result object.
-3. Call the [Events](tag/Shipment#operation/{id}/events) endpoint with the shipment ID as path parameter.
+3. Call the [Events](#operation/{id}/events) endpoint with the shipment ID as path parameter.
 
 ### Pagination
 
@@ -159,7 +159,7 @@ have in mind that the test environment will be reset every night!
 
 ## Retrieve a shipment
 
-To retrieve a shipment, the [lookup](tag/Shipment#operation/lookup) endpoint of the shipment functional group is one of
+To retrieve a shipment, the [lookup](#operation/lookup) endpoint of the shipment functional group is one of
 the common possibilities that should be used. The following figure shows the use case to look up a shipment. To keep the
 figure simple, the authorization process is referred.
 
@@ -170,7 +170,7 @@ figure simple, the authorization process is referred.
 1. To access the lookup endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
 2. When a JWT is present, the shipment lookup endpoint can be called. Shipment identifier have to be sent in the request
    body to reduce the response result. For a complete list of shipment identifier
-   see [here](tag/Shipment#operation/lookup).
+   see [here](#operation/lookup).
 
 ## Retrieve shipment status
 
@@ -214,7 +214,7 @@ The CargoSoft customer can add this status information manually, but an existing
 
 Shipment events are status events that are defined by CargoSoft. These events are fixed and can always be called up -
 unless there is no data available for the shipment. For a complete list of shipment event codes
-see [here](tag/Shipment#operation/retrieveEvents).
+see [here](#operation/retrieveEvents).
 A shipment event can be created automatically from a shipment or provider status if this is set in the CargoSoft master
 data. A status always represents exactly one instance - planned or actual and the information can be changed at any time
 by hand, but also by background processes.

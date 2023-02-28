@@ -2,9 +2,7 @@
 
 ## General
 
-> Attention: The CargoSoft API is still in continuous development and will change over the time. This means that
-> existing endpoints and objects will be renamed, moved, restructured, extended, etc. Also expect new endpoints to be
-> added. Subscribe our technical newsletter to be up to date about all changes made -> Comming soon.
+> Attention: Since our API is still under development, endpoints may well change, or object structures may change. Of course, we try to avoid this as much as possible, but we cannot guarantee it. So that you have the possibility to react in time, we will soon offer you a possibility to subscribe to a newsletter. We would then inform all subscribers when something will change in the API. We are currently still looking for an integrable solution for newsletters, which can be used to subscribe and unsubscribe at this place. Until then, we would like to ask you to send us an email to support@cargosoft.de with the request that we inform you when there are planned changes to the API.
 
 ## Authorization
 

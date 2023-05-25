@@ -69,23 +69,31 @@ paths:
             - CLIENT
             - CREATION_DATE
             - RUNNING_SEQUENCE_NUMBER
+            - CUSTOMER_ADDRESS_TYPE
+            - CUSTOMER_ADDRESS_NUMBER
+            - SHIPMENT_CLOSED
             x-enumDescriptions:
               SHIPMENT_ID: A foreign shipment ID of a third party system. This ID
                 should be unique.
+              DIRECTION: "Direction of the shipment. Possible values are [I, E]. I\
+                \ = import shipments, E = export shipments."
+              CREATION_DATE: System date when the shipment was created.
+              CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
+              FILENUMBER: CargoSoft shipment number. The shipment number is unique
+                in combination with the client.
+              CLIENT: The CargoSoft client.
               HBL: House bl number of the Shipment.
               MBL: Master bL number of the Shipment.
               ADDRESS_REFERENCE: TBD
               RUNNING_SEQUENCE_NUMBER: TBD
-              DIRECTION: "Direction of the shipment. Possible values are [I, E]. I\
-                \ = import shipments, E = export shipments."
               MONTH_OF_SERVICE: TBD
-              CREATION_DATE: System date when the shipment was created.
+              CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
+                \ Possible values are [D, K, G, P, A]"
               ID: Unique database ID of the Shipment.
               MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
                 \ AIR, RD, RL]."
-              FILENUMBER: CargoSoft shipment number. The shipment number is unique
-                in combination with the client.
-              CLIENT: The CargoSoft client.
+              SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are\
+                \ [J, N]."
       - name: order_mode
         in: query
         description: The order mode for ordering API results sending back as response.
@@ -474,23 +482,31 @@ components:
           - CLIENT
           - CREATION_DATE
           - RUNNING_SEQUENCE_NUMBER
+          - CUSTOMER_ADDRESS_TYPE
+          - CUSTOMER_ADDRESS_NUMBER
+          - SHIPMENT_CLOSED
           x-enumDescriptions:
             SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
               be unique.
+            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
+              \ import shipments, E = export shipments."
+            CREATION_DATE: System date when the shipment was created.
+            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
+            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
+              combination with the client.
+            CLIENT: The CargoSoft client.
             HBL: House bl number of the Shipment.
             MBL: Master bL number of the Shipment.
             ADDRESS_REFERENCE: TBD
             RUNNING_SEQUENCE_NUMBER: TBD
-            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments."
             MONTH_OF_SERVICE: TBD
-            CREATION_DATE: System date when the shipment was created.
+            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
+              \ Possible values are [D, K, G, P, A]"
             ID: Unique database ID of the Shipment.
             MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
               \ AIR, RD, RL]."
-            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
-              combination with the client.
-            CLIENT: The CargoSoft client.
+            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
+              \ N]."
         match_mode:
           type: string
           description: The following list will give an overview about the match modes.
@@ -547,23 +563,31 @@ components:
           - CLIENT
           - CREATION_DATE
           - RUNNING_SEQUENCE_NUMBER
+          - CUSTOMER_ADDRESS_TYPE
+          - CUSTOMER_ADDRESS_NUMBER
+          - SHIPMENT_CLOSED
           x-enumDescriptions:
             SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
               be unique.
+            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
+              \ import shipments, E = export shipments."
+            CREATION_DATE: System date when the shipment was created.
+            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
+            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
+              combination with the client.
+            CLIENT: The CargoSoft client.
             HBL: House bl number of the Shipment.
             MBL: Master bL number of the Shipment.
             ADDRESS_REFERENCE: TBD
             RUNNING_SEQUENCE_NUMBER: TBD
-            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments."
             MONTH_OF_SERVICE: TBD
-            CREATION_DATE: System date when the shipment was created.
+            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
+              \ Possible values are [D, K, G, P, A]"
             ID: Unique database ID of the Shipment.
             MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
               \ AIR, RD, RL]."
-            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
-              combination with the client.
-            CLIENT: The CargoSoft client.
+            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
+              \ N]."
         match_mode:
           type: string
           description: The following list will give an overview about the match modes.

@@ -1,0 +1,12 @@
+value:
+  id: 6843241
+  client: "001"
+  direction: "E"
+  department: "BRE"
+  numberOfGoods: 5
+  shipment_number: "BRE-001-12012023-876"
+  master_reference: "MASTER_12345"
+  house_reference: "HOUSE_0988976"
+  bl_type: "HBL"
+  mode_of_transport: "SEA"
+  month_of_service: "202301"

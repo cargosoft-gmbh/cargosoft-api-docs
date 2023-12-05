@@ -42,7 +42,7 @@ curl --location --request POST 'https://api-demo.cargosoft.de/cargosoft/shipment
 
 The webhook uses basic auth as its authorization type.
 
-**Example**: This example shows a minimal curl to access the webhook. The basic auth is not valid.
+**Example**: This example shows a minimal curl request, to access the webhook. The basic auth is not valid.
 
 ```
 curl --location --request POST 'https://api-demo.cargosoft.de/external/webhook' \

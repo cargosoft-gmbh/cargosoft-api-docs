@@ -17,17 +17,76 @@ servers:
   description: Test CargoSoft API server.
   variables: {}
 tags:
+- name: Accounting
+  description: CargoSoft Accounting funcionality
 - name: Shipment
   description: The following chapter will give you an overview about the shipment
     endpoints and their function.
 paths:
+  /cargosoft/accounting/invoice:
+    get:
+      tags:
+      - Accounting
+      summary: Overwritten Retrieve all records from super interface
+      description: |2-
+
+
+        Markdown documentation are possible on **this position**
+      operationId: retrieveAll
+      parameters:
+      - name: page_no
+        in: query
+        description: |2-
+
+
+          Markdown description of the **page_no** param
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        "204":
+          description: |2-
+
+            Markdown are also __possible__ for describing api response?
+
+            | Col1 | Col2 |
+            | ---- | ---- |
+            | 1 | 2 |
+
+            ---
+
+             After h line!
+          content:
+            application/json: {}
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invoice'
+              examples:
+                InvoiceArrayFullExample:
+                  summary: Array of two full invoices
+                  description: The following example shows an minimal response
+                  $ref: ./resources/Invoice_example_array_objects.yaml
+      security:
+      - JavaWebToken: []
   /cargosoft/shipment/lookup:
     post:
       tags:
       - Shipment
       summary: Lookup for shipments
-      description: This endpoint looks up for shipments. The result should be limit
-        by using search criterias in the request body. For a complete list of search
+      description: This endpoint looks up shipments. The result should be limit by
+        using search criterias in the request body. For a complete list of search
         criteria see the ShipmentIdentifier enumeration below. Depending on the search
         criteria you will receive zero up to n shipments.
       operationId: lookup
@@ -218,6 +277,110 @@ paths:
           description: Wrong username and/or password
 components:
   schemas:
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id of the Invoice
+          format: int32
+        client:
+          type: string
+          description: The CargoSoft client
+        office:
+          type: string
+          description: The office
+        corporation:
+          type: string
+        language:
+          type: string
+        barcode:
+          type: string
+        currency:
+          type: string
+        amount:
+          type: number
+        shipment_number:
+          type: string
+          description: The shipment number of the shipment. This number may unique
+            in combination of the client property.
+        invoice_type:
+          type: string
+        invoice_number:
+          type: number
+        invoice_date:
+          type: string
+          format: date
+        accounting_period:
+          type: integer
+        invoice_address:
+          $ref: '#/components/schemas/PrintedAddress'
+        invoice_reference:
+          type: string
+        exchange_rate:
+          type: number
+        processed_flag:
+          type: string
+        tax_amount:
+          type: number
+        gross_amount:
+          type: number
+          description: Net amount
+        created_date_time:
+          type: string
+          format: date-time
+        sequential_number:
+          type: integer
+          format: int32
+        employee_login:
+          type: string
+        collective_invoice:
+          type: boolean
+        posting_text:
+          type: string
+        booked:
+          type: boolean
+        cancelled_invoice:
+          type: boolean
+        cancelled_invoice_number:
+          type: number
+        corrected_invoice:
+          type: boolean
+        corrected_invoice_number:
+          type: boolean
+        allocation:
+          type: string
+        paid:
+          type: boolean
+        payment_condition:
+          type: string
+        due_date_time:
+          type: string
+          format: date-time
+        service_date:
+          type: string
+          format: date-time
+        cancelled_invoice_reference:
+          type: string
+      description: Description of the Invoice DTO Schema
+    PrintedAddress:
+      type: object
+      properties:
+        address_type:
+          type: string
+        address_number:
+          type: integer
+          format: int32
+        line_1:
+          type: string
+        line_2:
+          type: string
+        line_3:
+          type: string
+        line_4:
+          type: string
+        line_5:
+          type: string
     Shipment:
       type: object
       properties:

@@ -80,6 +80,33 @@ paths:
                   $ref: ./resources/Invoice_example_array_objects.yaml
       security:
       - JavaWebToken: []
+    post:
+      tags:
+      - Accounting
+      summary: Create record
+      description: Create a new record
+      operationId: create
+      requestBody:
+        description: Model of the record you want to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+      responses:
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+        "200":
+          description: Record created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+      security:
+      - JavaWebToken: []
   /cargosoft/shipment/lookup:
     post:
       tags:
@@ -277,6 +304,20 @@ paths:
           description: Wrong username and/or password
 components:
   schemas:
+    APIErrorResponse:
+      type: object
+      properties:
+        error_code:
+          $ref: '#/components/schemas/ApiError'
+        error_message:
+          type: string
+        error_source:
+          type: string
+    ApiError:
+      type: object
+      properties:
+        errorMessage:
+          type: string
     Invoice:
       type: object
       properties:

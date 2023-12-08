@@ -285,6 +285,7 @@ components:
           type: string
         amount:
           type: number
+          description: Net amount
         shipment_number:
           type: string
           description: The shipment number of the shipment. This number may unique
@@ -310,7 +311,6 @@ components:
           type: number
         gross_amount:
           type: number
-          description: Net amount
         created_date_time:
           type: string
           format: date-time

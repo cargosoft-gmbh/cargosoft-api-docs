@@ -23,13 +23,192 @@ tags:
   description: The following chapter will give you an overview about the shipment
     endpoints and their function.
 paths:
-  /cargosoft/accounting/invoice:
+  /cargosoft/accounting/invoiceline:
+    get:
+      tags:
+      - Accounting
+      summary: Retrieve all records
+      description: 'Scroll through all existing records. '
+      operationId: retrieveAll
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
     post:
       tags:
       - Accounting
       summary: Create record
       description: Create a new record
       operationId: create
+      requestBody:
+        description: Model of the record you want to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceLine'
+      responses:
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/accounting/invoiceline/lookup:
+    post:
+      tags:
+      - Accounting
+      summary: Lookup record
+      description: Find a existing record by given identifiers
+      operationId: lookup
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: order_by
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CLIENT
+            - INVOICE_NUMBER
+      - name: order_mode
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the order mode for ordering API results sending
+              back as response
+            enum:
+            - ASC
+            - DESC
+            x-enumDescriptions:
+              ASC: ascending
+              DESC: descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
+      responses:
+        "204":
+          description: No records found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/accounting/invoiceline/{id}:
+    get:
+      tags:
+      - Accounting
+      summary: Retrieve record
+      description: Find a existing record by it's database id
+      operationId: retrieveById
+      parameters:
+      - name: id
+        in: path
+        description: Database id of the record you want to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+    put:
+      tags:
+      - Accounting
+      summary: Update record
+      description: Update a existing record by it's database id
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        description: Database id of the record you want to update.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: object
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/accounting/invoice:
+    post:
+      tags:
+      - Accounting
+      summary: Create record
+      description: Create a new record
+      operationId: create_1
       requestBody:
         description: Model of the record you want to create
         content:
@@ -60,7 +239,7 @@ paths:
         using search criterias in the request body. For a complete list of search
         criteria see the ShipmentIdentifier enumeration below. Depending on the search
         criteria you will receive zero up to n shipments.
-      operationId: lookup
+      operationId: lookup_1
       parameters:
       - name: page_no
         in: query
@@ -215,6 +394,296 @@ paths:
                   $ref: ./resources/Retrieve_shipment_events_example.yaml
       security:
       - JavaWebToken: []
+  /cargosoft/invoiceline:
+    get:
+      tags:
+      - Accounting
+      summary: Retrieve all records
+      description: 'Scroll through all existing records. '
+      operationId: retrieveAll_1
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+    post:
+      tags:
+      - Accounting
+      summary: Create record
+      description: Create a new record
+      operationId: create_2
+      requestBody:
+        description: Model of the record you want to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoucherLine'
+      responses:
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/invoiceline/lookup:
+    post:
+      tags:
+      - Accounting
+      summary: Lookup record
+      description: Find a existing record by given identifiers
+      operationId: lookup_2
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: order_by
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CLIENT
+            - INVOICE_NUMBER
+      - name: order_mode
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the order mode for ordering API results sending
+              back as response
+            enum:
+            - ASC
+            - DESC
+            x-enumDescriptions:
+              ASC: ascending
+              DESC: descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+      responses:
+        "204":
+          description: No records found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/invoiceline/{id}:
+    get:
+      tags:
+      - Accounting
+      summary: Retrieve record
+      description: Find a existing record by it's database id
+      operationId: retrieveById_1
+      parameters:
+      - name: id
+        in: path
+        description: Database id of the record you want to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/voucher:
+    get:
+      tags:
+      - Accounting
+      summary: Retrieve all records
+      description: 'Scroll through all existing records. '
+      operationId: retrieveAll_2
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+    post:
+      tags:
+      - Accounting
+      summary: Create record
+      description: Create a new record
+      operationId: create_3
+      requestBody:
+        description: Model of the record you want to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Voucher'
+      responses:
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/voucher/lookup:
+    post:
+      tags:
+      - Accounting
+      summary: Lookup record
+      description: Find a existing record by given identifiers
+      operationId: lookup_3
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: order_by
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CLIENT
+            - INVOICE_NUMBER
+      - name: order_mode
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the order mode for ordering API results sending
+              back as response
+            enum:
+            - ASC
+            - DESC
+            x-enumDescriptions:
+              ASC: ascending
+              DESC: descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+      responses:
+        "204":
+          description: No records found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/voucher/{id}:
+    get:
+      tags:
+      - Accounting
+      summary: Retrieve record
+      description: Find a existing record by it's database id
+      operationId: retrieveById_2
+      parameters:
+      - name: id
+        in: path
+        description: Database id of the record you want to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
   /auth/token:
     post:
       tags:
@@ -262,6 +731,276 @@ components:
       properties:
         errorMessage:
           type: string
+    InvoiceLine:
+      type: object
+      properties:
+        row:
+          type: integer
+          format: int32
+        shipment_number:
+          type: string
+        billing_code:
+          type: string
+        amount:
+          type: number
+        tax_code:
+          type: string
+        currency:
+          type: string
+        activity_type:
+          type: string
+        posting_text:
+          type: string
+        vessel_exchange_rate:
+          type: number
+        vessel_currency:
+          type: string
+        vessel_inverse_rate:
+          type: boolean
+    ContainsIdentifier:
+      title: ContainsIdentifier
+      type: object
+      description: This identifier should use when value have to contain.
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    EqualsIdentifier:
+      title: EqualsIdentifier
+      type: object
+      description: The equals identifier should use to match the value exactly.
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    GreaterEqualIdentifier:
+      title: GreaterEqualIdentifier
+      type: object
+      description: This identifier should use when the value is greater or equals.
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    GreaterThanIdentifier:
+      title: GreaterThanIdentifier
+      type: object
+      description: This identifier should use when the value is greater than.
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    Identifier:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/LookupIdentifier'
+        match_mode:
+          type: string
+          description: The following list will give an overview about the match modes.
+          default: EQUALS
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+    IdentifierInvoiceLineIdentifier:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - CLIENT
+          - INVOICE_NUMBER
+        match_mode:
+          type: string
+          description: The following list will give an overview about the match modes.
+          default: EQUALS
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+    IdentifierListIdentifierInvoiceLineIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
+    IdentifierLookupIdentifier:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/LookupIdentifier'
+        match_mode:
+          type: string
+          description: The following list will give an overview about the match modes.
+          default: EQUALS
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+    InIdentifier:
+      title: InIdentifier
+      type: object
+      description: This identifier should use when more than one value can be match.
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          values:
+            type: array
+            description: A list of values of the identifier.
+            items:
+              type: string
+              description: A list of values of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    LessEqualIdentifier:
+      title: LessEqualsIdentifier
+      type: object
+      description: This identifier should use when the value is less or equals.
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    LessThanIdentifier:
+      title: LessThanIdentifier
+      type: object
+      description: This identifier should use when the value is less than.
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    LookupIdentifier:
+      type: object
+      description: Identifier key. For instance a ShipmentIdentifier
+    OrIdentifier:
+      title: OrIdentifier
+      type: object
+      description: This identifier combines a list of identifier with the logical
+        or.
+      allOf:
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          identifiers:
+            type: array
+            description: A list of identifier
+            items:
+              $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierVoucherIdentifier'
     Invoice:
       required:
       - invoiceType
@@ -355,32 +1094,6 @@ components:
           items:
             $ref: '#/components/schemas/InvoiceLine'
       description: Description of the Invoice DTO Schema
-    InvoiceLine:
-      type: object
-      properties:
-        row:
-          type: integer
-          format: int32
-        shipment_number:
-          type: string
-        billing_code:
-          type: string
-        amount:
-          type: number
-        tax_code:
-          type: string
-        currency:
-          type: string
-        activity_type:
-          type: string
-        posting_text:
-          type: string
-        vessel_exchange_rate:
-          type: number
-        vessel_currency:
-          type: string
-        vessel_inverse_rate:
-          type: boolean
     PrintedAddress:
       type: object
       properties:
@@ -447,201 +1160,6 @@ components:
           type: number
           description: The gross weight if the shipment.
       description: Description of the Shipment DTO schema.
-    ContainsIdentifier:
-      title: ContainsIdentifier
-      type: object
-      description: This identifier should use when value have to contain.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    EqualsIdentifier:
-      title: EqualsIdentifier
-      type: object
-      description: The equals identifier should use to match the value exactly.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    GreaterEqualIdentifier:
-      title: GreaterEqualIdentifier
-      type: object
-      description: This identifier should use when the value is greater or equals.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    GreaterThanIdentifier:
-      title: GreaterThanIdentifier
-      type: object
-      description: This identifier should use when the value is greater than.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    Identifier:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/LookupIdentifier'
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          default: EQUALS
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-    IdentifierLookupIdentifier:
-      type: object
-      properties:
-        key:
-          $ref: '#/components/schemas/LookupIdentifier'
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          default: EQUALS
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-    InIdentifier:
-      title: InIdentifier
-      type: object
-      description: This identifier should use when more than one value can be match.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          values:
-            type: array
-            description: A list of values of the identifier.
-            items:
-              type: string
-              description: A list of values of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    LessEqualIdentifier:
-      title: LessEqualsIdentifier
-      type: object
-      description: This identifier should use when the value is less or equals.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    LessThanIdentifier:
-      title: LessThanIdentifier
-      type: object
-      description: This identifier should use when the value is less than.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    LookupIdentifier:
-      type: object
-      description: Identifier key. For instance a ShipmentIdentifier
-    OrIdentifier:
-      title: OrIdentifier
-      type: object
-      description: This identifier combines a list of identifier with the logical
-        or.
-      allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          identifiers:
-            type: array
-            description: A list of identifier
-            items:
-              $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     ShipmenLookupGenericClass:
       type: object
       properties:
@@ -935,6 +1453,194 @@ components:
         location:
           $ref: '#/components/schemas/Location'
       description: Description of the ShipmentEvent DTO schema.
+    VoucherLine:
+      type: object
+      properties:
+        shipment_number:
+          type: string
+        tax_code:
+          type: string
+        tax_amount_local:
+          type: number
+        tax_amount_foreign:
+          type: number
+        invoice_number:
+          type: integer
+          format: int64
+        invoice_type:
+          type: string
+        billing_code:
+          type: string
+    IdentifierListIdentifierVoucherLineIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+    IdentifierVoucherLineIdentifier:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - CLIENT
+          - INVOICE_NUMBER
+        match_mode:
+          type: string
+          description: The following list will give an overview about the match modes.
+          default: EQUALS
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+    Voucher:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        client:
+          type: string
+          description: The CargoSoft client
+        currency:
+          type: string
+        office:
+          type: string
+          description: The office
+        transferDate:
+          type: string
+          description: transfer_date
+          format: date-time
+        shipment_number:
+          type: string
+          description: The shipment number of the shipment. This number may unique
+            in combination of the client property.
+        invoice_number:
+          type: integer
+          format: int64
+        invoice_type:
+          type: string
+        journal_number:
+          type: integer
+          format: int32
+        accounting_period:
+          type: integer
+        invoice_address:
+          $ref: '#/components/schemas/PrintedAddress'
+        gross_amount_local:
+          type: number
+        tax_amount_local:
+          type: number
+        gross_amount_foreign:
+          type: number
+        tax_amount_foreign:
+          type: number
+        exchange_rate:
+          type: number
+        posting_text:
+          type: string
+        term_of_payment:
+          type: string
+        due_date:
+          type: string
+          format: date
+        invoice_date:
+          type: string
+          format: date
+        invoice_reference:
+          type: string
+        employee_login:
+          type: string
+        cancelled_invoice_number:
+          type: number
+        allocation:
+          type: string
+        corrected_invoice:
+          type: boolean
+        corrected_invoice_number:
+          type: boolean
+        barcode:
+          type: string
+        voucher_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/VoucherLine'
+    IdentifierListIdentifierVoucherIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+    IdentifierVoucherIdentifier:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - CLIENT
+          - INVOICE_NUMBER
+        match_mode:
+          type: string
+          description: The following list will give an overview about the match modes.
+          default: EQUALS
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
     Jwt:
       type: object
       properties:

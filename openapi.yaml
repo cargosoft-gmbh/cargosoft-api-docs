@@ -263,6 +263,9 @@ components:
         errorMessage:
           type: string
     Invoice:
+      required:
+      - invoiceType
+      - taxAmount
       type: object
       properties:
         id:
@@ -347,7 +350,37 @@ components:
           format: date-time
         cancelled_invoice_reference:
           type: string
+        invoice_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLine'
       description: Description of the Invoice DTO Schema
+    InvoiceLine:
+      type: object
+      properties:
+        row:
+          type: integer
+          format: int32
+        shipment_number:
+          type: string
+        billing_code:
+          type: string
+        amount:
+          type: number
+        tax_code:
+          type: string
+        currency:
+          type: string
+        activity_type:
+          type: string
+        posting_text:
+          type: string
+        vessel_exchange_rate:
+          type: number
+        vessel_currency:
+          type: string
+        vessel_inverse_rate:
+          type: boolean
     PrintedAddress:
       type: object
       properties:

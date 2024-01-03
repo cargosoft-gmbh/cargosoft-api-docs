@@ -31,10 +31,10 @@ paths:
     get:
       tags:
       - Accounting
-      - Voucher
+      - Invoice
       summary: Retrieve all records
       description: 'Scroll through all existing records. '
-      operationId: retrieveAll_1
+      operationId: retrieveAll
       parameters:
       - name: page_no
         in: query
@@ -64,16 +64,16 @@ paths:
     post:
       tags:
       - Accounting
-      - Voucher
+      - Invoice
       summary: Create record
       description: Create a new record
-      operationId: create_2
+      operationId: create
       requestBody:
         description: Model of the record you want to create
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VoucherLine'
+              $ref: '#/components/schemas/InvoiceLine'
       responses:
         "500":
           description: Internal server error
@@ -87,10 +87,10 @@ paths:
     post:
       tags:
       - Accounting
-      - Voucher
+      - Invoice
       summary: Lookup record
       description: Find a existing record by given identifiers
-      operationId: lookup_1
+      operationId: lookup
       parameters:
       - name: page_no
         in: query
@@ -133,7 +133,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+                $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
       responses:
         "204":
           description: No records found
@@ -151,10 +151,10 @@ paths:
     get:
       tags:
       - Accounting
-      - Voucher
+      - Invoice
       summary: Retrieve record
       description: Find a existing record by it's database id
-      operationId: retrieveById_1
+      operationId: retrieveById
       parameters:
       - name: id
         in: path
@@ -240,14 +240,14 @@ paths:
                 $ref: '#/components/schemas/Invoice'
       security:
       - JavaWebToken: []
-  /cargosoft/accounting/voucher:
+  /cargosoft/accounting/voucherline:
     get:
       tags:
       - Accounting
       - Voucher
       summary: Retrieve all records
       description: 'Scroll through all existing records. '
-      operationId: retrieveAll
+      operationId: retrieveAll_1
       parameters:
       - name: page_no
         in: query
@@ -280,7 +280,156 @@ paths:
       - Voucher
       summary: Create record
       description: Create a new record
-      operationId: create
+      operationId: create_2
+      requestBody:
+        description: Model of the record you want to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoucherLine'
+      responses:
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/accounting/voucherline/lookup:
+    post:
+      tags:
+      - Accounting
+      - Voucher
+      summary: Lookup record
+      description: Find a existing record by given identifiers
+      operationId: lookup_1
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: order_by
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CLIENT
+            - INVOICE_NUMBER
+      - name: order_mode
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the order mode for ordering API results sending
+              back as response
+            enum:
+            - ASC
+            - DESC
+            x-enumDescriptions:
+              ASC: ascending
+              DESC: descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+      responses:
+        "204":
+          description: No records found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/accounting/voucherline/{id}:
+    get:
+      tags:
+      - Accounting
+      - Voucher
+      summary: Retrieve record
+      description: Find a existing record by it's database id
+      operationId: retrieveById_1
+      parameters:
+      - name: id
+        in: path
+        description: Database id of the record you want to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/accounting/voucher:
+    get:
+      tags:
+      - Accounting
+      - Voucher
+      summary: Retrieve all records
+      description: 'Scroll through all existing records. '
+      operationId: retrieveAll_2
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+    post:
+      tags:
+      - Accounting
+      - Voucher
+      summary: Create record
+      description: Create a new record
+      operationId: create_3
       requestBody:
         description: Model of the record you want to create
         content:
@@ -303,7 +452,7 @@ paths:
       - Voucher
       summary: Lookup record
       description: Find a existing record by given identifiers
-      operationId: lookup
+      operationId: lookup_2
       parameters:
       - name: page_no
         in: query
@@ -367,7 +516,7 @@ paths:
       - Voucher
       summary: Retrieve record
       description: Find a existing record by it's database id
-      operationId: retrieveById
+      operationId: retrieveById_2
       parameters:
       - name: id
         in: path
@@ -398,7 +547,7 @@ paths:
         using search criterias in the request body. For a complete list of search
         criteria see the ShipmentIdentifier enumeration below. Depending on the search
         criteria you will receive zero up to n shipments.
-      operationId: lookup_2
+      operationId: lookup_3
       parameters:
       - name: page_no
         in: query

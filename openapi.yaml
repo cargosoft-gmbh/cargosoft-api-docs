@@ -17,10 +17,12 @@ servers:
   description: Test CargoSoft API server.
   variables: {}
 tags:
-- name: Accounting
-  description: CargoSoft Accounting funcionality
+- name: Invoice Lines
+  description: CargoSoft Invoice Lines funcionality
 - name: Invoice
   description: CargoSoft Invoice funcionality
+- name: Voucher Lines
+  description: CargoSoft Voucher funcionality
 - name: Voucher
   description: CargoSoft Voucher funcionality
 - name: Shipment
@@ -30,8 +32,7 @@ paths:
   /cargosoft/accounting/invoiceline:
     get:
       tags:
-      - Accounting
-      - Invoice
+      - Invoice Lines
       summary: Retrieve all records
       description: 'Scroll through all existing records. '
       operationId: retrieveAll
@@ -63,8 +64,7 @@ paths:
       - JavaWebToken: []
     post:
       tags:
-      - Accounting
-      - Invoice
+      - Invoice Lines
       summary: Create record
       description: Create a new record
       operationId: create
@@ -86,8 +86,7 @@ paths:
   /cargosoft/accounting/invoiceline/lookup:
     post:
       tags:
-      - Accounting
-      - Invoice
+      - Invoice Lines
       summary: Lookup record
       description: Find a existing record by given identifiers
       operationId: lookup
@@ -150,8 +149,7 @@ paths:
   /cargosoft/accounting/invoiceline/{id}:
     get:
       tags:
-      - Accounting
-      - Invoice
+      - Invoice Lines
       summary: Retrieve record
       description: Find a existing record by it's database id
       operationId: retrieveById
@@ -178,8 +176,7 @@ paths:
       - JavaWebToken: []
     put:
       tags:
-      - Accounting
-      - Invoice
+      - Invoice Lines
       summary: Update record
       description: Update a existing record by it's database id
       operationId: update
@@ -214,7 +211,6 @@ paths:
   /cargosoft/accounting/invoice:
     post:
       tags:
-      - Accounting
       - Invoice
       summary: Create record
       description: Create a new record
@@ -243,8 +239,7 @@ paths:
   /cargosoft/accounting/voucherline:
     get:
       tags:
-      - Accounting
-      - Voucher
+      - Voucher Lines
       summary: Retrieve all records
       description: 'Scroll through all existing records. '
       operationId: retrieveAll_1
@@ -276,8 +271,7 @@ paths:
       - JavaWebToken: []
     post:
       tags:
-      - Accounting
-      - Voucher
+      - Voucher Lines
       summary: Create record
       description: Create a new record
       operationId: create_2
@@ -299,8 +293,7 @@ paths:
   /cargosoft/accounting/voucherline/lookup:
     post:
       tags:
-      - Accounting
-      - Voucher
+      - Voucher Lines
       summary: Lookup record
       description: Find a existing record by given identifiers
       operationId: lookup_1
@@ -363,8 +356,7 @@ paths:
   /cargosoft/accounting/voucherline/{id}:
     get:
       tags:
-      - Accounting
-      - Voucher
+      - Voucher Lines
       summary: Retrieve record
       description: Find a existing record by it's database id
       operationId: retrieveById_1
@@ -392,7 +384,6 @@ paths:
   /cargosoft/accounting/voucher:
     get:
       tags:
-      - Accounting
       - Voucher
       summary: Retrieve all records
       description: 'Scroll through all existing records. '
@@ -425,7 +416,6 @@ paths:
       - JavaWebToken: []
     post:
       tags:
-      - Accounting
       - Voucher
       summary: Create record
       description: Create a new record
@@ -448,7 +438,6 @@ paths:
   /cargosoft/accounting/voucher/lookup:
     post:
       tags:
-      - Accounting
       - Voucher
       summary: Lookup record
       description: Find a existing record by given identifiers
@@ -512,7 +501,6 @@ paths:
   /cargosoft/accounting/voucher/{id}:
     get:
       tags:
-      - Accounting
       - Voucher
       summary: Retrieve record
       description: Find a existing record by it's database id

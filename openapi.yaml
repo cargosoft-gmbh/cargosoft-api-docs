@@ -763,6 +763,7 @@ components:
           type: string
         vessel_inverse_rate:
           type: boolean
+      description: The associated invoice lines.
     ContainsIdentifier:
       title: ContainsIdentifier
       type: object
@@ -1015,88 +1016,139 @@ components:
       properties:
         id:
           type: integer
-          description: The id of the Invoice
+          description: The technical id of the Invoice
           format: int32
         client:
           type: string
           description: The CargoSoft client
         office:
           type: string
-          description: The office
+          description: The CargoSoft office
         corporation:
           type: string
+          description: The CargoSoft corporation
         language:
           type: string
+          description: The language of the invoice
         barcode:
           type: string
+          description: The barcode of the invoice
         currency:
           type: string
+          description: "The currency of the invoice, represented in ISO codes"
         amount:
           type: number
-          description: Net amount
+          description: The net amount of the invoice.
         shipment_number:
           type: string
-          description: The shipment number of the shipment. This number may unique
-            in combination of the client property.
+          description: The shipment number for the CargoSoft shipment. Do not fill
+            in the shipment number when importing incoming invoices.
         invoice_type:
           type: string
+          description: 'The invoice type within CargoSoft for an invoice. The following
+            types are permitted:'
+          enum:
+          - LR
+          - LG
+          - SE
+          - SL
+          x-enumDescriptions:
+            SE: Cancellation of incoming invoice
+            LR: Incoming invoice
+            SL: Cancellation of incoming credit note
+            LG: Incoming credit note
         invoice_number:
           type: number
+          description: The CargoSoft invoice number can be generated via a number
+            range during import.
         invoice_date:
           type: string
+          description: The invoice date
           format: date
         accounting_period:
           type: integer
+          description: The accounting periode in format YYYYMM
         invoice_address:
           $ref: '#/components/schemas/PrintedAddress'
         invoice_reference:
           type: string
+          description: The invoice reference of the invoicing party.
         exchange_rate:
           type: number
+          description: The exchange rate of the invoice
         processed_flag:
           type: string
+          description: A flag to determine whether the 'Batchfaktura' background process
+            should process the invoice. This technical flag should not be filled in.
         tax_amount:
           type: number
+          description: The total tax amount of an invoice in the currency of the invoice.
         gross_amount:
           type: number
+          description: The gross amount of an invoice in the invoice's currency.
         created_date_time:
           type: string
+          description: The creation date of the invoice
           format: date-time
         sequential_number:
           type: integer
+          description: A sequential number for an invoice. This is a technical number
+            and should not be filled in.
           format: int32
         employee_login:
           type: string
+          description: The CargoSoft login name of the user who records the invoice.
         collective_invoice:
           type: boolean
+          description: A flag to determine if an invoice is a collective invoice.
+            All invoices are collective invoices ('true').
         posting_text:
           type: string
+          description: The posting text of the invoice
         booked:
           type: boolean
+          description: A flag to determine if an invoice is booked. All invoices are
+            not booked ('false').
         cancelled_invoice:
           type: boolean
+          description: "A flag to determine if an invoice is a cancellation. For invoice\
+            \ types LR/LG, it's 'false'; for types SE/SL, it's 'true'."
         cancelled_invoice_number:
           type: number
+          description: The CargoSoft invoice number of an invoice that needs to be
+            cancelled - the original CargoSoft invoice number.
         corrected_invoice:
           type: boolean
+          description: A flag to determine if an invoice is corrected.
         corrected_invoice_number:
           type: boolean
+          description: The CargoSoft invoice number of an invoice that needs to be
+            corrected - the original CargoSoft invoice number.
         allocation:
           type: string
+          description: "The allocation of an invoice: 'AUFW' for costs, 'ERL' for\
+            \ revenue."
         paid:
           type: boolean
+          description: A flag to determine if an invoice has already been paid.
         payment_condition:
           type: string
+          description: The CargoSoft payment code of an invoice.
         due_date_time:
           type: string
+          description: The due date of the invoice.
           format: date-time
         service_date:
           type: string
+          description: The service date of the invoice
           format: date-time
         cancelled_invoice_reference:
           type: string
+          description: The invoice reference from the invoicing party that needs to
+            be cancelled.
         invoice_lines:
           type: array
+          description: The associated invoice lines.
           items:
             $ref: '#/components/schemas/InvoiceLine'
       description: Description of the Invoice DTO Schema

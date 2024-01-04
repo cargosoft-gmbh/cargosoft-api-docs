@@ -742,27 +742,40 @@ components:
       properties:
         row:
           type: integer
+          description: "The line number is a sequential number, for example, 5, 10,\
+            \ 15, 20, and so on."
           format: int32
         shipment_number:
           type: string
+          description: The shipment number for the CargoSoft shipment.
         billing_code:
           type: string
+          description: The CargoSoft billing code.
         amount:
           type: number
+          description: The net amount in the currency of the invoice.
         tax_code:
           type: string
+          description: The CargoSoft tax code.
         currency:
           type: string
+          description: The invoice currency
         activity_type:
           type: string
+          description: The CargoSoft activity type
         posting_text:
           type: string
+          description: The posting text of the invoice row
         vessel_exchange_rate:
           type: number
+          description: The vessel exchange rate per shipment number.
         vessel_currency:
           type: string
+          description: The vessel currency per shipment number.
         vessel_inverse_rate:
           type: boolean
+          description: A flag to determine if the currency should be imported as an
+            inverse rate.
       description: The associated invoice lines.
     ContainsIdentifier:
       title: ContainsIdentifier

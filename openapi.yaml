@@ -776,7 +776,7 @@ components:
           type: boolean
           description: A flag to determine if the currency should be imported as an
             inverse rate.
-      description: The associated invoice lines.
+      description: Description of the invoice line DTO schema
     ContainsIdentifier:
       title: ContainsIdentifier
       type: object

@@ -877,7 +877,7 @@ components:
           format: date
         time:
           type: string
-          description: The time date and time.
+          description: The time.
           format: ISO-8601
         zone_offset:
           type: string

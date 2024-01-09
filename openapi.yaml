@@ -183,6 +183,7 @@ paths:
   /cargosoft/shipment/{id}/airmaincarriage:
     get:
       tags:
+      - Shipment - Transport
       - Shipment
       summary: Retrieve airfreight shipment main carriage
       description: Retrieve the main carriage of the shipment with additional details.

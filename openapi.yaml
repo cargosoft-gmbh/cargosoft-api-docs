@@ -844,13 +844,20 @@ components:
           $ref: '#/components/schemas/CarriageLeg'
         leg_no:
           type: integer
+          description: The number for the correct order of the transport legs. Important
+            when more then one leg is entered.
           format: int32
         flight_no:
           type: string
+          description: The flight number of this airfreight carriage.
         airline_awb_code:
           type: string
+          description: The awb number of this airfreight carriage.
         airline_name:
           type: string
+          description: The airline name of this airfreight carriage.
+      description: Description of the airfreight carriage DTO schema with several
+        airfreight attributes.
     CarriageLeg:
       type: object
       properties:
@@ -860,6 +867,7 @@ components:
           $ref: '#/components/schemas/DateAndTime'
         actual_datetime:
           $ref: '#/components/schemas/DateAndTime'
+      description: The carriage leg in detail.
     DateAndTime:
       type: object
       properties:
@@ -875,6 +883,7 @@ components:
           type: string
           description: The UTC time zone of this date and time.
           format: ISO-8601
+      description: The local actual date and time related to the location.
     Location:
       type: object
       properties:
@@ -998,6 +1007,8 @@ components:
           $ref: '#/components/schemas/CarriageLeg'
         leg_no:
           type: integer
+          description: The number for the correct order of the transport legs. Important
+            when more then one leg is entered.
           format: int32
         voyage_no:
           type: string

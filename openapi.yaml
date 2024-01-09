@@ -15,7 +15,6 @@ info:
 servers:
 - url: https://api-demo.cargosoft.de
   description: Test CargoSoft API server.
-  variables: {}
 tags:
 - name: Accounting
   description: CargoSoft Accounting funcionality
@@ -838,7 +837,7 @@ components:
     AirfreightCarriage:
       type: object
       properties:
-        origiiiiiin:
+        origin:
           $ref: '#/components/schemas/CarriageLeg'
         destination:
           $ref: '#/components/schemas/CarriageLeg'
@@ -1001,7 +1000,7 @@ components:
     SeafreightCarriage:
       type: object
       properties:
-        origiiiiiin:
+        origin:
           $ref: '#/components/schemas/CarriageLeg'
         destination:
           $ref: '#/components/schemas/CarriageLeg'

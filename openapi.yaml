@@ -883,8 +883,8 @@ components:
           type: string
           description: The UTC time zone of this date and time.
           format: ISO-8601
-      description: The local actual date and time related to the location.
     Location:
+      title: The location of this leg.
       type: object
       properties:
         codes:

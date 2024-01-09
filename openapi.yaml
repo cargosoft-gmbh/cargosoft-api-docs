@@ -838,7 +838,7 @@ components:
     AirfreightCarriage:
       type: object
       properties:
-        origin:
+        origiiiiiin:
           $ref: '#/components/schemas/CarriageLeg'
         destination:
           $ref: '#/components/schemas/CarriageLeg'
@@ -885,7 +885,6 @@ components:
           format: ISO-8601
       description: The local actual date and time related to the location.
     Location:
-      title: The location of this leg.
       type: object
       properties:
         codes:
@@ -1002,7 +1001,7 @@ components:
     SeafreightCarriage:
       type: object
       properties:
-        origin:
+        origiiiiiin:
           $ref: '#/components/schemas/CarriageLeg'
         destination:
           $ref: '#/components/schemas/CarriageLeg'

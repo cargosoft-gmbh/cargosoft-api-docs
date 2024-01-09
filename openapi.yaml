@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.1
 info:
   title: CargoSoft API
   description: 
@@ -869,23 +869,20 @@ components:
       description: The carriage leg in detail.
     DateAndTime:
       type: object
+      properties:
+        date:
+          type: string
+          description: The date.
+          format: date
+        time:
+          type: string
+          description: The time.
+          format: ISO-8601
+        zone_offset:
+          type: string
+          description: The UTC time zone of this date and time.
+          format: ISO-8601
       description: The local actual date and time related to the location.
-      allOf:
-      - $ref: '#/components/schemas/DateAndTime'
-      - type: object
-        properties:
-          date:
-            type: string
-            description: The date.
-            format: date
-          time:
-            type: string
-            description: The time.
-            format: ISO-8601
-          zone_offset:
-            type: string
-            description: The UTC time zone of this date and time.
-            format: ISO-8601
     Location:
       type: object
       properties:

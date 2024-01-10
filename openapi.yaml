@@ -81,7 +81,6 @@ paths:
         schema:
           type: array
           items:
-            title: ShipmentIdentifier
             type: string
             description: The following list will give an overview about the implemented
               shipment identifier and a short description.
@@ -101,6 +100,7 @@ paths:
             - CUSTOMER_ADDRESS_TYPE
             - CUSTOMER_ADDRESS_NUMBER
             - SHIPMENT_CLOSED
+            title: ShipmentIdentifier
             x-enumDescriptions:
               SHIPMENT_ID: A foreign shipment ID of a third party system. This ID
                 should be unique.
@@ -142,7 +142,6 @@ paths:
         content:
           application/json:
             schema:
-              type: array
               items:
                 $ref: '#/components/schemas/ShipmenLookupGenericClass'
             examples:
@@ -158,18 +157,15 @@ paths:
               description: The total number of pages for pagination.
               required: true
               style: simple
-              schema:
-                type: integer
+              schema: {}
             X-Row-Count:
               description: The total number of found objects for pagination.
               required: true
               style: simple
-              schema:
-                type: integer
+              schema: {}
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/Shipment'
               examples:
@@ -200,7 +196,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/AirfreightCarriage'
         "500":
@@ -236,7 +231,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/ShipmentEvent'
               examples:
@@ -266,7 +260,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/SeafreightCarriage'
         "500":
@@ -288,9 +281,6 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              required:
-              - password
-              - username
               type: object
               properties:
                 username:
@@ -299,6 +289,9 @@ paths:
                 password:
                   type: string
                   description: Your password
+              required:
+              - password
+              - username
       responses:
         "200":
           description: Java Web Token
@@ -311,7 +304,6 @@ paths:
 components:
   schemas:
     APIErrorResponse:
-      type: object
       properties:
         error_code:
           $ref: '#/components/schemas/ApiError'
@@ -320,17 +312,16 @@ components:
         error_source:
           type: string
     ApiError:
-      type: object
       properties:
         errorMessage:
           type: string
     Invoice:
-      type: object
+      description: Description of the Invoice DTO Schema
       properties:
         id:
           type: integer
-          description: The id of the Invoice
           format: int32
+          description: The id of the Invoice
         client:
           type: string
           description: The CargoSoft client
@@ -409,9 +400,7 @@ components:
           format: date-time
         cancelled_invoice_reference:
           type: string
-      description: Description of the Invoice DTO Schema
     PrintedAddress:
-      type: object
       properties:
         address_type:
           type: string
@@ -429,12 +418,12 @@ components:
         line_5:
           type: string
     Shipment:
-      type: object
+      description: Description of the Shipment DTO schema.
       properties:
         id:
           type: integer
-          description: The id of the Shipment.
           format: int32
+          description: The id of the Shipment.
         client:
           type: string
           description: The CargoSoft client.
@@ -470,55 +459,48 @@ components:
           description: TBD.
         total_packages:
           type: integer
-          description: The total number of packages of the shipment.
           format: int32
+          description: The total number of packages of the shipment.
         total_gross_weight:
           type: number
           description: The gross weight if the shipment.
-      description: Description of the Shipment DTO schema.
     ContainsIdentifier:
-      title: ContainsIdentifier
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       description: This identifier should use when value have to contain.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      title: ContainsIdentifier
     EqualsIdentifier:
-      title: EqualsIdentifier
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       description: The equals identifier should use to match the value exactly.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      title: EqualsIdentifier
     GreaterEqualIdentifier:
-      title: GreaterEqualIdentifier
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       description: This identifier should use when the value is greater or equals.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      title: GreaterEqualIdentifier
     GreaterThanIdentifier:
-      title: GreaterThanIdentifier
-      type: object
-      description: This identifier should use when the value is greater than.
       allOf:
       - $ref: '#/components/schemas/Identifier'
       - type: object
@@ -528,15 +510,30 @@ components:
             description: The value of the identifier.
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when the value is greater than.
+      title: GreaterThanIdentifier
     Identifier:
-      type: object
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
       properties:
         key:
-          $ref: '#/components/schemas/LookupIdentifier'
+          description: Identifier key. For instance a ShipmentIdentifier
         match_mode:
           type: string
-          description: The following list will give an overview about the match modes.
           default: EQUALS
+          description: The match mode.
           enum:
           - EQUALS
           - CONTAINS
@@ -555,29 +552,28 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
     IdentifierLookupIdentifier:
-      type: object
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
       properties:
         key:
-          $ref: '#/components/schemas/LookupIdentifier'
+          description: Identifier key. For instance a ShipmentIdentifier
         match_mode:
           type: string
-          description: The following list will give an overview about the match modes.
           default: EQUALS
+          description: The match mode.
           enum:
           - EQUALS
           - CONTAINS
@@ -596,24 +592,7 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
     InIdentifier:
-      title: InIdentifier
-      type: object
-      description: This identifier should use when more than one value can be match.
       allOf:
       - $ref: '#/components/schemas/Identifier'
       - type: object
@@ -623,26 +602,23 @@ components:
             description: A list of values of the identifier.
             items:
               type: string
-              description: A list of values of the identifier.
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when more than one value can be match.
+      title: InIdentifier
     LessEqualIdentifier:
-      title: LessEqualsIdentifier
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       description: This identifier should use when the value is less or equals.
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      title: LessEqualsIdentifier
     LessThanIdentifier:
-      title: LessThanIdentifier
-      type: object
-      description: This identifier should use when the value is less than.
       allOf:
       - $ref: '#/components/schemas/Identifier'
       - type: object
@@ -652,14 +628,10 @@ components:
             description: The value of the identifier.
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    LookupIdentifier:
-      type: object
-      description: Identifier key. For instance a ShipmentIdentifier
+      description: This identifier should use when the value is less than.
+      title: LessThanIdentifier
+    LookupIdentifier: {}
     OrIdentifier:
-      title: OrIdentifier
-      type: object
-      description: This identifier combines a list of identifier with the logical
-        or.
       allOf:
       - $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/Identifier'
@@ -671,74 +643,10 @@ components:
             items:
               $ref: '#/components/schemas/IdentifierLookupIdentifier'
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier combines a list of identifier with the logical
+        or.
+      title: OrIdentifier
     ShipmenLookupGenericClass:
-      type: object
-      properties:
-        key:
-          title: ShipmentIdentifier
-          type: string
-          description: The following list will give an overview about the implemented
-            shipment identifier and a short description.
-          enum:
-          - ID
-          - HBL
-          - MBL
-          - FILENUMBER
-          - SHIPMENT_ID
-          - ADDRESS_REFERENCE
-          - DIRECTION
-          - MODE_OF_TRANSPORT
-          - MONTH_OF_SERVICE
-          - CLIENT
-          - CREATION_DATE
-          - RUNNING_SEQUENCE_NUMBER
-          - CUSTOMER_ADDRESS_TYPE
-          - CUSTOMER_ADDRESS_NUMBER
-          - SHIPMENT_CLOSED
-          x-enumDescriptions:
-            SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
-              be unique.
-            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments."
-            CREATION_DATE: System date when the shipment was created.
-            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
-            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
-              combination with the client.
-            CLIENT: The CargoSoft client.
-            HBL: House bl number of the Shipment.
-            MBL: Master bL number of the Shipment.
-            ADDRESS_REFERENCE: TBD
-            RUNNING_SEQUENCE_NUMBER: TBD
-            MONTH_OF_SERVICE: TBD
-            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
-              \ Possible values are [D, K, G, P, A]"
-            ID: Unique database ID of the Shipment.
-            MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-              \ AIR, RD, RL]."
-            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
-              \ N]."
-        match_mode:
-          type: string
-          description: The following list will give an overview about the match modes.
-          default: EQUALS
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'
       - $ref: '#/components/schemas/InIdentifier'
@@ -748,18 +656,10 @@ components:
       - $ref: '#/components/schemas/LessEqualIdentifier'
       - $ref: '#/components/schemas/GreaterThanIdentifier'
       - $ref: '#/components/schemas/GreaterEqualIdentifier'
-    IdentifierListIdentifierShipmentIdentifier:
-      type: array
-      items:
-        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    IdentifierShipmentIdentifier:
-      type: object
       properties:
         key:
-          title: ShipmentIdentifier
           type: string
-          description: The following list will give an overview about the implemented
-            shipment identifier and a short description.
+          description: Identifier key. For instance a ShipmentIdentifier
           enum:
           - ID
           - HBL
@@ -776,6 +676,7 @@ components:
           - CUSTOMER_ADDRESS_TYPE
           - CUSTOMER_ADDRESS_NUMBER
           - SHIPMENT_CLOSED
+          title: ShipmentIdentifier
           x-enumDescriptions:
             SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
               be unique.
@@ -800,8 +701,8 @@ components:
               \ N]."
         match_mode:
           type: string
-          description: The following list will give an overview about the match modes.
           default: EQUALS
+          description: The match mode.
           enum:
           - EQUALS
           - CONTAINS
@@ -820,6 +721,11 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
+    IdentifierListIdentifierShipmentIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    IdentifierShipmentIdentifier:
       description: Description of the Identifier DTO schema. This DTO contains the
         match mode and identifiers of a functional object for instance the shipment
         identifier.
@@ -834,18 +740,86 @@ components:
           LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
           GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
           LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - ID
+          - HBL
+          - MBL
+          - FILENUMBER
+          - SHIPMENT_ID
+          - ADDRESS_REFERENCE
+          - DIRECTION
+          - MODE_OF_TRANSPORT
+          - MONTH_OF_SERVICE
+          - CLIENT
+          - CREATION_DATE
+          - RUNNING_SEQUENCE_NUMBER
+          - CUSTOMER_ADDRESS_TYPE
+          - CUSTOMER_ADDRESS_NUMBER
+          - SHIPMENT_CLOSED
+          title: ShipmentIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
+              be unique.
+            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
+              \ import shipments, E = export shipments."
+            CREATION_DATE: System date when the shipment was created.
+            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
+            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
+              combination with the client.
+            CLIENT: The CargoSoft client.
+            HBL: House bl number of the Shipment.
+            MBL: Master bL number of the Shipment.
+            ADDRESS_REFERENCE: TBD
+            RUNNING_SEQUENCE_NUMBER: TBD
+            MONTH_OF_SERVICE: TBD
+            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
+              \ Possible values are [D, K, G, P, A]"
+            ID: Unique database ID of the Shipment.
+            MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
+              \ AIR, RD, RL]."
+            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
+              \ N]."
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
     AirfreightCarriage:
-      type: object
+      description: Description of the airfreight carriage DTO schema with several
+        airfreight attributes.
       properties:
         origin:
           $ref: '#/components/schemas/CarriageLeg'
+          description: The origin of this leg.
         destination:
           $ref: '#/components/schemas/CarriageLeg'
+          description: The destination of this leg.
         leg_no:
           type: integer
+          format: int32
           description: The number for the correct order of the transport legs. Important
             when more then one leg is entered.
-          format: int32
         flight_no:
           type: string
           description: The flight number of this airfreight carriage.
@@ -855,37 +829,185 @@ components:
         airline_name:
           type: string
           description: The airline name of this airfreight carriage.
-      description: Description of the airfreight carriage DTO schema with several
-        airfreight attributes.
     CarriageLeg:
-      type: object
+      description: The carriage leg in detail.
       properties:
         location:
           $ref: '#/components/schemas/Location'
+          description: The location of this leg.
         estimated_datetime:
           $ref: '#/components/schemas/DateAndTime'
           description: The local estimated date and time related to the location.
         actual_datetime:
           $ref: '#/components/schemas/DateAndTime'
           description: The local actual date and time related to the location.
-      description: The carriage leg in detail.
     DateAndTime:
-      type: object
       properties:
         date:
           type: string
+          format: ISO-8601
           description: The date.
-          format: date
         time:
-          type: string
+          format: ISO-8601
           description: The time.
-          format: ISO-8601
+          properties:
+            hour:
+              type: integer
+              format: int32
+            minute:
+              type: integer
+              format: int32
+            second:
+              type: integer
+              format: int32
+            nano:
+              type: integer
+              format: int32
         zone_offset:
-          type: string
-          description: The UTC time zone of this date and time.
           format: ISO-8601
+          description: The UTC time zone of this date and time.
+          properties:
+            totalSeconds:
+              type: integer
+              format: int32
+            id:
+              type: string
+            rules:
+              properties:
+                fixedOffset:
+                  type: boolean
+                transitions:
+                  type: array
+                  items:
+                    properties:
+                      offsetBefore:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      duration:
+                        properties:
+                          seconds:
+                            type: integer
+                            format: int64
+                          nano:
+                            type: integer
+                            format: int32
+                          negative:
+                            type: boolean
+                          zero:
+                            type: boolean
+                          units:
+                            type: array
+                            items:
+                              properties:
+                                dateBased:
+                                  type: boolean
+                                timeBased:
+                                  type: boolean
+                                durationEstimated:
+                                  type: boolean
+                      gap:
+                        type: boolean
+                      dateTimeBefore:
+                        type: string
+                        format: date-time
+                      dateTimeAfter:
+                        type: string
+                        format: date-time
+                      instant:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                transitionRules:
+                  type: array
+                  items:
+                    properties:
+                      month:
+                        type: string
+                        enum:
+                        - JANUARY
+                        - FEBRUARY
+                        - MARCH
+                        - APRIL
+                        - MAY
+                        - JUNE
+                        - JULY
+                        - AUGUST
+                        - SEPTEMBER
+                        - OCTOBER
+                        - NOVEMBER
+                        - DECEMBER
+                      timeDefinition:
+                        type: string
+                        enum:
+                        - UTC
+                        - WALL
+                        - STANDARD
+                      standardOffset:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetBefore:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      dayOfWeek:
+                        type: string
+                        enum:
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
+                        - SUNDAY
+                      dayOfMonthIndicator:
+                        type: integer
+                        format: int32
+                      localTime:
+                        $ref: '#/components/schemas/LocalTime'
+                      midnightEndOfDay:
+                        type: boolean
+    LocalTime:
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
     Location:
-      type: object
+      description: Description of the Location DTO schema.
       properties:
         codes:
           type: array
@@ -901,17 +1023,13 @@ components:
         longitude:
           type: number
           description: The longitude of this location.
-      description: Description of the Location DTO schema.
     LocationCode:
-      required:
-      - code
-      - type
-      type: object
+      description: Description of the LocationCode DTO schema. Each location in CargoSoft
+        can be describe by serveral location types and codes.
       properties:
         type:
           type: string
-          description: The following list will give an overview about the types of
-            a location.
+          description: The type of this location code.
           enum:
           - CARGOSOFT
           - UNLOC
@@ -929,15 +1047,16 @@ components:
         code:
           type: string
           description: The code of this location.
-      description: Description of the LocationCode DTO schema. Each location in CargoSoft
-        can be describe by serveral location types and codes.
+      required:
+      - code
+      - type
     ShipmentEvent:
-      type: object
+      description: Description of the ShipmentEvent DTO schema.
       properties:
         event:
           type: string
-          description: The following list will give an overview about the shipment
-            events and a short description.
+          description: The event code of this shipment event. The code describes the
+            functional meaning of the event date and time.
           enum:
           - DISPATCH
           - PICKUP
@@ -981,8 +1100,8 @@ components:
             CLEARANCE_START: The goods will be cleared.
         type:
           type: string
-          description: The following list will give an overview about the event types
-            and a short description.
+          description: The event type of this shipment event. The event type describes
+            if the event date and time is estimated or actual.
           enum:
           - ACTUAL
           - ESTIMATED
@@ -991,25 +1110,27 @@ components:
             ACTUAL: Actual date and time.
         shipment_id:
           type: integer
-          description: The id of the Shipment.
           format: int32
+          description: The id of the Shipment.
         date_time:
           $ref: '#/components/schemas/DateAndTime'
+          description: The date and time of this event.
         location:
           $ref: '#/components/schemas/Location'
-      description: Description of the ShipmentEvent DTO schema.
+          description: The location of this event.
     SeafreightCarriage:
-      type: object
       properties:
         origin:
           $ref: '#/components/schemas/CarriageLeg'
+          description: The origin of this leg.
         destination:
           $ref: '#/components/schemas/CarriageLeg'
+          description: The destination of this leg.
         leg_no:
           type: integer
+          format: int32
           description: The number for the correct order of the transport legs. Important
             when more then one leg is entered.
-          format: int32
         voyage_no:
           type: string
         imo_code:
@@ -1021,7 +1142,6 @@ components:
         call_sign:
           type: string
     Jwt:
-      type: object
       properties:
         token:
           type: string

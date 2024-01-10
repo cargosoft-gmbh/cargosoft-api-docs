@@ -806,29 +806,37 @@ components:
             GT: Greater than.
             GE: Greater equals
     AirfreightCarriage:
+      allOf:
+      - $ref: '#/components/schemas/Carriage'
+      - type: object
+        properties:
+          flight_no:
+            type: string
+            description: The flight number of this airfreight carriage.
+          airline_awb_code:
+            type: string
+            description: The awb number of this airfreight carriage.
+          airline_name:
+            type: string
+            description: The airline name of this airfreight carriage.
       description: Description of the airfreight carriage DTO schema with several
         airfreight attributes.
+    Carriage:
+      description: Description of the Carriage DTO schema.
       properties:
         origin:
           $ref: '#/components/schemas/CarriageLeg'
-          description: The origin of this leg.
+          description: The origin of this leg. This object contains several information
+            about the location and its dates and times.
         destination:
           $ref: '#/components/schemas/CarriageLeg'
-          description: The destination of this leg.
+          description: The destination of this leg. This object contains several information
+            about the location and its dates and times.
         leg_no:
           type: integer
           format: int32
           description: The number for the correct order of the transport legs. Important
-            when more then one leg is entered.
-        flight_no:
-          type: string
-          description: The flight number of this airfreight carriage.
-        airline_awb_code:
-          type: string
-          description: The awb number of this airfreight carriage.
-        airline_name:
-          type: string
-          description: The airline name of this airfreight carriage.
+            if more than one leg is entered for the shipment.
     CarriageLeg:
       description: The carriage leg in detail.
       properties:
@@ -837,8 +845,7 @@ components:
           description: The location of this leg.
         estimated_datetime:
           $ref: '#/components/schemas/DateAndTime'
-          description: The local TESTTESTTEST estimated date and time related to the
-            location.
+          description: The local estimated date and time related to the location.
         actual_datetime:
           $ref: '#/components/schemas/DateAndTime'
           description: The local actual date and time related to the location.
@@ -1051,6 +1058,37 @@ components:
       required:
       - code
       - type
+    RailCarriage:
+      allOf:
+      - $ref: '#/components/schemas/Carriage'
+    RoadCarriage:
+      allOf:
+      - $ref: '#/components/schemas/Carriage'
+    SeafreightCarriage:
+      properties:
+        origin:
+          $ref: '#/components/schemas/CarriageLeg'
+          description: The origin of this leg. This object contains several information
+            about the location and its dates and times.
+        destination:
+          $ref: '#/components/schemas/CarriageLeg'
+          description: The destination of this leg. This object contains several information
+            about the location and its dates and times.
+        leg_no:
+          type: integer
+          format: int32
+          description: The number for the correct order of the transport legs. Important
+            if more than one leg is entered for the shipment.
+        voyage_no:
+          type: string
+        imo_code:
+          type: string
+        vessel_name:
+          type: string
+        vessel_flag:
+          type: string
+        call_sign:
+          type: string
     ShipmentEvent:
       description: Description of the ShipmentEvent DTO schema.
       properties:
@@ -1119,29 +1157,6 @@ components:
         location:
           $ref: '#/components/schemas/Location'
           description: The location of this event.
-    SeafreightCarriage:
-      properties:
-        origin:
-          $ref: '#/components/schemas/CarriageLeg'
-          description: The origin of this leg.
-        destination:
-          $ref: '#/components/schemas/CarriageLeg'
-          description: The destination of this leg.
-        leg_no:
-          type: integer
-          format: int32
-          description: The number for the correct order of the transport legs. Important
-            when more then one leg is entered.
-        voyage_no:
-          type: string
-        imo_code:
-          type: string
-        vessel_name:
-          type: string
-        vessel_flag:
-          type: string
-        call_sign:
-          type: string
     Jwt:
       properties:
         token:

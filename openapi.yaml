@@ -837,7 +837,8 @@ components:
           description: The location of this leg.
         estimated_datetime:
           $ref: '#/components/schemas/DateAndTime'
-          description: The local estimated date and time related to the location.
+          description: The local TESTTESTTEST estimated date and time related to the
+            location.
         actual_datetime:
           $ref: '#/components/schemas/DateAndTime'
           description: The local actual date and time related to the location.

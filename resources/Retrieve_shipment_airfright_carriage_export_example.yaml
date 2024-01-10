@@ -1,17 +1,17 @@
 value:
 - origin:
-  location:
+   location:
     codes:
       - type: "IATA"
         code: "BRE"
     name: "Bremen"
     latitude: null
     longitude: null
-  estimated_datetime:
+   estimated_datetime:
     date: "2023-11-17"
     time: "13:00:00"
     zone_offset: "+01:00"
-  actual_datetime:
+   actual_datetime:
     date: "2023-11-17"
     time: "13:30:00"
     zone_offset: "+01:00"
@@ -36,18 +36,18 @@ value:
   airline_awb_code: "438577456345"
   airline_name: "AC"
 - origin:
-  location:
+   location:
     codes:
       - type: "IATA"
         code: "FRA"
     name: null
     latitude: null
     longitude: null
-  estimated_datetime:
+   estimated_datetime:
     date: "2023-11-22"
     time: "18:00:00"
     zone_offset: "+01:00"
-  actual_datetime:
+   actual_datetime:
     date: "2023-11-18"
     time: "18:45:00"
     zone_offset: "+01:00"

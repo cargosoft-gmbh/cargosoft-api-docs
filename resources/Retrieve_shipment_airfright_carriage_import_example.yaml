@@ -3,18 +3,18 @@ value:
   location:
     codes:
       - type: "IATA"
-        code: "BRE"
-    name: "Bremen"
+        code: "NYC"
+    name: null
     latitude: null
     longitude: null
   estimated_datetime:
-    date: "2023-11-17"
-    time: "13:00:00"
-    zone_offset: "+01:00"
+    date: "2023-12-17"
+    time: "10:00:00"
+    zone_offset: null
   actual_datetime:
-    date: "2023-11-17"
-    time: "13:30:00"
-    zone_offset: "+01:00"
+    date: "2023-12-17"
+    time: "10:30:00"
+    zone_offset: null
   destination:
     location:
       codes:
@@ -25,49 +25,13 @@ value:
       longitude: null
     estimated_datetime:
       date: "2023-11-18"
-      time: "05:00:00"
+      time: "03:00:00"
       zone_offset: "+01:00"
     actual_datetime:
       date: "2023-11-18"
-      time: "05:15:00"
+      time: "03:15:00"
       zone_offset: "+01:00"
   leg_no: 1
-  flight_no: "985472"
-  airline_awb_code: "438577456345"
-  airline_name: "AC"
-- origin:
-  location:
-    codes:
-      - type: "IATA"
-        code: "FRA"
-    name: null
-    latitude: null
-    longitude: null
-  estimated_datetime:
-    date: "2023-11-22"
-    time: "18:00:00"
-    zone_offset: "+01:00"
-  actual_datetime:
-    date: "2023-11-18"
-    time: "18:45:00"
-    zone_offset: "+01:00"
-  destination:
-    location:
-      codes:
-        - type: "IATA"
-          code: "NYC"
-      name: null
-      latitude: null
-      longitude: null
-    estimated_datetime:
-      date: "2023-11-19"
-      time: null
-      zone_offset: null
-    actual_datetime:
-      date: "2023-11-19"
-      time: null
-      zone_offset: null
-  leg_no: 2
-  flight_no: "837265437"
-  airline_awb_code: "438577456345"
-  airline_name: "AC"
+  flight_no: "3456"
+  airline_awb_code: "84576826534"
+  airline_name: "LH"

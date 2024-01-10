@@ -864,8 +864,10 @@ components:
           $ref: '#/components/schemas/Location'
         estimated_datetime:
           $ref: '#/components/schemas/DateAndTime'
+          description: The local estimated date and time related to the location.
         actual_datetime:
           $ref: '#/components/schemas/DateAndTime'
+          description: The local actual date and time related to the location.
       description: The carriage leg in detail.
     DateAndTime:
       type: object
@@ -882,7 +884,6 @@ components:
           type: string
           description: The UTC time zone of this date and time.
           format: ISO-8601
-      description: The local actual date and time related to the location.
     Location:
       type: object
       properties:

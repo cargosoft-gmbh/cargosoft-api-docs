@@ -198,6 +198,17 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/AirfreightCarriage'
+              examples:
+                ShipmentAirfreightCarriageExportExample:
+                  summary: Airfreight export carriage example
+                  description: This example contains 2 legs for an export airfright
+                    shipment.
+                  $ref: ./resources/Retrieve_shipment_airfright_carriage_export_example.yaml
+                ShipmentAirfreightCarriageImportExample:
+                  summary: Airfreight import carriage example
+                  description: This example contains only one leg for a import airfright
+                    shipment.
+                  $ref: ./resources/Retrieve_shipment_airfright_carriage_import_example.yaml
         "500":
           description: Internal server error
           content:

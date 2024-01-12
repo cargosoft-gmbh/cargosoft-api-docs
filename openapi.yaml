@@ -181,7 +181,8 @@ paths:
       - Shipment - Transport
       - Shipment
       summary: Retrieve airfreight shipment main carriage
-      description: Retrieve the main carriage of the shipment with additional details.
+      description: 'Retrieve the airfreight main carriage of the shipment with additional
+        details. The CargoSoft Shipment ID is needed to retrieve the main carriage. '
       operationId: retrieveAirMainCarriage
       parameters:
       - name: id

@@ -190,18 +190,21 @@ paths:
       parameters:
       - name: page_no
         in: query
+        description: The page number for pagination.
         schema:
           type: integer
           format: int32
           default: 0
       - name: page_size
         in: query
+        description: The page size for pagination.
         schema:
           type: integer
           format: int32
           default: 50
       - name: order_by
         in: query
+        description: The order by for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -210,6 +213,7 @@ paths:
             - REFERENCE
       - name: order_mode
         in: query
+        description: The order mode for ordering API results sending back as response.
         schema:
           type: array
           items:

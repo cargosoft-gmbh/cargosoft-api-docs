@@ -111,7 +111,11 @@ paths:
             schema:
               items:
                 $ref: '#/components/schemas/EFileLookupGenericClass'
-            example: null
+            examples:
+              LookupEFileIdentifierExample:
+                summary: Example of looking up electonic data of a shipment.
+                description: LookupEFileIdentifierExample
+                $ref: ./resources/Lookup_efile_example.yaml
       responses:
         "200":
           description: Records found
@@ -130,7 +134,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Shipment'
+                  $ref: '#/components/schemas/EFile'
               examples:
                 ShipmentExample:
                   summary: Example of a shipment
@@ -517,53 +521,57 @@ components:
           type: string
         line_5:
           type: string
-    Shipment:
-      description: Description of the Shipment DTO schema.
+    EFile:
+      description: Description of the EFile DTO schema for electronic data like PDF's.
       properties:
         id:
           type: integer
-          format: int32
-          description: The id of the Shipment.
+          format: int64
+          description: The unique ID of this document.
         client:
           type: string
           description: The CargoSoft client.
-        direction:
+        description:
           type: string
-          description: "The shipment direction. Possible values are [I, E]. I = import\
-            \ shipments, E = export shipments."
-        department:
+          description: Description of this document.
+        bytes:
           type: string
-          description: The shipment office.
-        numberOfGoods:
+          description: Base64 encoded content of this document.
+        roles:
+          type: array
+          description: List of roles.
+          items:
+            type: string
+        references:
+          type: array
+          description: A list of references.
+          items:
+            $ref: '#/components/schemas/EFileReference'
+        document_category:
           type: integer
           format: int32
-        shipment_number:
+          description: The category of this document.
+        document_name:
           type: string
-          description: The CargoSoft shipment number of the shipment. This number
-            may unique in combination of the client property.
-        master_reference:
+          description: The file name of this document.
+        document_date:
           type: string
-          description: The shipment master bl number.
-        house_reference:
+          format: date-time
+          description: Date of creation of this document.
+    EFileReference:
+      description: Description of the EFileReference DTO schema for efile references.
+      properties:
+        reference_type:
           type: string
-          description: The shipment house bl number.
-        bl_type:
+          description: "Each reference is typified. The type describes the reference\
+            \ value. For example [CSFILE, ADRFILE]. CSFILE = The document is attached\
+            \ to a shipment, ADRFILE = The document is attached to an address."
+          examples:
+          - CSFILE
+          - ADRFILE
+        reference_value:
           type: string
-          description: Bl type of the shipment.
-        mode_of_transport:
-          type: string
-          description: "Transport mode of the shipment. Possible values are [SEA,\
-            \ AIR, RD, RL]"
-        month_of_service:
-          type: string
-          description: TBD.
-        total_packages:
-          type: integer
-          format: int32
-          description: The total number of packages of the shipment.
-        total_gross_weight:
-          type: number
-          description: The gross weight if the shipment.
+          description: The reference value.
     ContainsIdentifier:
       allOf:
       - $ref: '#/components/schemas/Identifier'
@@ -845,6 +853,53 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/IdentifierEFileIdentifier'
+    Shipment:
+      description: Description of the Shipment DTO schema.
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: The id of the Shipment.
+        client:
+          type: string
+          description: The CargoSoft client.
+        direction:
+          type: string
+          description: "The shipment direction. Possible values are [I, E]. I = import\
+            \ shipments, E = export shipments."
+        department:
+          type: string
+          description: The shipment office.
+        numberOfGoods:
+          type: integer
+          format: int32
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment. This number
+            may unique in combination of the client property.
+        master_reference:
+          type: string
+          description: The shipment master bl number.
+        house_reference:
+          type: string
+          description: The shipment house bl number.
+        bl_type:
+          type: string
+          description: Bl type of the shipment.
+        mode_of_transport:
+          type: string
+          description: "Transport mode of the shipment. Possible values are [SEA,\
+            \ AIR, RD, RL]"
+        month_of_service:
+          type: string
+          description: TBD.
+        total_packages:
+          type: integer
+          format: int32
+          description: The total number of packages of the shipment.
+        total_gross_weight:
+          type: number
+          description: The gross weight if the shipment.
     ShipmenLookupGenericClass:
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'

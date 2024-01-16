@@ -79,8 +79,17 @@ paths:
           type: array
           items:
             type: string
+            description: The following list will give an overview about the implemented
+              efile identifier and a short description.
             enum:
             - REFERENCE
+            - SHIPMENT_ID
+            title: EFileIdentifier
+            x-enumDescriptions:
+              SHIPMENT_ID: Unique database ID of the Shipment.
+              REFERENCE: "Reference of the efile. In most cases, this reference is\
+                \ not known by third party applications. For instance, use the SHIPMENT_ID\
+                \ identifier to search efile documents."
       - name: order_mode
         in: query
         description: The order mode for ordering API results sending back as response.
@@ -583,6 +592,13 @@ components:
           description: Identifier key. For instance a ShipmentIdentifier
           enum:
           - REFERENCE
+          - SHIPMENT_ID
+          title: EFileIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: Unique database ID of the Shipment.
+            REFERENCE: "Reference of the efile. In most cases, this reference is not\
+              \ known by third party applications. For instance, use the SHIPMENT_ID\
+              \ identifier to search efile documents."
         match_mode:
           type: string
           default: EQUALS
@@ -796,6 +812,13 @@ components:
           description: Identifier key. For instance a ShipmentIdentifier
           enum:
           - REFERENCE
+          - SHIPMENT_ID
+          title: EFileIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: Unique database ID of the Shipment.
+            REFERENCE: "Reference of the efile. In most cases, this reference is not\
+              \ known by third party applications. For instance, use the SHIPMENT_ID\
+              \ identifier to search efile documents."
         match_mode:
           type: string
           default: EQUALS

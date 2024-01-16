@@ -50,6 +50,211 @@ paths:
                 $ref: '#/components/schemas/Invoice'
       security:
       - JavaWebToken: []
+  /cargosoft/efile/{id}/reference:
+    get:
+      tags:
+      - E-File
+      operationId: retrieveReferencesFromDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
+    post:
+      tags:
+      - E-File
+      operationId: createReferenceForDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EFileReference'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
+    delete:
+      tags:
+      - E-File
+      operationId: deleteReferenceFromDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EFileReference'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
+  /cargosoft/efile/{id}/role:
+    get:
+      tags:
+      - E-File
+      operationId: retrieveRolesFromDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
+    post:
+      tags:
+      - E-File
+      operationId: createRoleForDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
+    delete:
+      tags:
+      - E-File
+      operationId: deleteRoleFromDocument
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EFileRole'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
+  /cargosoft/efile/lookup:
+    post:
+      tags:
+      - E-File
+      summary: Lookup for efile's.
+      description: This endpoints looks up for electornic documents like PDF's.
+      operationId: lookup
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: order_by
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - REFERENCE
+      - name: order_mode
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the order mode for ordering API results sending
+              back as response
+            enum:
+            - ASC
+            - DESC
+            x-enumDescriptions:
+              ASC: ascending
+              DESC: descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/EFileLookupGenericClass'
+            example: null
+      responses:
+        "200":
+          description: Records found
+          headers:
+            X-Page-Count:
+              description: The total number of pages for pagination.
+              required: true
+              style: simple
+              schema: {}
+            X-Row-Count:
+              description: The total number of found objects for pagination.
+              required: true
+              style: simple
+              schema: {}
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Shipment'
+              examples:
+                ShipmentExample:
+                  summary: Example of a shipment
+                  description: TBD
+                  $ref: ./resources/Shipment_example_object.yaml
+      security:
+      - JavaWebToken: []
   /cargosoft/shipment/lookup:
     post:
       tags:
@@ -59,7 +264,7 @@ paths:
         using search criterias in the request body. For a complete list of search
         criteria see the ShipmentIdentifier enumeration below. Depending on the search
         criteria you will receive zero up to n shipments.
-      operationId: lookup
+      operationId: lookup_1
       parameters:
       - name: page_no
         in: query
@@ -429,6 +634,16 @@ components:
           type: string
         line_5:
           type: string
+    EFileReference:
+      properties:
+        reference_type:
+          type: string
+        reference_value:
+          type: string
+    EFileRole:
+      properties:
+        role:
+          type: string
     Shipment:
       description: Description of the Shipment DTO schema.
       properties:
@@ -488,6 +703,44 @@ components:
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       description: This identifier should use when value have to contain.
       title: ContainsIdentifier
+    EFileLookupGenericClass:
+      anyOf:
+      - $ref: '#/components/schemas/EqualsIdentifier'
+      - $ref: '#/components/schemas/InIdentifier'
+      - $ref: '#/components/schemas/ContainsIdentifier'
+      - $ref: '#/components/schemas/OrIdentifier'
+      - $ref: '#/components/schemas/LessThanIdentifier'
+      - $ref: '#/components/schemas/LessEqualIdentifier'
+      - $ref: '#/components/schemas/GreaterThanIdentifier'
+      - $ref: '#/components/schemas/GreaterEqualIdentifier'
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - REFERENCE
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
     EqualsIdentifier:
       allOf:
       - $ref: '#/components/schemas/Identifier'
@@ -658,6 +911,53 @@ components:
       description: This identifier combines a list of identifier with the logical
         or.
       title: OrIdentifier
+    IdentifierEFileIdentifier:
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - REFERENCE
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+    IdentifierListIdentifierEFileIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierEFileIdentifier'
     ShipmenLookupGenericClass:
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'

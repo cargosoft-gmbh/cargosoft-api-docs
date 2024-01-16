@@ -539,7 +539,8 @@ components:
           description: Base64 encoded content of this document.
         roles:
           type: array
-          description: List of roles.
+          description: The list of roles. The roles are a kind of authorization as
+            to who may view the documents.
           items:
             type: string
         references:
@@ -550,7 +551,8 @@ components:
         document_category:
           type: integer
           format: int32
-          description: The category of this document.
+          description: The category of this document. The category is defined in the
+            CargoSoft basic data and is individual for each customer.
         document_name:
           type: string
           description: The file name of this document.

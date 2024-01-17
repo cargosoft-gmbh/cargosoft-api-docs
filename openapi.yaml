@@ -536,6 +536,7 @@ components:
           description: Description of this document.
         bytes:
           type: string
+          format: Base64 encoded String
           description: Base64 encoded content of this document.
         roles:
           type: array
@@ -589,13 +590,6 @@ components:
     EFileLookupGenericClass:
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'
-      - $ref: '#/components/schemas/InIdentifier'
-      - $ref: '#/components/schemas/ContainsIdentifier'
-      - $ref: '#/components/schemas/OrIdentifier'
-      - $ref: '#/components/schemas/LessThanIdentifier'
-      - $ref: '#/components/schemas/LessEqualIdentifier'
-      - $ref: '#/components/schemas/GreaterThanIdentifier'
-      - $ref: '#/components/schemas/GreaterEqualIdentifier'
       properties:
         key:
           type: string

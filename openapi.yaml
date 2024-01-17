@@ -136,10 +136,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/EFile'
               examples:
-                ShipmentExample:
-                  summary: Example of a shipment
+                ShipmentEFileExample:
+                  summary: Example to retrieve shipment documents.
                   description: TBD
-                  $ref: ./resources/EFile_example_object.yaml
+                  $ref: ./resources/Efile_example_object.yaml
       security:
       - JavaWebToken: []
   /cargosoft/shipment/lookup:

@@ -139,7 +139,7 @@ paths:
                 ShipmentExample:
                   summary: Example of a shipment
                   description: TBD
-                  $ref: ./resources/Shipment_example_object.yaml
+                  $ref: ./resources/EFile_example_object.yaml
       security:
       - JavaWebToken: []
   /cargosoft/shipment/lookup:

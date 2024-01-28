@@ -1235,19 +1235,25 @@ components:
       properties:
         shipment_number:
           type: string
+          description: The CargoSoft shipment number
         tax_code:
           type: string
+          description: The tax code of the booking line.
         tax_amount_local:
           type: number
+          description: The tax amount of the booking line in home currency.
         tax_amount_foreign:
           type: number
+          description: The tax amount of the booking line in foreign currency.
         invoice_number:
           type: integer
           format: int64
+          description: The CargoSoft voucher number
         invoice_type:
           type: string
         billing_code:
           type: string
+          description: The Cargosoft billing code of the booking line.
     IdentifierListIdentifierVoucherLineIdentifier:
       type: array
       items:

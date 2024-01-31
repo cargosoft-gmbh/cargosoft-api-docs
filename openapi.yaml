@@ -49,6 +49,13 @@ paths:
           format: int32
           default: 50
       responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/InvoiceLine'
         "204":
           description: No record found
           content:
@@ -74,6 +81,10 @@ paths:
             schema:
               $ref: '#/components/schemas/InvoiceLine'
       responses:
+        "200":
+          description: Record created
+          content:
+            application/json: {}
         "500":
           description: Internal server error
           content:
@@ -133,6 +144,13 @@ paths:
               items:
                 $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
       responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/InvoiceLine'
         "204":
           description: No records found
           content:
@@ -161,39 +179,10 @@ paths:
           type: integer
           format: int32
       responses:
-        "204":
-          description: No record found
+        "200":
+          description: Record retrieved
           content:
             application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-    put:
-      tags:
-      - Invoice Lines
-      summary: Update record
-      description: Update a existing record by it's database id
-      operationId: update
-      parameters:
-      - name: id
-        in: path
-        description: Database id of the record you want to update.
-        required: true
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: {}
-      responses:
         "204":
           description: No record found
           content:
@@ -255,6 +244,13 @@ paths:
           format: int32
           default: 50
       responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VoucherLine'
         "204":
           description: No record found
           content:
@@ -280,6 +276,12 @@ paths:
             schema:
               $ref: '#/components/schemas/VoucherLine'
       responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoucherLine'
         "500":
           description: Internal server error
           content:
@@ -339,6 +341,13 @@ paths:
               items:
                 $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
       responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VoucherLine'
         "204":
           description: No records found
           content:
@@ -367,6 +376,12 @@ paths:
           type: integer
           format: int32
       responses:
+        "200":
+          description: Record retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoucherLine'
         "204":
           description: No record found
           content:
@@ -400,6 +415,13 @@ paths:
           format: int32
           default: 50
       responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Voucher'
         "204":
           description: No record found
           content:
@@ -425,6 +447,12 @@ paths:
             schema:
               $ref: '#/components/schemas/Voucher'
       responses:
+        "200":
+          description: Record created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher'
         "500":
           description: Internal server error
           content:
@@ -438,7 +466,7 @@ paths:
       tags:
       - Voucher
       summary: Lookup record
-      description: Find a existing record by given identifiers
+      description: Find existing records by given identifiers
       operationId: lookup_2
       parameters:
       - name: page_no
@@ -462,6 +490,7 @@ paths:
             enum:
             - CLIENT
             - INVOICE_NUMBER
+            - JOURNAL_NUMBER
       - name: order_mode
         in: query
         schema:
@@ -484,6 +513,13 @@ paths:
               items:
                 $ref: '#/components/schemas/IdentifierVoucherIdentifier'
       responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Voucher'
         "204":
           description: No records found
           content:
@@ -512,6 +548,52 @@ paths:
           type: integer
           format: int32
       responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher'
+        "204":
+          description: No record found
+          content:
+            application/json: {}
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+      security:
+      - JavaWebToken: []
+  /cargosoft/accounting/voucher/unprocessed:
+    get:
+      tags:
+      - Voucher
+      summary: Retrieve all unprocessed vouchers
+      description: 'Scroll through all existing records. '
+      operationId: retrieveUnprocessed
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Voucher'
         "204":
           description: No record found
           content:
@@ -1425,6 +1507,7 @@ components:
           enum:
           - CLIENT
           - INVOICE_NUMBER
+          - JOURNAL_NUMBER
         match_mode:
           type: string
           default: EQUALS

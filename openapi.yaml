@@ -17,7 +17,7 @@ servers:
   description: Test CargoSoft API server.
 tags:
 - name: Invoice Lines
-  description: CargoSoft Invoice Lines funcionality
+  description: CargoSoft Invoice Lines functionality
 - name: Invoice
   description: CargoSoft Invoice funcionality
 - name: Voucher Lines

@@ -1384,7 +1384,10 @@ components:
             AVAILABLE: The goods are available at the port.
             POD_DEPARTURE: TBD.
             POL_DEPARTURE: The  goods  are  departured  (ETD  and ATD).
+            POL_DEPARTURE_REVISED: The  goods  are  departured  (revised Date).
             DELIVERY_DATE: TBD.
+            POD_ARRIVAL_REVISED: The goods arrived at the port of discharge (revised
+              Date).
             POD_ARRIVAL: The goods arrived at the port of discharge (ETA and ATA).
             ACCEPTANCE: The goods can be picked up at the port.
             PICKUP: The  goods  are  picked  up  from  the starting location.

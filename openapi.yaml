@@ -143,6 +143,11 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
+              properties:
+                first:
+                  $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
+                last:
+                  $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
       responses:
         "200":
           description: Records retrieved
@@ -340,6 +345,11 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+              properties:
+                first:
+                  $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+                last:
+                  $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
       responses:
         "200":
           description: Records retrieved
@@ -512,6 +522,11 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+              properties:
+                first:
+                  $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+                last:
+                  $ref: '#/components/schemas/IdentifierVoucherIdentifier'
       responses:
         "200":
           description: Records retrieved
@@ -1058,6 +1073,11 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
+      properties:
+        first:
+          $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
+        last:
+          $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
     IdentifierLookupIdentifier:
       description: Description of the Identifier DTO schema. This DTO contains the
         match mode and identifiers of a functional object for instance the shipment
@@ -1342,6 +1362,11 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+      properties:
+        first:
+          $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+        last:
+          $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
     IdentifierVoucherLineIdentifier:
       description: Description of the Identifier DTO schema. This DTO contains the
         match mode and identifiers of a functional object for instance the shipment
@@ -1487,6 +1512,11 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+      properties:
+        first:
+          $ref: '#/components/schemas/IdentifierVoucherIdentifier'
+        last:
+          $ref: '#/components/schemas/IdentifierVoucherIdentifier'
     IdentifierVoucherIdentifier:
       description: Description of the Identifier DTO schema. This DTO contains the
         match mode and identifiers of a functional object for instance the shipment
@@ -1658,6 +1688,11 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      properties:
+        first:
+          $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+        last:
+          $ref: '#/components/schemas/IdentifierShipmentIdentifier'
     IdentifierShipmentIdentifier:
       description: Description of the Identifier DTO schema. This DTO contains the
         match mode and identifiers of a functional object for instance the shipment
@@ -1835,41 +1870,43 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
                             type: integer
                             format: int64
+                          zero:
+                            type: boolean
                           nano:
                             type: integer
                             format: int32
                           negative:
                             type: boolean
-                          zero:
+                          positive:
                             type: boolean
                           units:
                             type: array
                             items:
                               properties:
-                                dateBased:
+                                durationEstimated:
                                   type: boolean
                                 timeBased:
                                   type: boolean
-                                durationEstimated:
+                                dateBased:
                                   type: boolean
                       gap:
                         type: boolean
-                      dateTimeBefore:
-                        type: string
-                        format: date-time
                       dateTimeAfter:
                         type: string
                         format: date-time
-                      instant:
+                      dateTimeBefore:
                         type: string
                         format: date-time
-                      overlap:
-                        type: boolean
                 transitionRules:
                   type: array
                   items:

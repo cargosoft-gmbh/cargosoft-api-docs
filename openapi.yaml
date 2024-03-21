@@ -103,18 +103,21 @@ paths:
       parameters:
       - name: page_no
         in: query
+        description: The page number for pagination.
         schema:
           type: integer
           format: int32
           default: 0
       - name: page_size
         in: query
+        description: The page size for pagination.
         schema:
           type: integer
           format: int32
           default: 50
       - name: order_by
         in: query
+        description: The order by for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -124,6 +127,7 @@ paths:
             - INVOICE_NUMBER
       - name: order_mode
         in: query
+        description: The order mode for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -228,6 +232,25 @@ paths:
                 $ref: '#/components/schemas/Invoice'
       security:
       - JavaWebToken: []
+  /cargosoft/accounting/invoice/{id}/lines:
+    get:
+      tags:
+      - Invoice
+      operationId: retrieveInvoiceLines
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
   /cargosoft/accounting/voucherline:
     get:
       tags:
@@ -305,18 +328,21 @@ paths:
       parameters:
       - name: page_no
         in: query
+        description: The page number for pagination.
         schema:
           type: integer
           format: int32
           default: 0
       - name: page_size
         in: query
+        description: The page size for pagination.
         schema:
           type: integer
           format: int32
           default: 50
       - name: order_by
         in: query
+        description: The order by for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -326,6 +352,7 @@ paths:
             - INVOICE_NUMBER
       - name: order_mode
         in: query
+        description: The order mode for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -481,18 +508,21 @@ paths:
       parameters:
       - name: page_no
         in: query
+        description: The page number for pagination.
         schema:
           type: integer
           format: int32
           default: 0
       - name: page_size
         in: query
+        description: The page size for pagination.
         schema:
           type: integer
           format: int32
           default: 50
       - name: order_by
         in: query
+        description: The order by for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -503,6 +533,7 @@ paths:
             - JOURNAL_NUMBER
       - name: order_mode
         in: query
+        description: The order mode for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -901,14 +932,71 @@ components:
     InvoiceLine:
       description: Description of the invoice line DTO schema
       properties:
+        id:
+          type: integer
+          format: int32
+          description: The technical id of the invoice line
         row:
           type: integer
           format: int32
           description: "The line number is a sequential number, for example, 5, 10,\
             \ 15, 20, and so on."
+        invoice_number:
+          type: integer
+          format: int64
+        invoice_type:
+          type: string
+          description: 'The invoice type within CargoSoft for an invoice. The following
+            types are permitted:'
+          enum:
+          - R
+          - G
+          - SR
+          - SG
+          - SK
+          - SP
+          - SS
+          - SO
+          - GK
+          - GP
+          - GS
+          - GO
+          - LR
+          - LG
+          - SE
+          - SL
+          - R1
+          - R2
+          - R3
+          - R4
+          - R5
+          - R6
+          - R7
+          - R8
+          - R9
+          - SR1
+          - SR2
+          - SR3
+          - SR4
+          - SR5
+          - SR6
+          - SR7
+          - SR8
+          - U
+          - B
+          - UR
+          - UG
+          - E
+          x-enumDescriptions:
+            SE: Cancellation of incoming invoice
+            LR: Incoming invoice
+            SL: Cancellation of incoming credit note
+            LG: Incoming credit note
         shipment_number:
           type: string
           description: The shipment number for the CargoSoft shipment.
+        client:
+          type: string
         billing_code:
           type: string
           description: The CargoSoft billing code.
@@ -1209,10 +1297,44 @@ components:
           description: 'The invoice type within CargoSoft for an invoice. The following
             types are permitted:'
           enum:
+          - R
+          - G
+          - SR
+          - SG
+          - SK
+          - SP
+          - SS
+          - SO
+          - GK
+          - GP
+          - GS
+          - GO
           - LR
           - LG
           - SE
           - SL
+          - R1
+          - R2
+          - R3
+          - R4
+          - R5
+          - R6
+          - R7
+          - R8
+          - R9
+          - SR1
+          - SR2
+          - SR3
+          - SR4
+          - SR5
+          - SR6
+          - SR7
+          - SR8
+          - U
+          - B
+          - UR
+          - UG
+          - E
           x-enumDescriptions:
             SE: Cancellation of incoming invoice
             LR: Incoming invoice
@@ -1278,14 +1400,15 @@ components:
           description: "A flag to determine if an invoice is a cancellation. For invoice\
             \ types LR/LG, it's 'false'; for types SE/SL, it's 'true'."
         cancelled_invoice_number:
-          type: number
+          type: integer
+          format: int64
           description: The CargoSoft invoice number of an invoice that needs to be
             cancelled - the original CargoSoft invoice number.
         corrected_invoice:
           type: boolean
           description: A flag to determine if an invoice is corrected.
         corrected_invoice_number:
-          type: boolean
+          type: number
           description: The CargoSoft invoice number of an invoice that needs to be
             corrected - the original CargoSoft invoice number.
         allocation:
@@ -1337,6 +1460,41 @@ components:
           type: string
     VoucherLine:
       properties:
+        id:
+          type: integer
+          format: int32
+        client:
+          type: string
+          description: The CargoSoft client
+        fkVoucherId:
+          type: integer
+          format: int32
+          description: ID of the voucher
+        impersonalAccount:
+          type: string
+          description: The ledger account of the booking line.
+        amountLocal:
+          type: number
+          description: The net amount of the booking line in home currency.
+        amountForeign:
+          type: number
+          description: The net amount of the booking line in foreign currency.
+        postingText:
+          type: string
+          description: The posting text of the booking line.
+        costCenter:
+          type: string
+          description: The cost center of the booking line
+        differingAccountingPeriod:
+          type: string
+          description: Booking period per booking line - generated by the activity
+            month of the Cargosoft shipment number.
+        activityType:
+          type: string
+          description: The Cargosoft activity type of the booking line.
+        costUnit:
+          type: string
+          description: not available
         shipment_number:
           type: string
           description: The CargoSoft shipment number
@@ -1355,6 +1513,52 @@ components:
           description: The CargoSoft voucher number
         invoice_type:
           type: string
+          description: 'The invoice type within CargoSoft for an invoice. The following
+            types are permitted:'
+          enum:
+          - R
+          - G
+          - SR
+          - SG
+          - SK
+          - SP
+          - SS
+          - SO
+          - GK
+          - GP
+          - GS
+          - GO
+          - LR
+          - LG
+          - SE
+          - SL
+          - R1
+          - R2
+          - R3
+          - R4
+          - R5
+          - R6
+          - R7
+          - R8
+          - R9
+          - SR1
+          - SR2
+          - SR3
+          - SR4
+          - SR5
+          - SR6
+          - SR7
+          - SR8
+          - U
+          - B
+          - UR
+          - UG
+          - E
+          x-enumDescriptions:
+            SE: Cancellation of incoming invoice
+            LR: Incoming invoice
+            SL: Cancellation of incoming credit note
+            LG: Incoming credit note
         billing_code:
           type: string
           description: The Cargosoft billing code of the booking line.
@@ -1425,6 +1629,9 @@ components:
         office:
           type: string
           description: The office
+        serNr:
+          type: integer
+          format: int32
         shipment_number:
           type: string
           description: The shipment number of the shipment. This number may unique
@@ -1435,13 +1642,59 @@ components:
           description: The CargoSoft invoice number generated by number ranges.
         invoice_type:
           type: string
+          description: 'The invoice type within CargoSoft for an invoice. The following
+            types are permitted:'
+          enum:
+          - R
+          - G
+          - SR
+          - SG
+          - SK
+          - SP
+          - SS
+          - SO
+          - GK
+          - GP
+          - GS
+          - GO
+          - LR
+          - LG
+          - SE
+          - SL
+          - R1
+          - R2
+          - R3
+          - R4
+          - R5
+          - R6
+          - R7
+          - R8
+          - R9
+          - SR1
+          - SR2
+          - SR3
+          - SR4
+          - SR5
+          - SR6
+          - SR7
+          - SR8
+          - U
+          - B
+          - UR
+          - UG
+          - E
+          x-enumDescriptions:
+            SE: Cancellation of incoming invoice
+            LR: Incoming invoice
+            SL: Cancellation of incoming credit note
+            LG: Incoming credit note
         journal_number:
           type: integer
           format: int32
           description: 'The journal number is a consecutive number and marks all vouchers
             they have got exported. The number is generated via CargoSoft number     range '
         accounting_period:
-          type: integer
+          type: string
           description: The accounting periode in format YYYYMM
         invoice_address:
           $ref: '#/components/schemas/PrintedAddress'
@@ -2086,6 +2339,8 @@ components:
           - POD_DEPARTURE
           - CUSTOMS_RELEASE
           - DELIVERY_DATE
+          - POL_DEPARTURE_REVISED
+          - POD_ARRIVAL_REVISED
           x-enumDescriptions:
             GATE_OUT: TBD.
             WAREHOUSE: The goods are within the warehouse.
@@ -2102,7 +2357,10 @@ components:
             AVAILABLE: The goods are available at the port.
             POD_DEPARTURE: TBD.
             POL_DEPARTURE: The  goods  are  departured  (ETD  and ATD).
+            POL_DEPARTURE_REVISED: The  goods  are  departured  (revised Date).
             DELIVERY_DATE: TBD.
+            POD_ARRIVAL_REVISED: The goods arrived at the port of discharge (revised
+              Date).
             POD_ARRIVAL: The goods arrived at the port of discharge (ETA and ATA).
             ACCEPTANCE: The goods can be picked up at the port.
             PICKUP: The  goods  are  picked  up  from  the starting location.

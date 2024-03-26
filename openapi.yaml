@@ -1029,6 +1029,9 @@ components:
           type: boolean
           description: A flag to determine if the currency should be imported as an
             inverse rate.
+      required:
+      - client
+      - currency
     ContainsIdentifier:
       allOf:
       - $ref: '#/components/schemas/Identifier'
@@ -1443,6 +1446,8 @@ components:
           items:
             $ref: '#/components/schemas/InvoiceLine'
       required:
+      - client
+      - currency
       - invoiceType
       - taxAmount
     PrintedAddress:

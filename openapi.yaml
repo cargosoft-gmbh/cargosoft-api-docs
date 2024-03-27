@@ -996,6 +996,9 @@ components:
             LR: Incoming invoice
             SL: Cancellation of incoming credit note
             LG: Incoming credit note
+        sequential_number:
+          type: integer
+          format: int32
         shipment_number:
           type: string
           description: The shipment number for the CargoSoft shipment.

@@ -1842,7 +1842,7 @@ components:
           type: string
           description: "The shipment direction. Possible values are [I, E]. I = import\
             \ shipments, E = export shipments."
-        department:
+        office:
           type: string
           description: The shipment office.
         numberOfGoods:

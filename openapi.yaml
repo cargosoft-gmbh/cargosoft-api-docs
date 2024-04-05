@@ -7,201 +7,28 @@ info:
     name: Uwe Droste
     url: https://www.cargosoft.de
     email: support@cargosoft.de
-  version: '2024.1'
+  version: '2021.4'
   x-logo:
     backgroundColor: '#FFFFF'
     altText: CargoSoft GmbH
-    url: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2024.1/resources/CargoSoftLogo.jpg
+    url: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/CargoSoftLogo.jpg
 servers:
 - url: https://api-demo.cargosoft.de
   description: Test CargoSoft API server.
 tags:
-- name: Invoice Lines
-  description: CargoSoft Invoice Lines functionality
-- name: Invoice
-  description: CargoSoft Invoice funcionality
-- name: Voucher Lines
-  description: CargoSoft Voucher funcionality
-- name: Voucher
-  description: CargoSoft Voucher funcionality
+- name: Accounting
+  description: CargoSoft Accounting funcionality
 - name: Shipment
   description: The following chapter will give you an overview about the shipment
     endpoints and their function.
 paths:
-  /cargosoft/accounting/invoiceline:
-    get:
-      tags:
-      - Invoice Lines
-      summary: Retrieve all records
-      description: 'Scroll through all existing records. '
-      operationId: retrieveAll
-      parameters:
-      - name: page_no
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      responses:
-        "200":
-          description: Records retrieved
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/InvoiceLine'
-        "204":
-          description: No record found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-    post:
-      tags:
-      - Invoice Lines
-      summary: Create record
-      description: Create a new record
-      operationId: create
-      requestBody:
-        description: Model of the record you want to create
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InvoiceLine'
-      responses:
-        "200":
-          description: Record created
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/invoiceline/lookup:
-    post:
-      tags:
-      - Invoice Lines
-      summary: Lookup record
-      description: Find a existing record by given identifiers
-      operationId: lookup
-      parameters:
-      - name: page_no
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      - name: order_by
-        in: query
-        schema:
-          type: array
-          items:
-            type: string
-            enum:
-            - CLIENT
-            - INVOICE_NUMBER
-      - name: order_mode
-        in: query
-        schema:
-          type: array
-          items:
-            type: string
-            description: Description of the order mode for ordering API results sending
-              back as response
-            enum:
-            - ASC
-            - DESC
-            x-enumDescriptions:
-              ASC: ascending
-              DESC: descending
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
-      responses:
-        "200":
-          description: Records retrieved
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/InvoiceLine'
-        "204":
-          description: No records found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/invoiceline/{id}:
-    get:
-      tags:
-      - Invoice Lines
-      summary: Retrieve record
-      description: Find a existing record by it's database id
-      operationId: retrieveById
-      parameters:
-      - name: id
-        in: path
-        description: Database id of the record you want to retrieve
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: Record retrieved
-          content:
-            application/json: {}
-        "204":
-          description: No record found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
   /cargosoft/accounting/invoice:
     post:
       tags:
-      - Invoice
+      - Accounting
       summary: Create record
       description: Create a new record
-      operationId: create_1
+      operationId: create
       requestBody:
         description: Model of the record you want to create
         content:
@@ -223,104 +50,49 @@ paths:
                 $ref: '#/components/schemas/Invoice'
       security:
       - JavaWebToken: []
-  /cargosoft/accounting/voucherline:
-    get:
+  /cargosoft/efile/lookup:
+    post:
       tags:
-      - Voucher Lines
-      summary: Retrieve all records
-      description: 'Scroll through all existing records. '
-      operationId: retrieveAll_1
+      - E-File
+      summary: Lookup for efile's.
+      description: This endpoints looks up for electornic documents like PDF's.
+      operationId: lookup
       parameters:
       - name: page_no
         in: query
+        description: The page number for pagination.
         schema:
           type: integer
           format: int32
           default: 0
       - name: page_size
         in: query
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      responses:
-        "200":
-          description: Records retrieved
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/VoucherLine'
-        "204":
-          description: No record found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-    post:
-      tags:
-      - Voucher Lines
-      summary: Create record
-      description: Create a new record
-      operationId: create_2
-      requestBody:
-        description: Model of the record you want to create
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VoucherLine'
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VoucherLine'
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/voucherline/lookup:
-    post:
-      tags:
-      - Voucher Lines
-      summary: Lookup record
-      description: Find a existing record by given identifiers
-      operationId: lookup_1
-      parameters:
-      - name: page_no
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
+        description: The page size for pagination.
         schema:
           type: integer
           format: int32
           default: 50
       - name: order_by
         in: query
+        description: The order by for ordering API results sending back as response.
         schema:
           type: array
           items:
             type: string
+            description: The following list will give an overview about the implemented
+              efile identifier and a short description.
             enum:
-            - CLIENT
-            - INVOICE_NUMBER
+            - REFERENCE
+            - SHIPMENT_ID
+            title: EFileIdentifier
+            x-enumDescriptions:
+              SHIPMENT_ID: Unique database ID of the Shipment.
+              REFERENCE: "Reference of the efile. In most cases, this reference is\
+                \ not known by third party applications. For instance, use the SHIPMENT_ID\
+                \ identifier to search efile documents."
       - name: order_mode
         in: query
+        description: The order mode for ordering API results sending back as response.
         schema:
           type: array
           items:
@@ -337,273 +109,37 @@ paths:
         content:
           application/json:
             schema:
-              type: array
               items:
-                $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
+                $ref: '#/components/schemas/EFileLookupGenericClass'
+            examples:
+              LookupEFileIdentifierExample:
+                summary: Example of looking up electonic data of a shipment.
+                description: LookupEFileIdentifierExample
+                $ref: ./resources/Lookup_efile_example.yaml
       responses:
         "200":
-          description: Records retrieved
+          description: Records found
+          headers:
+            X-Page-Count:
+              description: The total number of pages for pagination.
+              required: true
+              style: simple
+              schema: {}
+            X-Row-Count:
+              description: The total number of found objects for pagination.
+              required: true
+              style: simple
+              schema: {}
           content:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/VoucherLine'
-        "204":
-          description: No records found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/voucherline/{id}:
-    get:
-      tags:
-      - Voucher Lines
-      summary: Retrieve record
-      description: Find a existing record by it's database id
-      operationId: retrieveById_1
-      parameters:
-      - name: id
-        in: path
-        description: Database id of the record you want to retrieve
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: Record retrieved
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VoucherLine'
-        "204":
-          description: No record found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/voucher:
-    get:
-      tags:
-      - Voucher
-      summary: Retrieve all records
-      description: 'Scroll through all existing records. '
-      operationId: retrieveAll_2
-      parameters:
-      - name: page_no
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      responses:
-        "200":
-          description: Records retrieved
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Voucher'
-        "204":
-          description: No record found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-    post:
-      tags:
-      - Voucher
-      summary: Create record
-      description: Create a new record
-      operationId: create_3
-      requestBody:
-        description: Model of the record you want to create
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Voucher'
-      responses:
-        "200":
-          description: Record created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Voucher'
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/voucher/lookup:
-    post:
-      tags:
-      - Voucher
-      summary: Lookup record
-      description: Find existing records by given identifiers
-      operationId: lookup_2
-      parameters:
-      - name: page_no
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      - name: order_by
-        in: query
-        schema:
-          type: array
-          items:
-            type: string
-            enum:
-            - CLIENT
-            - INVOICE_NUMBER
-            - JOURNAL_NUMBER
-      - name: order_mode
-        in: query
-        schema:
-          type: array
-          items:
-            type: string
-            description: Description of the order mode for ordering API results sending
-              back as response
-            enum:
-            - ASC
-            - DESC
-            x-enumDescriptions:
-              ASC: ascending
-              DESC: descending
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/IdentifierVoucherIdentifier'
-      responses:
-        "200":
-          description: Records retrieved
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Voucher'
-        "204":
-          description: No records found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/voucher/{id}:
-    get:
-      tags:
-      - Voucher
-      summary: Retrieve record
-      description: Find a existing record by it's database id
-      operationId: retrieveById_2
-      parameters:
-      - name: id
-        in: path
-        description: Database id of the record you want to retrieve
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: Successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Voucher'
-        "204":
-          description: No record found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-      security:
-      - JavaWebToken: []
-  /cargosoft/accounting/voucher/unprocessed:
-    get:
-      tags:
-      - Voucher
-      summary: Retrieve all unprocessed vouchers
-      description: 'Scroll through all existing records. '
-      operationId: retrieveUnprocessed
-      parameters:
-      - name: page_no
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      responses:
-        "200":
-          description: Records retrieved
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Voucher'
-        "204":
-          description: No record found
-          content:
-            application/json: {}
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
+                  $ref: '#/components/schemas/EFile'
+              examples:
+                ShipmentEFileExample:
+                  summary: Example to retrieve shipment documents.
+                  description: TBD
+                  $ref: ./resources/Efile_example_object.yaml
       security:
       - JavaWebToken: []
   /cargosoft/shipment/lookup:
@@ -615,7 +151,7 @@ paths:
         using search criterias in the request body. For a complete list of search
         criteria see the ShipmentIdentifier enumeration below. Depending on the search
         criteria you will receive zero up to n shipments.
-      operationId: lookup_3
+      operationId: lookup_1
       parameters:
       - name: page_no
         in: query
@@ -883,45 +419,162 @@ components:
       properties:
         errorMessage:
           type: string
-    InvoiceLine:
-      description: Description of the invoice line DTO schema
+    Invoice:
+      description: Description of the Invoice DTO Schema
       properties:
-        row:
+        id:
           type: integer
           format: int32
-          description: "The line number is a sequential number, for example, 5, 10,\
-            \ 15, 20, and so on."
-        shipment_number:
+          description: The id of the Invoice
+        client:
           type: string
-          description: The shipment number for the CargoSoft shipment.
-        billing_code:
+          description: The CargoSoft client
+        office:
           type: string
-          description: The CargoSoft billing code.
-        amount:
-          type: number
-          description: The net amount in the currency of the invoice.
-        tax_code:
+          description: The office
+        corporation:
           type: string
-          description: The CargoSoft tax code.
+        language:
+          type: string
+        barcode:
+          type: string
         currency:
           type: string
-          description: The invoice currency
-        activity_type:
+        amount:
+          type: number
+          description: Net amount
+        shipment_number:
           type: string
-          description: The CargoSoft activity type
+          description: The shipment number of the shipment. This number may unique
+            in combination of the client property.
+        invoice_type:
+          type: string
+        invoice_number:
+          type: number
+        invoice_date:
+          type: string
+          format: date
+        accounting_period:
+          type: integer
+        invoice_address:
+          $ref: '#/components/schemas/PrintedAddress'
+        invoice_reference:
+          type: string
+        exchange_rate:
+          type: number
+        processed_flag:
+          type: string
+        tax_amount:
+          type: number
+        gross_amount:
+          type: number
+        created_date_time:
+          type: string
+          format: date-time
+        sequential_number:
+          type: integer
+          format: int32
+        employee_login:
+          type: string
+        collective_invoice:
+          type: boolean
         posting_text:
           type: string
-          description: The posting text of the invoice row
-        vessel_exchange_rate:
-          type: number
-          description: The vessel exchange rate per shipment number.
-        vessel_currency:
-          type: string
-          description: The vessel currency per shipment number.
-        vessel_inverse_rate:
+        booked:
           type: boolean
-          description: A flag to determine if the currency should be imported as an
-            inverse rate.
+        cancelled_invoice:
+          type: boolean
+        cancelled_invoice_number:
+          type: number
+        corrected_invoice:
+          type: boolean
+        corrected_invoice_number:
+          type: boolean
+        allocation:
+          type: string
+        paid:
+          type: boolean
+        payment_condition:
+          type: string
+        due_date_time:
+          type: string
+          format: date-time
+        service_date:
+          type: string
+          format: date-time
+        cancelled_invoice_reference:
+          type: string
+    PrintedAddress:
+      properties:
+        address_type:
+          type: string
+        address_number:
+          type: integer
+          format: int32
+        line_1:
+          type: string
+        line_2:
+          type: string
+        line_3:
+          type: string
+        line_4:
+          type: string
+        line_5:
+          type: string
+    EFile:
+      description: Description of the EFile DTO schema for electronic data like PDF's.
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: The unique ID of this document.
+        client:
+          type: string
+          description: The CargoSoft client.
+        description:
+          type: string
+          description: Description of this document.
+        bytes:
+          type: string
+          format: Base64 encoded String
+          description: Base64 encoded content of this document.
+        roles:
+          type: array
+          description: The list of roles. The roles are a kind of authorization as
+            to who may view the documents.
+          items:
+            type: string
+        references:
+          type: array
+          description: A list of references.
+          items:
+            $ref: '#/components/schemas/EFileReference'
+        document_category:
+          type: integer
+          format: int32
+          description: The category of this document. The category is defined in the
+            CargoSoft basic data and is individual for each customer.
+        document_name:
+          type: string
+          description: The file name of this document.
+        document_date:
+          type: string
+          format: date-time
+          description: Date of creation of this document.
+    EFileReference:
+      description: Description of the EFileReference DTO schema for efile references.
+      properties:
+        reference_type:
+          type: string
+          description: "Each reference is typified. The type describes the reference\
+            \ value. For example [CSFILE, ADRFILE]. CSFILE = The document is attached\
+            \ to a shipment, ADRFILE = The document is attached to an address."
+          examples:
+          - CSFILE
+          - ADRFILE
+        reference_value:
+          type: string
+          description: The reference value.
     ContainsIdentifier:
       allOf:
       - $ref: '#/components/schemas/Identifier'
@@ -934,6 +587,44 @@ components:
       - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
       description: This identifier should use when value have to contain.
       title: ContainsIdentifier
+    EFileLookupGenericClass:
+      anyOf:
+      - $ref: '#/components/schemas/EqualsIdentifier'
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - REFERENCE
+          - SHIPMENT_ID
+          title: EFileIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: Unique database ID of the Shipment.
+            REFERENCE: "Reference of the efile. In most cases, this reference is not\
+              \ known by third party applications. For instance, use the SHIPMENT_ID\
+              \ identifier to search efile documents."
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
     EqualsIdentifier:
       allOf:
       - $ref: '#/components/schemas/Identifier'
@@ -1010,54 +701,6 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-    IdentifierInvoiceLineIdentifier:
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-      properties:
-        key:
-          type: string
-          description: Identifier key. For instance a ShipmentIdentifier
-          enum:
-          - CLIENT
-          - INVOICE_NUMBER
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-    IdentifierListIdentifierInvoiceLineIdentifier:
-      type: array
-      items:
-        $ref: '#/components/schemas/IdentifierInvoiceLineIdentifier'
     IdentifierLookupIdentifier:
       description: Description of the Identifier DTO schema. This DTO contains the
         match mode and identifiers of a functional object for instance the shipment
@@ -1152,197 +795,7 @@ components:
       description: This identifier combines a list of identifier with the logical
         or.
       title: OrIdentifier
-    Invoice:
-      description: Description of the Invoice DTO Schema
-      properties:
-        id:
-          type: integer
-          format: int32
-          description: The technical id of the Invoice
-        client:
-          type: string
-          description: The CargoSoft client
-        office:
-          type: string
-          description: The CargoSoft office
-        corporation:
-          type: string
-          description: The CargoSoft corporation
-        language:
-          type: string
-          description: The language of the invoice
-        barcode:
-          type: string
-          description: The barcode of the invoice
-        currency:
-          type: string
-          description: "The currency of the invoice, represented in ISO codes"
-        amount:
-          type: number
-          description: The net amount of the invoice.
-        shipment_number:
-          type: string
-          description: The shipment number for the CargoSoft shipment. Do not fill
-            in the shipment number when importing incoming invoices.
-        invoice_type:
-          type: string
-          description: 'The invoice type within CargoSoft for an invoice. The following
-            types are permitted:'
-          enum:
-          - LR
-          - LG
-          - SE
-          - SL
-          x-enumDescriptions:
-            SE: Cancellation of incoming invoice
-            LR: Incoming invoice
-            SL: Cancellation of incoming credit note
-            LG: Incoming credit note
-        invoice_number:
-          type: integer
-          format: int64
-          description: The CargoSoft invoice number can be generated via a number
-            range during import.
-        invoice_date:
-          type: string
-          format: date
-          description: The invoice date
-        accounting_period:
-          type: integer
-          format: int32
-          description: The accounting periode in format YYYYMM
-        invoice_address:
-          $ref: '#/components/schemas/PrintedAddress'
-          description: The invoice address with the CargoSoft address number
-        invoice_reference:
-          type: string
-          description: The invoice reference of the invoicing party.
-        exchange_rate:
-          type: number
-          description: The exchange rate of the invoice
-        processed_flag:
-          type: string
-          description: A flag to determine whether the 'Batchfaktura' background process
-            should process the invoice. This technical flag should not be filled in.
-        tax_amount:
-          type: number
-          description: The total tax amount of an invoice in the currency of the invoice.
-        gross_amount:
-          type: number
-          description: The gross amount of an invoice in the invoice's currency.
-        created_date_time:
-          type: string
-          format: date-time
-          description: The creation date of the invoice
-        sequential_number:
-          type: integer
-          format: int32
-          description: A sequential number for an invoice. This is a technical number
-            and should not be filled in.
-        employee_login:
-          type: string
-          description: The CargoSoft login name of the user who records the invoice.
-        collective_invoice:
-          type: boolean
-          description: A flag to determine if an invoice is a collective invoice.
-            All invoices are collective invoices ('true').
-        posting_text:
-          type: string
-          description: The posting text of the invoice
-        booked:
-          type: boolean
-          description: A flag to determine if an invoice is booked. All invoices are
-            not booked ('false').
-        cancelled_invoice:
-          type: boolean
-          description: "A flag to determine if an invoice is a cancellation. For invoice\
-            \ types LR/LG, it's 'false'; for types SE/SL, it's 'true'."
-        cancelled_invoice_number:
-          type: number
-          description: The CargoSoft invoice number of an invoice that needs to be
-            cancelled - the original CargoSoft invoice number.
-        corrected_invoice:
-          type: boolean
-          description: A flag to determine if an invoice is corrected.
-        corrected_invoice_number:
-          type: boolean
-          description: The CargoSoft invoice number of an invoice that needs to be
-            corrected - the original CargoSoft invoice number.
-        allocation:
-          type: string
-          description: "The allocation of an invoice: 'AUFW' for costs, 'ERL' for\
-            \ revenue."
-        paid:
-          type: boolean
-          description: A flag to determine if an invoice has already been paid.
-        payment_condition:
-          type: string
-          description: The CargoSoft payment code of an invoice.
-        due_date_time:
-          type: string
-          format: date-time
-          description: The due date of the invoice.
-        service_date:
-          type: string
-          format: date-time
-          description: The service date of the invoice
-        cancelled_invoice_reference:
-          type: string
-          description: The invoice reference from the invoicing party that needs to
-            be cancelled.
-        invoice_lines:
-          type: array
-          description: The associated invoice lines.
-          items:
-            $ref: '#/components/schemas/InvoiceLine'
-      required:
-      - invoiceType
-      - taxAmount
-    PrintedAddress:
-      properties:
-        address_type:
-          type: string
-        address_number:
-          type: integer
-          format: int32
-        line_1:
-          type: string
-        line_2:
-          type: string
-        line_3:
-          type: string
-        line_4:
-          type: string
-        line_5:
-          type: string
-    VoucherLine:
-      properties:
-        shipment_number:
-          type: string
-          description: The CargoSoft shipment number
-        tax_code:
-          type: string
-          description: The tax code of the booking line.
-        tax_amount_local:
-          type: number
-          description: The tax amount of the booking line in home currency.
-        tax_amount_foreign:
-          type: number
-          description: The tax amount of the booking line in foreign currency.
-        invoice_number:
-          type: integer
-          format: int64
-          description: The CargoSoft voucher number
-        invoice_type:
-          type: string
-        billing_code:
-          type: string
-          description: The Cargosoft billing code of the booking line.
-    IdentifierListIdentifierVoucherLineIdentifier:
-      type: array
-      items:
-        $ref: '#/components/schemas/IdentifierVoucherLineIdentifier'
-    IdentifierVoucherLineIdentifier:
+    IdentifierEFileIdentifier:
       description: Description of the Identifier DTO schema. This DTO contains the
         match mode and identifiers of a functional object for instance the shipment
         identifier.
@@ -1362,8 +815,14 @@ components:
           type: string
           description: Identifier key. For instance a ShipmentIdentifier
           enum:
-          - CLIENT
-          - INVOICE_NUMBER
+          - REFERENCE
+          - SHIPMENT_ID
+          title: EFileIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: Unique database ID of the Shipment.
+            REFERENCE: "Reference of the efile. In most cases, this reference is not\
+              \ known by third party applications. For instance, use the SHIPMENT_ID\
+              \ identifier to search efile documents."
         match_mode:
           type: string
           default: EQUALS
@@ -1386,152 +845,10 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-    Voucher:
-      properties:
-        id:
-          type: integer
-          format: int32
-        client:
-          type: string
-          description: The CargoSoft client
-        currency:
-          type: string
-          description: The currency of the voucher represented in ISO codes
-        office:
-          type: string
-          description: The office
-        shipment_number:
-          type: string
-          description: The shipment number of the shipment. This number may unique
-            in combination of the client property.
-        invoice_number:
-          type: integer
-          format: int64
-          description: The CargoSoft invoice number generated by number ranges.
-        invoice_type:
-          type: string
-        journal_number:
-          type: integer
-          format: int32
-          description: 'The journal number is a consecutive number and marks all vouchers
-            they have got exported. The number is generated via CargoSoft number     range '
-        accounting_period:
-          type: integer
-          description: The accounting periode in format YYYYMM
-        invoice_address:
-          $ref: '#/components/schemas/PrintedAddress'
-          description: The invoice address (biller or invoice recipient) with the
-            CargoSoft address number
-        gross_amount_local:
-          type: number
-          description: The gross amount of a voucher in home currency.
-        tax_amount_local:
-          type: number
-          description: The total tax amount of a voucher in home currency.
-        gross_amount_foreign:
-          type: number
-          description: The gross amount of a voucher in foreign currency.
-        tax_amount_foreign:
-          type: number
-          description: The total tax amount of a voucher in foreign currency.
-        exchange_rate:
-          type: number
-          description: The exchange rate of the voucher
-        posting_text:
-          type: string
-          description: The posting text of the voucher
-        term_of_payment:
-          type: string
-          description: The CargoSoft payment code of the voucher.
-        due_date:
-          type: string
-          format: date
-          description: The due date of the voucher.
-        invoice_date:
-          type: string
-          format: date
-          description: The voucher date
-        invoice_reference:
-          type: string
-          description: The voucher reference of the biller.
-        transfer_date:
-          type: string
-          format: date-time
-          description: The date of exporting the voucher
-        employee_login:
-          type: string
-          description: The CargoSoft login name of the user who recorded the voucher.
-        cancelled_invoice_number:
-          type: number
-          description: The CargoSoft number of the voucher which has been cancelled
-            - the original CargoSoft invoice number.
-        allocation:
-          type: string
-          description: "The allocation of an invoice: 'AUFW' for costs, 'ERL' for\
-            \ revenue."
-        corrected_invoice:
-          type: boolean
-          description: A flag to determine if an invoice is corrected.
-        corrected_invoice_number:
-          type: boolean
-          description: The CargoSoft number of the voucher which has been corrected
-            - the original CargoSoft invoice number.
-        barcode:
-          type: string
-          description: The barcode of the voucher.
-        voucher_lines:
-          type: array
-          items:
-            $ref: '#/components/schemas/VoucherLine'
-    IdentifierListIdentifierVoucherIdentifier:
+    IdentifierListIdentifierEFileIdentifier:
       type: array
       items:
-        $ref: '#/components/schemas/IdentifierVoucherIdentifier'
-    IdentifierVoucherIdentifier:
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-      properties:
-        key:
-          type: string
-          description: Identifier key. For instance a ShipmentIdentifier
-          enum:
-          - CLIENT
-          - INVOICE_NUMBER
-          - JOURNAL_NUMBER
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
+        $ref: '#/components/schemas/IdentifierEFileIdentifier'
     Shipment:
       description: Description of the Shipment DTO schema.
       properties:
@@ -2049,6 +1366,8 @@ components:
           - POD_DEPARTURE
           - CUSTOMS_RELEASE
           - DELIVERY_DATE
+          - POL_DEPARTURE_REVISED
+          - POD_ARRIVAL_REVISED
           x-enumDescriptions:
             GATE_OUT: TBD.
             WAREHOUSE: The goods are within the warehouse.
@@ -2065,7 +1384,10 @@ components:
             AVAILABLE: The goods are available at the port.
             POD_DEPARTURE: TBD.
             POL_DEPARTURE: The  goods  are  departured  (ETD  and ATD).
+            POL_DEPARTURE_REVISED: The  goods  are  departured  (revised Date).
             DELIVERY_DATE: TBD.
+            POD_ARRIVAL_REVISED: The goods arrived at the port of discharge (revised
+              Date).
             POD_ARRIVAL: The goods arrived at the port of discharge (ETA and ATA).
             ACCEPTANCE: The goods can be picked up at the port.
             PICKUP: The  goods  are  picked  up  from  the starting location.

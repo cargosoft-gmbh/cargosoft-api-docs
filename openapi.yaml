@@ -1830,6 +1830,10 @@ components:
             GE: Greater equals
     Good:
       properties:
+        measurements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Measurement'
         id:
           type: integer
           format: int32
@@ -1876,6 +1880,34 @@ components:
           type: number
         container_number:
           type: string
+    Measurement:
+      properties:
+        id:
+          type: integer
+          format: int32
+        client:
+          type: string
+          description: The CargoSoft client.
+        weight:
+          type: number
+        cbm:
+          type: number
+        length:
+          type: integer
+          format: int32
+        width:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
+        goods_id:
+          type: integer
+          format: int32
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment. This number
+            may unique in combination of the client property.
     Shipment:
       description: Description of the Shipment DTO schema.
       properties:

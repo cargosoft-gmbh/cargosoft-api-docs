@@ -858,6 +858,25 @@ paths:
                   $ref: ./resources/Retrieve_shipment_events_example.yaml
       security:
       - JavaWebToken: []
+  /cargosoft/shipment/{id}/fullshipment:
+    get:
+      tags:
+      - Shipment
+      operationId: retrieveFullShipment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
   /cargosoft/shipment/{id}/seamaincarriage:
     get:
       tags:

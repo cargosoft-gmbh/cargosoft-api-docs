@@ -907,6 +907,25 @@ paths:
                 $ref: '#/components/schemas/APIErrorResponse'
       security:
       - JavaWebToken: []
+  /cargosoft/good/{id}/measurements:
+    get:
+      tags:
+      - Shipment goods description
+      operationId: retrieveMeasurements
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
   /auth/token:
     post:
       tags:

@@ -877,6 +877,25 @@ paths:
             application/json: {}
       security:
       - JavaWebToken: []
+  /cargosoft/shipment/{id}/fullshipmentoptimized:
+    get:
+      tags:
+      - Shipment
+      operationId: retrieveFullShipmentOptimized
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        default:
+          description: default response
+          content:
+            application/json: {}
+      security:
+      - JavaWebToken: []
   /cargosoft/shipment/{id}/seamaincarriage:
     get:
       tags:

@@ -2016,6 +2016,14 @@ components:
         total_gross_weight:
           type: number
           description: The gross weight if the shipment.
+        closed_by_matchcode:
+          type: string
+        last_modified_by_matchcode:
+          type: string
+        created_by_matchcode:
+          type: string
+        responsible_matchcode:
+          type: string
     ShipmenLookupGenericClass:
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'
@@ -2277,6 +2285,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2307,11 +2320,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:

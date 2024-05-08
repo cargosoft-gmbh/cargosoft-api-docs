@@ -2016,13 +2016,13 @@ components:
         total_gross_weight:
           type: number
           description: The gross weight if the shipment.
-        closed_by_matchcode:
+        closed_employee_matchcode:
           type: string
-        last_modified_by_matchcode:
+        last_modified_employee_matchcode:
           type: string
-        created_by_matchcode:
+        created_employee_matchcode:
           type: string
-        responsible_matchcode:
+        responsible_employee_matchcode:
           type: string
     ShipmenLookupGenericClass:
       anyOf:

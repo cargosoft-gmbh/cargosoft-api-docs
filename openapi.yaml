@@ -858,44 +858,6 @@ paths:
                   $ref: ./resources/Retrieve_shipment_events_example.yaml
       security:
       - JavaWebToken: []
-  /cargosoft/shipment/{id}/fullshipment:
-    get:
-      tags:
-      - Shipment
-      operationId: retrieveFullShipment
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        default:
-          description: default response
-          content:
-            application/json: {}
-      security:
-      - JavaWebToken: []
-  /cargosoft/shipment/{id}/fullshipmentoptimized:
-    get:
-      tags:
-      - Shipment
-      operationId: retrieveFullShipmentOptimized
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        default:
-          description: default response
-          content:
-            application/json: {}
-      security:
-      - JavaWebToken: []
   /cargosoft/shipment/{id}/seamaincarriage:
     get:
       tags:
@@ -1885,309 +1847,6 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-    Good:
-      properties:
-        measurements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Measurement'
-        id:
-          type: integer
-          format: int32
-        client:
-          type: string
-        shipment_number:
-          type: string
-        identifier:
-          type: string
-        counter:
-          type: integer
-          format: int32
-        level:
-          type: integer
-          format: int32
-        level_number:
-          type: integer
-          format: int32
-        mark:
-          type: string
-        quantity:
-          type: integer
-          format: int32
-        packaging_code:
-          type: string
-        description:
-          type: string
-        weight:
-          type: number
-        colli:
-          type: boolean
-        colli_number:
-          type: integer
-          format: int32
-        cubic_meter:
-          type: number
-        additional_mark:
-          type: boolean
-        net_weight:
-          type: number
-        weight_unit:
-          type: string
-        chargable_weight:
-          type: number
-        container_number:
-          type: string
-    Measurement:
-      properties:
-        id:
-          type: integer
-          format: int32
-        client:
-          type: string
-          description: The CargoSoft client.
-        weight:
-          type: number
-        cbm:
-          type: number
-        length:
-          type: integer
-          format: int32
-        width:
-          type: integer
-          format: int32
-        height:
-          type: integer
-          format: int32
-        goods_id:
-          type: integer
-          format: int32
-        shipment_number:
-          type: string
-          description: The CargoSoft shipment number of the shipment. This number
-            may unique in combination of the client property.
-    Shipment:
-      description: Description of the Shipment DTO schema.
-      properties:
-        id:
-          type: integer
-          format: int32
-          description: The id of the Shipment.
-        client:
-          type: string
-          description: The CargoSoft client.
-        direction:
-          type: string
-          description: "The shipment direction. Possible values are [I, E]. I = import\
-            \ shipments, E = export shipments."
-        office:
-          type: string
-          description: The shipment office.
-        goods:
-          type: array
-          items:
-            $ref: '#/components/schemas/Good'
-        numberOfGoods:
-          type: integer
-          format: int32
-        shipment_number:
-          type: string
-          description: The CargoSoft shipment number of the shipment. This number
-            may unique in combination of the client property.
-        master_reference:
-          type: string
-          description: The shipment master bl number.
-        house_reference:
-          type: string
-          description: The shipment house bl number.
-        bl_type:
-          type: string
-          description: Bl type of the shipment.
-        mode_of_transport:
-          type: string
-          description: "Transport mode of the shipment. Possible values are [SEA,\
-            \ AIR, RD, RL]"
-        month_of_service:
-          type: string
-          description: TBD.
-        total_packages:
-          type: integer
-          format: int32
-          description: The total number of packages of the shipment.
-        total_gross_weight:
-          type: number
-          description: The gross weight if the shipment.
-        closed_employee_matchcode:
-          type: string
-        last_modified_employee_matchcode:
-          type: string
-        created_employee_matchcode:
-          type: string
-        responsible_employee_matchcode:
-          type: string
-    ShipmenLookupGenericClass:
-      anyOf:
-      - $ref: '#/components/schemas/EqualsIdentifier'
-      - $ref: '#/components/schemas/InIdentifier'
-      - $ref: '#/components/schemas/ContainsIdentifier'
-      - $ref: '#/components/schemas/OrIdentifier'
-      - $ref: '#/components/schemas/LessThanIdentifier'
-      - $ref: '#/components/schemas/LessEqualIdentifier'
-      - $ref: '#/components/schemas/GreaterThanIdentifier'
-      - $ref: '#/components/schemas/GreaterEqualIdentifier'
-      properties:
-        key:
-          type: string
-          description: Identifier key. For instance a ShipmentIdentifier
-          enum:
-          - ID
-          - HBL
-          - MBL
-          - FILENUMBER
-          - SHIPMENT_ID
-          - ADDRESS_REFERENCE
-          - DIRECTION
-          - MODE_OF_TRANSPORT
-          - MONTH_OF_SERVICE
-          - CLIENT
-          - CREATION_DATE
-          - RUNNING_SEQUENCE_NUMBER
-          - CUSTOMER_ADDRESS_TYPE
-          - CUSTOMER_ADDRESS_NUMBER
-          - SHIPMENT_CLOSED
-          title: ShipmentIdentifier
-          x-enumDescriptions:
-            SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
-              be unique.
-            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments."
-            CREATION_DATE: System date when the shipment was created.
-            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
-            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
-              combination with the client.
-            CLIENT: The CargoSoft client.
-            HBL: House bl number of the Shipment.
-            MBL: Master bL number of the Shipment.
-            ADDRESS_REFERENCE: TBD
-            RUNNING_SEQUENCE_NUMBER: TBD
-            MONTH_OF_SERVICE: TBD
-            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
-              \ Possible values are [D, K, G, P, A]"
-            ID: Unique database ID of the Shipment.
-            MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-              \ AIR, RD, RL]."
-            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
-              \ N]."
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-    IdentifierListIdentifierShipmentIdentifier:
-      type: array
-      items:
-        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      properties:
-        first:
-          $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-        last:
-          $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-    IdentifierShipmentIdentifier:
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-      properties:
-        key:
-          type: string
-          description: Identifier key. For instance a ShipmentIdentifier
-          enum:
-          - ID
-          - HBL
-          - MBL
-          - FILENUMBER
-          - SHIPMENT_ID
-          - ADDRESS_REFERENCE
-          - DIRECTION
-          - MODE_OF_TRANSPORT
-          - MONTH_OF_SERVICE
-          - CLIENT
-          - CREATION_DATE
-          - RUNNING_SEQUENCE_NUMBER
-          - CUSTOMER_ADDRESS_TYPE
-          - CUSTOMER_ADDRESS_NUMBER
-          - SHIPMENT_CLOSED
-          title: ShipmentIdentifier
-          x-enumDescriptions:
-            SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
-              be unique.
-            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
-              \ import shipments, E = export shipments."
-            CREATION_DATE: System date when the shipment was created.
-            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
-            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
-              combination with the client.
-            CLIENT: The CargoSoft client.
-            HBL: House bl number of the Shipment.
-            MBL: Master bL number of the Shipment.
-            ADDRESS_REFERENCE: TBD
-            RUNNING_SEQUENCE_NUMBER: TBD
-            MONTH_OF_SERVICE: TBD
-            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
-              \ Possible values are [D, K, G, P, A]"
-            ID: Unique database ID of the Shipment.
-            MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
-              \ AIR, RD, RL]."
-            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
-              \ N]."
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
     AirfreightCarriage:
       allOf:
       - $ref: '#/components/schemas/Carriage'
@@ -2385,6 +2044,58 @@ components:
                         $ref: '#/components/schemas/LocalTime'
                       midnightEndOfDay:
                         type: boolean
+    Good:
+      properties:
+        measurements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Measurement'
+        id:
+          type: integer
+          format: int32
+        client:
+          type: string
+        shipment_number:
+          type: string
+        identifier:
+          type: string
+        counter:
+          type: integer
+          format: int32
+        level:
+          type: integer
+          format: int32
+        level_number:
+          type: integer
+          format: int32
+        mark:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        packaging_code:
+          type: string
+        description:
+          type: string
+        weight:
+          type: number
+        colli:
+          type: boolean
+        colli_number:
+          type: integer
+          format: int32
+        cubic_meter:
+          type: number
+        additional_mark:
+          type: boolean
+        net_weight:
+          type: number
+        weight_unit:
+          type: string
+        chargable_weight:
+          type: number
+        container_number:
+          type: string
     LocalTime:
       properties:
         hour:
@@ -2443,6 +2154,34 @@ components:
       required:
       - code
       - type
+    Measurement:
+      properties:
+        id:
+          type: integer
+          format: int32
+        client:
+          type: string
+          description: The CargoSoft client.
+        weight:
+          type: number
+        cbm:
+          type: number
+        length:
+          type: integer
+          format: int32
+        width:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
+        goods_id:
+          type: integer
+          format: int32
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment. This number
+            may unique in combination of the client property.
     RailCarriage:
       allOf:
       - $ref: '#/components/schemas/Carriage'
@@ -2473,6 +2212,139 @@ components:
         vessel_flag:
           type: string
         call_sign:
+          type: string
+    Shipment:
+      description: Description of the Shipment DTO schema.
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: The id of the Shipment.
+        client:
+          type: string
+          description: The CargoSoft client.
+        direction:
+          type: string
+          description: "The shipment direction. Possible values are [I, E]. I = import\
+            \ shipments, E = export shipments."
+        office:
+          type: string
+          description: The shipment office.
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment. This number
+            may unique in combination of the client property.
+        master_reference:
+          type: string
+          description: The shipment master bl number.
+        house_reference:
+          type: string
+          description: The shipment house bl number.
+        bl_type:
+          type: string
+          description: Bl type of the shipment.
+        mode_of_transport:
+          type: string
+          description: "Transport mode of the shipment. Possible values are [SEA,\
+            \ AIR, RD, RL]"
+        month_of_service:
+          type: string
+          description: TBD.
+        total_packages:
+          type: integer
+          format: int32
+          description: The total number of packages of the shipment.
+        total_gross_weight:
+          type: number
+          description: The gross weight if the shipment.
+        goods:
+          type: array
+          items:
+            $ref: '#/components/schemas/Good'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentAddress'
+        carriage_legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Carriage'
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentEvent'
+        terms_of_delivery_matchcode:
+          type: string
+        terms_of_delivery_name:
+          type: string
+        total_volume:
+          type: number
+        chargeableWeight:
+          type: number
+        original_shipment_number:
+          type: string
+        foreign_id:
+          type: string
+        closed_employee_matchcode:
+          type: string
+        last_modified_employee_matchcode:
+          type: string
+        created_employee_matchcode:
+          type: string
+        responsible_employee_matchcode:
+          type: string
+        movement_matchcode:
+          type: string
+    ShipmentAddress:
+      properties:
+        qualifier:
+          type: string
+          enum:
+          - A1
+          - A2
+          - A3
+          - A4
+          - A5
+          - A6
+          - A7
+          - A8
+          - A9
+          - AGT
+          - CAR
+          - CNE
+          - CUS
+          - DEL
+          - DEP
+          - DL1
+          - DL2
+          - INV
+          - MIS
+          - NFY
+          - PUP
+          - SHP
+          - TRA
+        shipment_id:
+          type: integer
+          format: int32
+        bl_type:
+          type: string
+          enum:
+          - MASTER
+          - HOUSE
+        address_type:
+          type: string
+        address_number:
+          type: integer
+          format: int32
+        line_1:
+          type: string
+        line_2:
+          type: string
+        line_3:
+          type: string
+        line_4:
+          type: string
+        line_5:
           type: string
     ShipmentEvent:
       description: Description of the ShipmentEvent DTO schema.
@@ -2547,6 +2419,170 @@ components:
         location:
           $ref: '#/components/schemas/Location'
           description: The location of this event.
+    ShipmenLookupGenericClass:
+      anyOf:
+      - $ref: '#/components/schemas/EqualsIdentifier'
+      - $ref: '#/components/schemas/InIdentifier'
+      - $ref: '#/components/schemas/ContainsIdentifier'
+      - $ref: '#/components/schemas/OrIdentifier'
+      - $ref: '#/components/schemas/LessThanIdentifier'
+      - $ref: '#/components/schemas/LessEqualIdentifier'
+      - $ref: '#/components/schemas/GreaterThanIdentifier'
+      - $ref: '#/components/schemas/GreaterEqualIdentifier'
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - ID
+          - HBL
+          - MBL
+          - FILENUMBER
+          - SHIPMENT_ID
+          - ADDRESS_REFERENCE
+          - DIRECTION
+          - MODE_OF_TRANSPORT
+          - MONTH_OF_SERVICE
+          - CLIENT
+          - CREATION_DATE
+          - RUNNING_SEQUENCE_NUMBER
+          - CUSTOMER_ADDRESS_TYPE
+          - CUSTOMER_ADDRESS_NUMBER
+          - SHIPMENT_CLOSED
+          title: ShipmentIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
+              be unique.
+            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
+              \ import shipments, E = export shipments."
+            CREATION_DATE: System date when the shipment was created.
+            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
+            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
+              combination with the client.
+            CLIENT: The CargoSoft client.
+            HBL: House bl number of the Shipment.
+            MBL: Master bL number of the Shipment.
+            ADDRESS_REFERENCE: TBD
+            RUNNING_SEQUENCE_NUMBER: TBD
+            MONTH_OF_SERVICE: TBD
+            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
+              \ Possible values are [D, K, G, P, A]"
+            ID: Unique database ID of the Shipment.
+            MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
+              \ AIR, RD, RL]."
+            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
+              \ N]."
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+    IdentifierListIdentifierShipmentIdentifier:
+      type: array
+      items:
+        $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      properties:
+        first:
+          $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+        last:
+          $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+    IdentifierShipmentIdentifier:
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - ID
+          - HBL
+          - MBL
+          - FILENUMBER
+          - SHIPMENT_ID
+          - ADDRESS_REFERENCE
+          - DIRECTION
+          - MODE_OF_TRANSPORT
+          - MONTH_OF_SERVICE
+          - CLIENT
+          - CREATION_DATE
+          - RUNNING_SEQUENCE_NUMBER
+          - CUSTOMER_ADDRESS_TYPE
+          - CUSTOMER_ADDRESS_NUMBER
+          - SHIPMENT_CLOSED
+          title: ShipmentIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
+              be unique.
+            DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
+              \ import shipments, E = export shipments."
+            CREATION_DATE: System date when the shipment was created.
+            CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
+            FILENUMBER: CargoSoft shipment number. The shipment number is unique in
+              combination with the client.
+            CLIENT: The CargoSoft client.
+            HBL: House bl number of the Shipment.
+            MBL: Master bL number of the Shipment.
+            ADDRESS_REFERENCE: TBD
+            RUNNING_SEQUENCE_NUMBER: TBD
+            MONTH_OF_SERVICE: TBD
+            CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
+              \ Possible values are [D, K, G, P, A]"
+            ID: Unique database ID of the Shipment.
+            MODE_OF_TRANSPORT: "The mode of the shipment. Possible values are [SEA,\
+              \ AIR, RD, RL]."
+            SHIPMENT_CLOSED: "Flag if the shipment is done. Possible values are [J,\
+              \ N]."
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
     Jwt:
       properties:
         token:

@@ -2314,14 +2314,6 @@ components:
           - PUP
           - SHP
           - TRA
-        shipment_id:
-          type: integer
-          format: int32
-        bl_type:
-          type: string
-          enum:
-          - MASTER
-          - HOUSE
         address_type:
           type: string
         address_number:
@@ -2337,6 +2329,14 @@ components:
           type: string
         line_5:
           type: string
+        shipment_id:
+          type: integer
+          format: int32
+        bl_type:
+          type: string
+          enum:
+          - MASTER
+          - HOUSE
     ShipmentEvent:
       description: Description of the ShipmentEvent DTO schema.
       properties:

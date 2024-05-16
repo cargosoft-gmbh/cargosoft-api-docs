@@ -2337,6 +2337,38 @@ components:
           enum:
           - MASTER
           - HOUSE
+        name_1:
+          type: string
+        name_2:
+          type: string
+        name_3:
+          type: string
+        street:
+          type: string
+        postal_code:
+          type: string
+        city:
+          type: string
+        postal_box:
+          type: string
+        postal_box_postal_code:
+          type: string
+        state:
+          type: string
+        un_country_matchcode:
+          type: string
+        un_country_name:
+          type: string
+        district:
+          type: string
+        contact_name:
+          type: string
+        contact_phone_number:
+          type: string
+        contact_fax_number:
+          type: string
+        contact_email:
+          type: string
     ShipmentEvent:
       description: Description of the ShipmentEvent DTO schema.
       properties:

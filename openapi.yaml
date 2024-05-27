@@ -2189,6 +2189,21 @@ components:
     RailCarriage:
       allOf:
       - $ref: '#/components/schemas/Carriage'
+    Reference:
+      properties:
+        id:
+          type: integer
+          format: int32
+        matchcode:
+          type: string
+        value:
+          type: string
+        date_and_time:
+          $ref: '#/components/schemas/DateAndTime'
+      required:
+      - id
+      - matchcode
+      - value
     RoadCarriage:
       allOf:
       - $ref: '#/components/schemas/Carriage'
@@ -2373,6 +2388,10 @@ components:
           type: string
         contact_email:
           type: string
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
     ShipmentEvent:
       description: Description of the ShipmentEvent DTO schema.
       properties:

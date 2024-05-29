@@ -2273,10 +2273,6 @@ components:
         office:
           type: string
           description: The shipment office.
-        containers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Container'
         shipment_number:
           type: string
           description: The CargoSoft shipment number of the shipment. This number
@@ -2342,6 +2338,10 @@ components:
           type: string
         movement_matchcode:
           type: string
+        containers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Container'
     ShipmentAddress:
       properties:
         qualifier:

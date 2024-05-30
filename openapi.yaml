@@ -2078,6 +2078,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Good'
+        mark:
+          type: array
+          items:
+            type: string
         id:
           type: integer
           format: int32
@@ -2096,8 +2100,10 @@ components:
         level_number:
           type: integer
           format: int32
-        mark:
-          type: string
+        marks:
+          type: array
+          items:
+            type: string
         quantity:
           type: integer
           format: int32

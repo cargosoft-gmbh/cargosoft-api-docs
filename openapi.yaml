@@ -2104,7 +2104,9 @@ components:
         packaging_code:
           type: string
         description:
-          type: string
+          type: array
+          items:
+            type: string
         weight:
           type: number
         colli:
@@ -2203,6 +2205,9 @@ components:
         height:
           type: integer
           format: int32
+        quantity:
+          type: integer
+          format: int32
         goods_id:
           type: integer
           format: int32
@@ -2210,6 +2215,12 @@ components:
           type: string
           description: The CargoSoft shipment number of the shipment. This number
             may unique in combination of the client property.
+        weight_unit:
+          type: string
+        cbm_unit:
+          type: string
+        measurement_unit:
+          type: string
     RailCarriage:
       allOf:
       - $ref: '#/components/schemas/Carriage'

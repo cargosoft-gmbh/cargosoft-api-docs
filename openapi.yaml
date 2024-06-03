@@ -2078,10 +2078,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Good'
-        mark:
-          type: array
-          items:
-            type: string
         id:
           type: integer
           format: int32
@@ -2120,8 +2116,10 @@ components:
         colli_number:
           type: integer
           format: int32
-        cubic_meter:
+        volume:
           type: number
+        volume_unit:
+          type: string
         additional_mark:
           type: boolean
         net_weight:
@@ -2200,8 +2198,6 @@ components:
           description: The CargoSoft client.
         weight:
           type: number
-        cbm:
-          type: number
         length:
           type: integer
           format: int32
@@ -2223,7 +2219,9 @@ components:
             may unique in combination of the client property.
         weight_unit:
           type: string
-        cbm_unit:
+        volume:
+          type: number
+        volume_unit:
           type: string
         measurement_unit:
           type: string

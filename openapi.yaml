@@ -1915,6 +1915,25 @@ components:
           type: string
         shippers_own:
           type: boolean
+    Customs:
+      properties:
+        id:
+          type: integer
+          format: int32
+        invoice_number:
+          type: string
+        invoice_date_time:
+          type: string
+          format: date-time
+        amount:
+          type: number
+        currency_matchcode:
+          type: string
+        delivery_note:
+          type: string
+        delivery_date_time:
+          type: string
+          format: date-time
     DateAndTime:
       properties:
         date:
@@ -2074,10 +2093,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Measurement'
+        customs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customs'
         subgoods:
           type: array
           items:
             $ref: '#/components/schemas/Good'
+        mrns:
+          type: array
+          items:
+            $ref: '#/components/schemas/MRN'
         id:
           type: integer
           format: int32
@@ -2129,6 +2156,20 @@ components:
         chargable_weight:
           type: number
         container_number:
+          type: string
+        hs_codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/HSCode'
+    HSCode:
+      properties:
+        id:
+          type: integer
+          format: int32
+        goodId:
+          type: integer
+          format: int32
+        hsCode:
           type: string
     LocalTime:
       properties:
@@ -2188,6 +2229,13 @@ components:
       required:
       - code
       - type
+    MRN:
+      properties:
+        id:
+          type: integer
+          format: int32
+        mrn:
+          type: string
     Measurement:
       properties:
         id:

@@ -804,7 +804,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/AirfreightCarriage'
+                  $ref: '#/components/schemas/AirfreightCarriageLeg'
               examples:
                 ShipmentAirfreightCarriageExportExample:
                   summary: Airfreight export carriage example
@@ -879,7 +879,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/SeafreightCarriage'
+                  $ref: '#/components/schemas/SeafreightCarriageLeg'
         "500":
           description: Internal server error
           content:
@@ -1847,9 +1847,9 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-    AirfreightCarriage:
+    AirfreightCarriageLeg:
       allOf:
-      - $ref: '#/components/schemas/Carriage'
+      - $ref: '#/components/schemas/CarriageLeg'
       - type: object
         properties:
           flight_no:
@@ -1863,15 +1863,17 @@ components:
             description: The airline name of this airfreight carriage.
       description: Description of the airfreight carriage DTO schema with several
         airfreight attributes.
-    Carriage:
+    CarriageLeg:
       description: Description of the Carriage DTO schema.
       properties:
+        mot:
+          type: string
         origin:
-          $ref: '#/components/schemas/CarriageLeg'
+          $ref: '#/components/schemas/LocationDateTime'
           description: The origin of this leg. This object contains several information
             about the location and its dates and times.
         destination:
-          $ref: '#/components/schemas/CarriageLeg'
+          $ref: '#/components/schemas/LocationDateTime'
           description: The destination of this leg. This object contains several information
             about the location and its dates and times.
         leg_no:
@@ -1879,18 +1881,6 @@ components:
           format: int32
           description: The number for the correct order of the transport legs. Important
             if more than one leg is entered for the shipment.
-    CarriageLeg:
-      description: The carriage leg in detail.
-      properties:
-        location:
-          $ref: '#/components/schemas/Location'
-          description: The location of this leg.
-        estimated_datetime:
-          $ref: '#/components/schemas/DateAndTime'
-          description: The local estimated date and time related to the location.
-        actual_datetime:
-          $ref: '#/components/schemas/DateAndTime'
-          description: The local actual date and time related to the location.
     Container:
       properties:
         containerAddresses:
@@ -2028,11 +2018,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2063,6 +2048,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -2128,6 +2118,15 @@ components:
                         $ref: '#/components/schemas/LocalTime'
                       midnightEndOfDay:
                         type: boolean
+    GenericCarriageLeg:
+      allOf:
+      - $ref: '#/components/schemas/CarriageLeg'
+      - type: object
+        properties:
+          haulage_type:
+            type: string
+          haulage_reference:
+            type: string
     Good:
       properties:
         measurements:
@@ -2270,6 +2269,23 @@ components:
       required:
       - code
       - type
+    LocationDateTime:
+      description: The carriage leg in detail.
+      properties:
+        location:
+          $ref: '#/components/schemas/Location'
+          description: The location of this leg.
+        estimated_datetime:
+          $ref: '#/components/schemas/DateAndTime'
+          description: The local estimated date and time related to the location.
+        actual_datetime:
+          $ref: '#/components/schemas/DateAndTime'
+          description: The local actual date and time related to the location.
+        revised_datetime:
+          $ref: '#/components/schemas/DateAndTime'
+          description: The local revised date and time related to the location.
+        estimated_datetime_until:
+          $ref: '#/components/schemas/DateAndTime'
     MRN:
       properties:
         id:
@@ -2314,9 +2330,9 @@ components:
           type: string
         measurement_unit:
           type: string
-    RailCarriage:
+    RailCarriageLeg:
       allOf:
-      - $ref: '#/components/schemas/Carriage'
+      - $ref: '#/components/schemas/CarriageLeg'
     Reference:
       properties:
         id:
@@ -2332,17 +2348,19 @@ components:
       - id
       - matchcode
       - value
-    RoadCarriage:
+    RoadCarriageLeg:
       allOf:
-      - $ref: '#/components/schemas/Carriage'
-    SeafreightCarriage:
+      - $ref: '#/components/schemas/CarriageLeg'
+    SeafreightCarriageLeg:
       properties:
+        mot:
+          type: string
         origin:
-          $ref: '#/components/schemas/CarriageLeg'
+          $ref: '#/components/schemas/LocationDateTime'
           description: The origin of this leg. This object contains several information
             about the location and its dates and times.
         destination:
-          $ref: '#/components/schemas/CarriageLeg'
+          $ref: '#/components/schemas/LocationDateTime'
           description: The destination of this leg. This object contains several information
             about the location and its dates and times.
         leg_no:
@@ -2412,10 +2430,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ShipmentAddress'
-        carriage_legs:
+        pre_carriage_legs:
           type: array
           items:
-            $ref: '#/components/schemas/Carriage'
+            $ref: '#/components/schemas/CarriageLeg'
+        main_carriage_legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarriageLeg'
+        post_carriage_legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarriageLeg'
         events:
           type: array
           items:

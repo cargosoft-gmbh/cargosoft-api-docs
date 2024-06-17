@@ -1893,6 +1893,10 @@ components:
           description: The local actual date and time related to the location.
     Container:
       properties:
+        containerAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerAddress'
         id:
           type: integer
           format: int32
@@ -1915,6 +1919,39 @@ components:
           type: string
         shippers_own:
           type: boolean
+    ContainerAddress:
+      properties:
+        id:
+          type: integer
+          format: int32
+        qualifier:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        order:
+          type: integer
+          format: int32
+        address_type:
+          type: string
+        address_number:
+          type: integer
+          format: int32
+        line_1:
+          type: string
+        line_2:
+          type: string
+        line_3:
+          type: string
+        line_4:
+          type: string
+        line_5:
+          type: string
+        postal_code:
+          type: string
+        country_matchcode:
+          type: string
     Customs:
       properties:
         id:
@@ -1987,11 +2024,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2022,6 +2054,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:

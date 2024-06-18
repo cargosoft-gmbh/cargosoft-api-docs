@@ -1874,8 +1874,6 @@ components:
           RoadCarriageMapped: '#/components/schemas/RoadCarriageLeg'
           GenericCarriageMapped: '#/components/schemas/GenericCarriageLeg'
       properties:
-        mot:
-          type: string
         origin:
           $ref: '#/components/schemas/LocationDateTime'
           description: The origin of this leg. This object contains several information
@@ -1889,6 +1887,10 @@ components:
           format: int32
           description: The number for the correct order of the transport legs. Important
             if more than one leg is entered for the shipment.
+        mot:
+          type: string
+      required:
+      - mot
     Container:
       properties:
         containerAddresses:
@@ -2026,6 +2028,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2056,11 +2063,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -2361,8 +2363,6 @@ components:
       - $ref: '#/components/schemas/CarriageLeg'
     SeafreightCarriageLeg:
       properties:
-        mot:
-          type: string
         origin:
           $ref: '#/components/schemas/LocationDateTime'
           description: The origin of this leg. This object contains several information

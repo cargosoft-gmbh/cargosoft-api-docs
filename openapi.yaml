@@ -1865,6 +1865,14 @@ components:
         airfreight attributes.
     CarriageLeg:
       description: Description of the Carriage DTO schema.
+      discriminator:
+        propertyName: mot
+        mapping:
+          AirfreightCarriageMapped: '#/components/schemas/AirfreightCarriageLeg'
+          SeafreightCarriageMapped: '#/components/schemas/SeafreightCarriageLeg'
+          RailCarriageMapped: '#/components/schemas/RailCarriageLeg'
+          RoadCarriageMapped: '#/components/schemas/RoadCarriageLeg'
+          GenericCarriageMapped: '#/components/schemas/GenericCarriageLeg'
       properties:
         mot:
           type: string

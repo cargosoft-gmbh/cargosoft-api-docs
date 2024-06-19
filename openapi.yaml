@@ -2438,18 +2438,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ShipmentAddress'
-        pre_carriage_legs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CarriageLeg'
-        main_carriage_legs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CarriageLeg'
-        post_carriage_legs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CarriageLeg'
+        pre_carriage:
+          $ref: '#/components/schemas/Transport'
+        main_carriage:
+          $ref: '#/components/schemas/Transport'
+        post_carriage:
+          $ref: '#/components/schemas/Transport'
         events:
           type: array
           items:
@@ -2631,6 +2625,12 @@ components:
         location:
           $ref: '#/components/schemas/Location'
           description: The location of this event.
+    Transport:
+      properties:
+        carriage_legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarriageLeg'
     ShipmenLookupGenericClass:
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'

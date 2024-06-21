@@ -2362,30 +2362,22 @@ components:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
     SeafreightCarriageLeg:
-      properties:
-        origin:
-          $ref: '#/components/schemas/LocationDateTime'
-          description: The origin of this leg. This object contains several information
-            about the location and its dates and times.
-        destination:
-          $ref: '#/components/schemas/LocationDateTime'
-          description: The destination of this leg. This object contains several information
-            about the location and its dates and times.
-        leg_no:
-          type: integer
-          format: int32
-          description: The number for the correct order of the transport legs. Important
-            if more than one leg is entered for the shipment.
-        voyage_no:
-          type: string
-        imo_code:
-          type: string
-        vessel_name:
-          type: string
-        vessel_flag:
-          type: string
-        call_sign:
-          type: string
+      allOf:
+      - $ref: '#/components/schemas/CarriageLeg'
+      - type: object
+        properties:
+          voyage_no:
+            type: string
+          imo_code:
+            type: string
+          vessel_name:
+            type: string
+          vessel_flag:
+            type: string
+          call_sign:
+            type: string
+      description: Description of the seafreight carriage DTO schema with several
+        seafreight attributes.
     Shipment:
       description: Description of the Shipment DTO schema.
       properties:

@@ -1963,6 +1963,16 @@ components:
           type: string
         country_matchcode:
           type: string
+    CreditData:
+      properties:
+        lc_number:
+          type: string
+        latest_shipment_date:
+          type: string
+          format: date
+        lc_expiry:
+          type: string
+          format: date
     Customs:
       properties:
         id:
@@ -2230,21 +2240,21 @@ components:
           type: string
     Insurance:
       properties:
-        waiverCustomer:
+        waiver_customer:
           type: boolean
-        insurableValue:
+        insurable_value:
           type: number
-        insurableValueCurrencyMatchcode:
+        insurable_value_currency_matchcode:
           type: string
-        valueOfGoods:
+        value_of_goods:
           type: number
-        valueOfGoodsCurrencyMatchcode:
+        value_of_goods_currency_matchcode:
           type: string
-        insuranceText:
+        insurance_text:
           type: string
-        transportInsurance:
+        transport_insurance:
           type: boolean
-        insuranceType:
+        insurance_type:
           type: string
         insurer:
           $ref: '#/components/schemas/AddressMatchcode'
@@ -2491,6 +2501,8 @@ components:
           $ref: '#/components/schemas/AddressMatchcode'
         carrier_matchcode:
           $ref: '#/components/schemas/AddressMatchcode'
+        credit_data:
+          $ref: '#/components/schemas/CreditData'
         containers:
           type: array
           items:

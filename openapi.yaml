@@ -1847,6 +1847,13 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
+    AddressMatchcode:
+      properties:
+        address_type:
+          type: string
+        address_number:
+          type: integer
+          format: int32
     AirfreightCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
@@ -2221,6 +2228,26 @@ components:
           format: int32
         hsCode:
           type: string
+    Insurance:
+      properties:
+        waiverCustomer:
+          type: boolean
+        insurableValue:
+          type: number
+        insurableValueCurrencyMatchcode:
+          type: string
+        valueOfGoods:
+          type: number
+        valueOfGoodsCurrencyMatchcode:
+          type: string
+        insuranceText:
+          type: string
+        transportInsurance:
+          type: boolean
+        insuranceType:
+          type: string
+        insurer:
+          $ref: '#/components/schemas/AddressMatchcode'
     LocalTime:
       properties:
         hour:
@@ -2395,6 +2422,10 @@ components:
         office:
           type: string
           description: The shipment office.
+        employees:
+          $ref: '#/components/schemas/ShipmentEmployees'
+        insurance:
+          $ref: '#/components/schemas/Insurance'
         shipment_number:
           type: string
           description: The CargoSoft shipment number of the shipment. This number
@@ -2451,14 +2482,6 @@ components:
         original_shipment_number:
           type: string
         foreign_id:
-          type: string
-        closed_employee_matchcode:
-          type: string
-        last_modified_employee_matchcode:
-          type: string
-        created_employee_matchcode:
-          type: string
-        responsible_employee_matchcode:
           type: string
         movement_matchcode:
           type: string
@@ -2544,6 +2567,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Reference'
+    ShipmentEmployees:
+      properties:
+        closed_employee_matchcode:
+          type: string
+        last_modified_employee_matchcode:
+          type: string
+        created_employee_matchcode:
+          type: string
+        responsible_employee_matchcode:
+          type: string
     ShipmentEvent:
       description: Description of the ShipmentEvent DTO schema.
       properties:

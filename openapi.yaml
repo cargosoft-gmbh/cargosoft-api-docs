@@ -2424,8 +2424,6 @@ components:
           description: The shipment office.
         employees:
           $ref: '#/components/schemas/ShipmentEmployees'
-        insurance:
-          $ref: '#/components/schemas/Insurance'
         shipment_number:
           type: string
           description: The CargoSoft shipment number of the shipment. This number
@@ -2485,6 +2483,14 @@ components:
           type: string
         movement_matchcode:
           type: string
+        insurance:
+          $ref: '#/components/schemas/Insurance'
+        faciliator_matchcode:
+          $ref: '#/components/schemas/AddressMatchcode'
+        agent_matchcode:
+          $ref: '#/components/schemas/AddressMatchcode'
+        carrier_matchcode:
+          $ref: '#/components/schemas/AddressMatchcode'
         containers:
           type: array
           items:

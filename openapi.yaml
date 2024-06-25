@@ -1898,6 +1898,16 @@ components:
           type: string
       required:
       - mot
+    Contact:
+      properties:
+        name:
+          type: string
+        phone_number:
+          type: string
+        fax_number:
+          type: string
+        email:
+          type: string
     Container:
       properties:
         containerAddresses:
@@ -1992,6 +2002,74 @@ components:
         delivery_date_time:
           type: string
           format: date-time
+    DangerousGood:
+      properties:
+        id:
+          type: integer
+          format: int32
+        dangerous_good_legislation:
+          type: string
+          description: "The dangerous goods legislation. Possible values are IMDG,\
+            \ ADR, or RID."
+        classification_code:
+          type: string
+          description: Classification code of this dangerous good. For instance the
+            imdg code.
+        un_number:
+          type: string
+        release:
+          type: string
+          description: Dangerous goods release
+        label_1:
+          type: string
+        label_2:
+          type: string
+        label_3:
+          type: string
+        label_4:
+          type: string
+        site:
+          type: string
+        flashpoint:
+          type: string
+          description: Flashpoint
+        flashpoint_unit:
+          type: string
+          description: The unit of the flashpoint. Possible values are C or F.
+        ems_number_1:
+          type: string
+        ems_number_2:
+          type: string
+        mfag_number_1:
+          type: string
+        mfag_number_2:
+          type: string
+        remarks:
+          type: array
+          items:
+            type: string
+        authorisation_number:
+          type: string
+        packaging_group:
+          type: string
+        technical_name_1:
+          type: string
+        technical_name_2:
+          type: string
+        causing_substance_1:
+          type: string
+        causing_substance_2:
+          type: string
+        issuer:
+          type: string
+        net_weight:
+          type: number
+        weight_unit:
+          type: string
+        gross_weight:
+          type: number
+        contact:
+          $ref: '#/components/schemas/Contact'
     DateAndTime:
       properties:
         date:
@@ -2045,11 +2123,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2080,6 +2153,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -2168,6 +2246,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Good'
+        dangerousGoods:
+          type: array
+          items:
+            $ref: '#/components/schemas/DangerousGood'
         mrns:
           type: array
           items:
@@ -2573,14 +2655,8 @@ components:
           type: string
         district:
           type: string
-        contact_name:
-          type: string
-        contact_phone_number:
-          type: string
-        contact_fax_number:
-          type: string
-        contact_email:
-          type: string
+        contact:
+          $ref: '#/components/schemas/Contact'
         references:
           type: array
           items:

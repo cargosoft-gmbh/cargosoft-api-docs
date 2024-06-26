@@ -2002,6 +2002,15 @@ components:
         delivery_date_time:
           type: string
           format: date-time
+    CustomsData:
+      properties:
+        custom_clearance_date:
+          type: string
+          format: date
+        clearance:
+          type: string
+        book:
+          type: string
     DangerousGood:
       properties:
         id:
@@ -2585,6 +2594,8 @@ components:
           $ref: '#/components/schemas/AddressMatchcode'
         credit_data:
           $ref: '#/components/schemas/CreditData'
+        customs_data:
+          $ref: '#/components/schemas/CustomsData'
         containers:
           type: array
           items:

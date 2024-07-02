@@ -1383,7 +1383,7 @@ components:
           format: int32
           description: The accounting periode in format YYYYMM
         invoice_address:
-          $ref: '#/components/schemas/PrintedAddress'
+          $ref: '#/components/schemas/PrintedMatchcodeAddress'
           description: The invoice address with the CargoSoft address number
         invoice_reference:
           type: string
@@ -1474,11 +1474,6 @@ components:
       - taxAmount
     PrintedAddress:
       properties:
-        address_type:
-          type: string
-        address_number:
-          type: integer
-          format: int32
         line_1:
           type: string
         line_2:
@@ -1489,6 +1484,15 @@ components:
           type: string
         line_5:
           type: string
+    PrintedMatchcodeAddress:
+      properties:
+        address_type:
+          type: string
+        address_number:
+          type: integer
+          format: int32
+        printed_address:
+          $ref: '#/components/schemas/PrintedAddress'
     VoucherLine:
       properties:
         id:
@@ -1646,6 +1650,13 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
+    AddressMatchcode:
+      properties:
+        address_type:
+          type: string
+        address_number:
+          type: integer
+          format: int32
     Voucher:
       properties:
         id:
@@ -1725,7 +1736,7 @@ components:
           type: string
           description: The accounting periode in format YYYYMM
         invoice_address:
-          $ref: '#/components/schemas/PrintedAddress'
+          $ref: '#/components/schemas/AddressMatchcode'
           description: The invoice address (biller or invoice recipient) with the
             CargoSoft address number
         gross_amount_local:
@@ -1847,13 +1858,6 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-    AddressMatchcode:
-      properties:
-        address_type:
-          type: string
-        address_number:
-          type: integer
-          format: int32
     AirfreightCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
@@ -1959,16 +1963,8 @@ components:
         address_number:
           type: integer
           format: int32
-        line_1:
-          type: string
-        line_2:
-          type: string
-        line_3:
-          type: string
-        line_4:
-          type: string
-        line_5:
-          type: string
+        printed_address:
+          $ref: '#/components/schemas/PrintedAddress'
         postal_code:
           type: string
         country_matchcode:
@@ -2624,47 +2620,24 @@ components:
         address_number:
           type: integer
           format: int32
-        line_1:
-          type: string
-        line_2:
-          type: string
-        line_3:
-          type: string
-        line_4:
-          type: string
-        line_5:
-          type: string
-        shipment_id:
-          type: integer
-          format: int32
+        printed_address:
+          $ref: '#/components/schemas/PrintedAddress'
         bl_type:
           type: string
           enum:
           - MASTER
           - HOUSE
-        name_1:
-          type: string
-        name_2:
-          type: string
-        name_3:
-          type: string
         street:
           type: string
         postal_code:
           type: string
         city:
           type: string
-        postal_box:
-          type: string
-        postal_box_postal_code:
-          type: string
         state:
           type: string
-        un_country_matchcode:
+        country_matchcode:
           type: string
-        un_country_name:
-          type: string
-        district:
+        un_location_code:
           type: string
         contact:
           $ref: '#/components/schemas/Contact'

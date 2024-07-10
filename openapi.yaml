@@ -2128,6 +2128,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2158,11 +2163,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -2582,12 +2582,6 @@ components:
           type: string
         insurance:
           $ref: '#/components/schemas/Insurance'
-        faciliator_matchcode:
-          $ref: '#/components/schemas/AddressMatchcode'
-        agent_matchcode:
-          $ref: '#/components/schemas/AddressMatchcode'
-        carrier_matchcode:
-          $ref: '#/components/schemas/AddressMatchcode'
         credit_data:
           $ref: '#/components/schemas/CreditData'
         customs_data:
@@ -2615,6 +2609,9 @@ components:
           - PUP
           - SHP
           - TRA
+          - FACILIATOR
+          - AGENT
+          - CARRIER
         address_type:
           type: string
         address_number:

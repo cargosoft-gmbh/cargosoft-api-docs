@@ -7,11 +7,11 @@ info:
     name: Uwe Droste
     url: https://www.cargosoft.de
     email: support@cargosoft.de
-  version: '2024.2'
+  version: '2024.1'
   x-logo:
     backgroundColor: '#FFFFF'
     altText: CargoSoft GmbH
-    url: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2024.2/resources/CargoSoftLogo.jpg
+    url: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2024.1/resources/CargoSoftLogo.jpg
 servers:
 - url: https://api-demo.cargosoft.de
   description: Test CargoSoft API server.
@@ -1858,20 +1858,6 @@ components:
             CONTAINS: Contains
             GT: Greater than.
             GE: Greater equals
-    AES:
-      properties:
-        id:
-          type: integer
-          format: int32
-        client:
-          type: string
-        mrn:
-          type: string
-        shipment_number:
-          type: string
-        running_number:
-          type: integer
-          format: int32
     AirfreightCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
@@ -1927,24 +1913,17 @@ components:
         email:
           type: string
     Container:
-      description: Description of the Container DTO. Each container refers to a good
-        element because a container is part of the CargoSoft goods description.
       properties:
         containerAddresses:
           type: array
-          description: "List of container addresses. This list contains the three\
-            \ fixed addresses on the container. In addition, further dynamic addresses\
-            \ can be defined and entered on the container."
           items:
             $ref: '#/components/schemas/ContainerAddress'
         id:
           type: integer
           format: int32
-          description: The id of this Container.
         good_id:
           type: integer
           format: int32
-          description: The goods id references the associated good element.
         client:
           type: string
         shipment_number:
@@ -1962,32 +1941,21 @@ components:
         shippers_own:
           type: boolean
     ContainerAddress:
-      description: Description of the ContainerAddress DTO.
       properties:
         id:
           type: integer
           format: int32
-          description: The id of the dynamic container address. The three fixed container
-            addresses have no id.
         qualifier:
           type: string
-          description: "The role of this address. For the three fixed addresses are\
-            \ the following roles dedined [DELIVERER, PICKUP, REDILIVERY]. The roles\
-            \ of the dynamic addresses do not have a fixed qualifier."
         street:
           type: string
-          description: The street of this address.
         city:
           type: string
-          description: The city name of this address.
         order:
           type: integer
           format: int32
-          description: Sequential numbering of the addresses. This is important for
-            the order of the addresses.
         references:
           type: array
-          description: References of this address.
           items:
             $ref: '#/components/schemas/Reference'
         address_type:
@@ -1999,22 +1967,8 @@ components:
           $ref: '#/components/schemas/PrintedAddress'
         postal_code:
           type: string
-          description: The postal code of this address.
         country_matchcode:
           type: string
-          description: The country code of this address.
-        un_location_code:
-          type: string
-          description: The city un location code of this address.
-        from_date_and_time:
-          $ref: '#/components/schemas/DateAndTime'
-          description: From date and time for an appointment.
-        to_date_and_time:
-          $ref: '#/components/schemas/DateAndTime'
-          description: To date and time for an appointment.
-        contact:
-          $ref: '#/components/schemas/Contact'
-          description: Additional contact information.
     CreditData:
       properties:
         lc_number:
@@ -2025,20 +1979,6 @@ components:
         lc_expiry:
           type: string
           format: date
-    CustomField:
-      properties:
-        id:
-          type: integer
-          format: int32
-        client:
-          type: string
-        value:
-          type: string
-        shipment_number:
-          type: string
-        running_number:
-          type: integer
-          format: int32
     Customs:
       properties:
         id:
@@ -2068,97 +2008,73 @@ components:
         book:
           type: string
     DangerousGood:
-      description: Description of the DangerousGood DTO.
       properties:
         id:
           type: integer
           format: int32
-          description: The id of this dangerous goods.
         dangerous_good_legislation:
           type: string
           description: "The dangerous goods legislation. Possible values are IMDG,\
             \ ADR, or RID."
         classification_code:
           type: string
-          description: Classification code of this dangerous goods. For instance the
+          description: Classification code of this dangerous good. For instance the
             imdg code.
         un_number:
           type: string
-          description: Dangerous goods UN-Number.
         release:
           type: string
-          description: Dangerous goods release.
+          description: Dangerous goods release
         label_1:
           type: string
-          description: Dangerous goods label.
         label_2:
           type: string
-          description: Dangerous goods label.
         label_3:
           type: string
-          description: Dangerous goods label.
         label_4:
           type: string
-          description: Dangerous goods label.
         site:
           type: string
-          description: Dangerous goods site.
         flashpoint:
           type: string
-          description: Flashpoint of this dangerous goods.
+          description: Flashpoint
         flashpoint_unit:
           type: string
           description: The unit of the flashpoint. Possible values are C or F.
         ems_number_1:
           type: string
-          description: EMS number.
         ems_number_2:
           type: string
-          description: EMS number.
         mfag_number_1:
           type: string
-          description: MFAG number.
         mfag_number_2:
           type: string
-          description: MFAG number.
         remarks:
           type: array
-          description: Dangerous goods remarks.
           items:
             type: string
         authorisation_number:
           type: string
-          description: Dangerous goods authorisation number.
         packaging_group:
           type: string
-          description: Packaging group of this dangerous goods.
         technical_name_1:
           type: string
-          description: Technical name of this dangerous goods.
         technical_name_2:
           type: string
-          description: Technical name of this dangerous goods.
         causing_substance_1:
           type: string
-          description: Causing substance of this dangerous goods.
         causing_substance_2:
           type: string
-          description: Causing substance of this dangerous goods.
         issuer:
           type: string
-          description: Issuer of this dangerous goods.
         net_weight:
           type: number
-          description: Net weight of this dangerous goods.
         weight_unit:
           type: string
-          description: Weight unit of the net and gross weight.
         gross_weight:
           type: number
-          description: Gross weight of this dangerous goods.
         contact:
           $ref: '#/components/schemas/Contact'
-          description: Contact information of this dangerous goods.
     DateAndTime:
       properties:
         date:
@@ -2322,8 +2238,6 @@ components:
           haulage_reference:
             type: string
     Good:
-      description: Description of the Good DTO. Each container refers to a good element
-        because a container is part of the CargoSoft goods description.
       properties:
         measurements:
           type: array
@@ -2333,10 +2247,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Customs'
-        mrns:
-          type: array
-          items:
-            $ref: '#/components/schemas/MRN'
         subgoods:
           type: array
           items:
@@ -2345,6 +2255,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DangerousGood'
+        mrns:
+          type: array
+          items:
+            $ref: '#/components/schemas/MRN'
         id:
           type: integer
           format: int32
@@ -2370,9 +2284,7 @@ components:
         quantity:
           type: integer
           format: int32
-        packaging_matchcode:
-          type: string
-        commodity_matchcode:
+        packaging_code:
           type: string
         description:
           type: array
@@ -2609,14 +2521,6 @@ components:
           description: The shipment office.
         employees:
           $ref: '#/components/schemas/ShipmentEmployees'
-        memos:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShipmentMemo'
-        aes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AES'
         shipment_number:
           type: string
           description: The CargoSoft shipment number of the shipment. This number
@@ -2686,10 +2590,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Container'
-        custom_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField'
     ShipmentAddress:
       properties:
         qualifier:
@@ -2825,20 +2725,6 @@ components:
         location:
           $ref: '#/components/schemas/Location'
           description: The location of this event.
-    ShipmentMemo:
-      properties:
-        id:
-          type: integer
-          format: int32
-        client:
-          type: string
-        memo:
-          type: string
-        shipment_number:
-          type: string
-        running_number:
-          type: integer
-          format: int32
     Transport:
       properties:
         carriage_legs:

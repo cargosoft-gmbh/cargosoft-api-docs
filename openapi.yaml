@@ -824,6 +824,30 @@ paths:
                 $ref: '#/components/schemas/APIErrorResponse'
       security:
       - JavaWebToken: []
+  /cargosoft/shipment/{id}:
+    get:
+      tags:
+      - Shipment
+      summary: Retrieve shipment
+      description: Retrieve a specific shipment with the CargoSoft database id.
+      operationId: retrieveById_3
+      parameters:
+      - name: id
+        in: path
+        description: Database id of the record you want to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Record retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+      security:
+      - JavaWebToken: []
   /cargosoft/shipment/{id}/events:
     get:
       tags:
@@ -1488,11 +1512,14 @@ components:
       properties:
         address_type:
           type: string
+          description: The CargoSoft address type.
         address_number:
           type: integer
           format: int32
+          description: The CargoSoft address number.
         printed_address:
           $ref: '#/components/schemas/PrintedAddress'
+          description: The address exactly as entered in the shipment record.
     VoucherLine:
       properties:
         id:
@@ -1654,9 +1681,11 @@ components:
       properties:
         address_type:
           type: string
+          description: The CargoSoft address type.
         address_number:
           type: integer
           format: int32
+          description: The CargoSoft address number.
     Voucher:
       properties:
         id:
@@ -1865,13 +1894,17 @@ components:
           format: int32
         client:
           type: string
+          description: The CargoSoft client.
         mrn:
           type: string
+          description: The Movement Reference Number assigned to this customs declaration.
         shipment_number:
           type: string
+          description: The CargoSoft shipment number of the shipment.
         running_number:
           type: integer
           format: int32
+          description: Proposal counter
     AirfreightCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
@@ -1940,27 +1973,36 @@ components:
         id:
           type: integer
           format: int32
-          description: The id of this Container.
+          description: The unique identifier of this Container.
         good_id:
           type: integer
           format: int32
           description: The goods id references the associated good element.
         client:
           type: string
+          description: The CargoSoft client
         shipment_number:
           type: string
+          description: "The CargoSoft shipment number, this container belongs to."
         container_number:
           type: string
+          description: The container number
         seal_number1:
           type: string
+          description: The first seal number.
         seal_number2:
           type: string
+          description: The second seal number
         seal_number3:
           type: string
+          description: The third seal number
         container_iso_code:
           type: string
+          description: The ISO code representing the type and size of this container.
         shippers_own:
           type: boolean
+          description: Indicates whether the container is owned by the shipper rather
+            than the carrier.
     ContainerAddress:
       description: Description of the ContainerAddress DTO.
       properties:
@@ -1992,11 +2034,14 @@ components:
             $ref: '#/components/schemas/Reference'
         address_type:
           type: string
+          description: The CargoSoft address type.
         address_number:
           type: integer
           format: int32
+          description: The CargoSoft address number.
         printed_address:
           $ref: '#/components/schemas/PrintedAddress'
+          description: The address exactly as entered in the shipment record.
         postal_code:
           type: string
           description: The postal code of this address.
@@ -2019,26 +2064,33 @@ components:
       properties:
         lc_number:
           type: string
+          description: The reference number for a Letter of Credit.
         latest_shipment_date:
           type: string
           format: date
         lc_expiry:
           type: string
           format: date
+          description: The date when a Letter of Credit becomes invalid.
     CustomField:
       properties:
         id:
           type: integer
           format: int32
+          description: Unique identifier for this custom field.
         client:
           type: string
+          description: The CargoSoft client
         value:
           type: string
+          description: The value for this custom field.
         shipment_number:
           type: string
+          description: The CargoSoft shipment number
         running_number:
           type: integer
           format: int32
+          description: Internal counter.
     Customs:
       properties:
         id:
@@ -2063,10 +2115,13 @@ components:
         custom_clearance_date:
           type: string
           format: date
+          description: The date when goods are officially cleared by customs
         clearance:
           type: string
         book:
           type: string
+          description: The customs ledger used to record the official clearance of
+            goods
     DangerousGood:
       description: Description of the DangerousGood DTO.
       properties:
@@ -2319,6 +2374,7 @@ components:
         properties:
           haulage_type:
             type: string
+            description: The method of transporting goods.
           haulage_reference:
             type: string
     Good:
@@ -2327,80 +2383,113 @@ components:
       properties:
         measurements:
           type: array
+          description: "A list of measurements related to the goods, such as dimensions\
+            \ or additional weights."
           items:
             $ref: '#/components/schemas/Measurement'
         customs:
           type: array
+          description: Customs-related information for processing the goods.
           items:
             $ref: '#/components/schemas/Customs'
         mrns:
           type: array
+          description: Movement Reference Numbers (MRNs) associated with customs declarations
+            for the goods.
           items:
             $ref: '#/components/schemas/MRN'
         subgoods:
           type: array
+          description: Sub-goods or components that form part of the overall goods
+            in the shipment.
           items:
             $ref: '#/components/schemas/Good'
         dangerousGoods:
           type: array
+          description: Details of dangerous goods information of this good.
           items:
             $ref: '#/components/schemas/DangerousGood'
         id:
           type: integer
           format: int32
+          description: Unique identifier for the goods description in the shipment.
         client:
           type: string
+          description: The CargoSoft client.
         shipment_number:
           type: string
+          description: The CargoSoft shipment number of the shipment.
         identifier:
           type: string
         counter:
           type: integer
           format: int32
+          description: Counter used to track and number individual goods description
+            lines.
         level:
           type: integer
           format: int32
+          description: The hierarchical level of the goods within the goods description.
         level_number:
           type: integer
           format: int32
+          description: "Internal technical number, to order the goods description\
+            \ lines within the CargoSoft TMS."
         marks:
           type: array
+          description: Marks or labels associated with the goods for identification
+            purposes.
           items:
             type: string
         quantity:
           type: integer
           format: int32
+          description: The quantity of goods described in this entry.
         packaging_matchcode:
           type: string
+          description: The matchcode representing the type of packaging used for this
+            good.
         commodity_matchcode:
           type: string
+          description: The matchcode representing the type of commodity being shipped.
         description:
           type: array
+          description: A list providing detailed descriptions of the goods.
           items:
             type: string
         weight:
           type: number
+          description: The total weight of the goods in this shipment.
         colli:
           type: boolean
+          description: Indicates whether this goods description line is a colli line.
         colli_number:
           type: integer
           format: int32
         volume:
           type: number
+          description: The total volume.
         volume_unit:
           type: string
+          description: The unit of measurement used for the volume of the goods.
         additional_mark:
           type: boolean
         net_weight:
           type: number
+          description: "The net weight of the goods, excluding packaging."
         weight_unit:
           type: string
+          description: The unit of measurement for the weight of the goods.
         chargable_weight:
           type: number
+          description: "The chargeable weight used for calculating shipping costs,\
+            \ either based on actual or volumetric weight."
         container_number:
           type: string
+          description: The container number in which the goods are stored for shipment.
         hs_codes:
           type: array
+          description: List of Harmonized System (HS) codes for the goods in the shipment.
           items:
             $ref: '#/components/schemas/HSCode'
     HSCode:
@@ -2596,7 +2685,7 @@ components:
         id:
           type: integer
           format: int32
-          description: The id of the Shipment.
+          description: Unique identifier of this shipment.
         client:
           type: string
           description: The CargoSoft client.
@@ -2609,18 +2698,20 @@ components:
           description: The shipment office.
         employees:
           $ref: '#/components/schemas/ShipmentEmployees'
+          description: "Employee login names, who are working on this shipment."
         memos:
           type: array
+          description: Memos associated with this shipment.
           items:
             $ref: '#/components/schemas/ShipmentMemo'
         aes:
           type: array
+          description: Automated Export System (AES) proposals.
           items:
             $ref: '#/components/schemas/AES'
         shipment_number:
           type: string
-          description: The CargoSoft shipment number of the shipment. This number
-            may unique in combination of the client property.
+          description: The CargoSoft shipment number of this shipment.
         master_reference:
           type: string
           description: The shipment master bl number.
@@ -2636,58 +2727,80 @@ components:
             \ AIR, RD, RL]"
         month_of_service:
           type: string
-          description: TBD.
+          description: "The month in which freight services are provided, used for\
+            \ billing and reporting."
         total_packages:
           type: integer
           format: int32
           description: The total number of packages of the shipment.
         total_gross_weight:
           type: number
-          description: The gross weight if the shipment.
+          description: The gross weight of the shipment.
         goods:
           type: array
+          description: The description of the transported goods.
           items:
             $ref: '#/components/schemas/Good'
         addresses:
           type: array
+          description: The contact details of involved parties.
           items:
             $ref: '#/components/schemas/ShipmentAddress'
         pre_carriage:
           $ref: '#/components/schemas/Transport'
+          description: "The transport of goods from the origin to the main carrier,\
+            \ preceding the main shipment."
         main_carriage:
           $ref: '#/components/schemas/Transport'
+          description: The primary transportation stage of the shipment
         post_carriage:
           $ref: '#/components/schemas/Transport'
+          description: The transportation of goods from the main carrier to the final
+            destination after the main shipment.
         events:
           type: array
+          description: "Shipment events with location, date and time."
           items:
             $ref: '#/components/schemas/ShipmentEvent'
         terms_of_delivery_matchcode:
           type: string
+          description: The agreed conditions under which goods are delivered (matchcode).
         terms_of_delivery_name:
           type: string
+          description: The agreed conditions under which goods are delivered (full
+            condition).
         total_volume:
           type: number
+          description: "The combined physical space occupied by the goods, measured\
+            \ in cubic meters."
         chargeableWeight:
           type: number
+          description: "The weight used to calculate shipping costs, based on either\
+            \ the actual weight or the volumetric weight, whichever is higher."
         original_shipment_number:
           type: string
+          description: Shipment number from a foreign system
         foreign_id:
           type: string
         movement_matchcode:
           type: string
         insurance:
           $ref: '#/components/schemas/Insurance'
+          description: Informations related to the shipment insurance
         credit_data:
           $ref: '#/components/schemas/CreditData'
+          description: Information related to payment terms
         customs_data:
           $ref: '#/components/schemas/CustomsData'
+          description: Informations related to customs processing
         containers:
           type: array
+          description: Containers on this shipment.
           items:
             $ref: '#/components/schemas/Container'
         custom_fields:
           type: array
+          description: Various customer specific values.
           items:
             $ref: '#/components/schemas/CustomField'
     ShipmentAddress:
@@ -2714,44 +2827,56 @@ components:
           - CARRIER
         address_type:
           type: string
+          description: The CargoSoft address type.
         address_number:
           type: integer
           format: int32
+          description: The CargoSoft address number.
         printed_address:
           $ref: '#/components/schemas/PrintedAddress'
-        bl_type:
-          type: string
-          enum:
-          - MASTER
-          - HOUSE
+          description: The address exactly as entered in the shipment record.
         street:
           type: string
+          description: The street address of the party involved in the shipment.
         postal_code:
           type: string
+          description: The postal code of the address.
         city:
           type: string
+          description: The city of the address.
         state:
           type: string
+          description: The state or region of the address.
         country_matchcode:
           type: string
+          description: The CargoSoft matchcode for the country of the address.
         un_location_code:
           type: string
+          description: The UN location code for the address.
         contact:
           $ref: '#/components/schemas/Contact'
+          description: The contact details of the person or entity at the specified
+            address.
         references:
           type: array
+          description: "Optional references related to the address, such as additional\
+            \ identifiers or notes."
           items:
             $ref: '#/components/schemas/Reference'
     ShipmentEmployees:
       properties:
         closed_employee_matchcode:
           type: string
+          description: "Employee login, who closed the shipment."
         last_modified_employee_matchcode:
           type: string
+          description: "Employee login, who last modified the shipment."
         created_employee_matchcode:
           type: string
+          description: "Employee login, who created the shipment."
         responsible_employee_matchcode:
           type: string
+          description: "Employee login, who is responsible for the shipment"
     ShipmentEvent:
       description: Description of the ShipmentEvent DTO schema.
       properties:
@@ -2843,6 +2968,7 @@ components:
       properties:
         carriage_legs:
           type: array
+          description: A specific segment of the overall transport journey
           items:
             $ref: '#/components/schemas/CarriageLeg'
     ShipmenLookupGenericClass:

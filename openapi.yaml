@@ -2267,11 +2267,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2302,6 +2297,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -2779,9 +2779,9 @@ components:
             \ the actual weight or the volumetric weight, whichever is higher."
         original_shipment_number:
           type: string
-          description: Shipment number from a foreign system
         foreign_id:
           type: string
+          description: Shipment number used by a foreign system.
         movement_matchcode:
           type: string
         insurance:

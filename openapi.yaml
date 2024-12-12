@@ -719,7 +719,8 @@ paths:
               CLIENT: The CargoSoft client.
               HBL: House bl number of the Shipment.
               MBL: Master bL number of the Shipment.
-              ADDRESS_REFERENCE: TBD
+              ADDRESS_REFERENCE: A address reference at any CargoSoft address of the
+                shipment.
               RUNNING_SEQUENCE_NUMBER: TBD
               MONTH_OF_SERVICE: TBD
               CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
@@ -3014,7 +3015,8 @@ components:
             CLIENT: The CargoSoft client.
             HBL: House bl number of the Shipment.
             MBL: Master bL number of the Shipment.
-            ADDRESS_REFERENCE: TBD
+            ADDRESS_REFERENCE: A address reference at any CargoSoft address of the
+              shipment.
             RUNNING_SEQUENCE_NUMBER: TBD
             MONTH_OF_SERVICE: TBD
             CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\
@@ -3103,7 +3105,8 @@ components:
             CLIENT: The CargoSoft client.
             HBL: House bl number of the Shipment.
             MBL: Master bL number of the Shipment.
-            ADDRESS_REFERENCE: TBD
+            ADDRESS_REFERENCE: A address reference at any CargoSoft address of the
+              shipment.
             RUNNING_SEQUENCE_NUMBER: TBD
             MONTH_OF_SERVICE: TBD
             CUSTOMER_ADDRESS_TYPE: "CargoSoft address type of the customer address.\

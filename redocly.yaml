@@ -1,8 +1,10 @@
 versionPicker:
   showForUnversioned: true
 footer:
-  - group: Social
-    items:
-      - label: facebook
-        href: 'https://www.facebook.com/CargoSoftGmbH/?locale=de_DE'
-        external: true
+  copyrightText: © CargoSoft GmbH
+  items:
+    - group: Social
+      items:
+        - label: facebook
+          href: 'https://www.facebook.com/CargoSoftGmbH/?locale=de_DE'
+          external: true

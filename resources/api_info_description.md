@@ -11,7 +11,7 @@ The following chapter will explain the authorization prozess to access the Cargo
 
 ![Authorization][SeqAuthorization]
 
-[SeqAuthorization]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2024.2/resources/Seq_authentifizierung.svg "Use case Authorization"
+[SeqAuthorization]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_authentifizierung.svg "Use case Authorization"
 
 ### Retrieve a token
 
@@ -165,7 +165,7 @@ figure simple, the authorization process is referred.
 
 ![RetrieveShipment][SeqRetrieveShipment]
 
-[SeqRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2024.2/resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"
+[SeqRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"
 
 1. To access the lookup endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
 2. When a JWT is present, the shipment lookup endpoint can be called. Shipment identifier have to be sent in the request
@@ -180,7 +180,7 @@ exactly, the following graphic tries to clarify how the status message flow work
 
 ![ShipmentStatus][useCaseShipmentStatus]
 
-[useCaseShipmentStatus]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2024.2/resources/Use_case_shipment_status.svg "Use case to retrieve shipment events"
+[useCaseShipmentStatus]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Use_case_shipment_status.svg "Use case to retrieve shipment events"
 
 ### Shipment provider status
 
@@ -221,4 +221,4 @@ by hand, but also by background processes.
 
 ![RetrieveShipmentEvents][SeqRetrieveShipmentEvents]
 
-[SeqRetrieveShipmentEvents]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2024.2/resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"
+[SeqRetrieveShipmentEvents]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"

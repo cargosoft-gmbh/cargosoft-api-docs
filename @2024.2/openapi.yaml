@@ -706,13 +706,17 @@ paths:
             - CUSTOMER_ADDRESS_TYPE
             - CUSTOMER_ADDRESS_NUMBER
             - SHIPMENT_CLOSED
+            - LAST_MODIFIED_DATE
+            - LAST_MODIFIED_TIME
             title: ShipmentIdentifier
             x-enumDescriptions:
               SHIPMENT_ID: A foreign shipment ID of a third party system. This ID
                 should be unique.
+              LAST_MODIFIED_TIME: "The time, when the shipment was last modified."
               DIRECTION: "Direction of the shipment. Possible values are [I, E]. I\
                 \ = import shipments, E = export shipments."
               CREATION_DATE: System date when the shipment was created.
+              LAST_MODIFIED_DATE: "The date, when the shipment was last modified."
               CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
               FILENUMBER: CargoSoft shipment number. The shipment number is unique
                 in combination with the client.
@@ -2804,6 +2808,10 @@ components:
           description: Various customer specific values.
           items:
             $ref: '#/components/schemas/CustomField'
+        last_modified_date_time:
+          type: string
+          format: date-time
+          description: Timestamp of the last modification of the shipment.
     ShipmentAddress:
       properties:
         qualifier:
@@ -3002,13 +3010,17 @@ components:
           - CUSTOMER_ADDRESS_TYPE
           - CUSTOMER_ADDRESS_NUMBER
           - SHIPMENT_CLOSED
+          - LAST_MODIFIED_DATE
+          - LAST_MODIFIED_TIME
           title: ShipmentIdentifier
           x-enumDescriptions:
             SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
               be unique.
+            LAST_MODIFIED_TIME: "The time, when the shipment was last modified."
             DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
               \ import shipments, E = export shipments."
             CREATION_DATE: System date when the shipment was created.
+            LAST_MODIFIED_DATE: "The date, when the shipment was last modified."
             CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
             FILENUMBER: CargoSoft shipment number. The shipment number is unique in
               combination with the client.
@@ -3092,13 +3104,17 @@ components:
           - CUSTOMER_ADDRESS_TYPE
           - CUSTOMER_ADDRESS_NUMBER
           - SHIPMENT_CLOSED
+          - LAST_MODIFIED_DATE
+          - LAST_MODIFIED_TIME
           title: ShipmentIdentifier
           x-enumDescriptions:
             SHIPMENT_ID: A foreign shipment ID of a third party system. This ID should
               be unique.
+            LAST_MODIFIED_TIME: "The time, when the shipment was last modified."
             DIRECTION: "Direction of the shipment. Possible values are [I, E]. I =\
               \ import shipments, E = export shipments."
             CREATION_DATE: System date when the shipment was created.
+            LAST_MODIFIED_DATE: "The date, when the shipment was last modified."
             CUSTOMER_ADDRESS_NUMBER: CargoSoft address number of the customer address.
             FILENUMBER: CargoSoft shipment number. The shipment number is unique in
               combination with the client.

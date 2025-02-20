@@ -2272,11 +2272,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2307,6 +2302,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -2915,8 +2915,14 @@ components:
           - DELIVERY_DATE
           - POL_DEPARTURE_REVISED
           - POD_ARRIVAL_REVISED
+          - TRANSSHIPMENT_ARRIVAL
+          - TRANSSHIPMENT_DEPARTURE
+          - DIFF_BL_DATE
           x-enumDescriptions:
+            DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
             GATE_OUT: TBD.
+            TRANSSHIPMENT_DEPARTURE: The  goods  have  departed  from  thetransshipment  port  and  are  on  theirway
+              to the next destination.
             WAREHOUSE: The goods are within the warehouse.
             CLEARANCE_END: The goods are cleared.
             FINAL_DESTINATION: The goods are at the final destination.
@@ -2939,6 +2945,8 @@ components:
             ACCEPTANCE: The goods can be picked up at the port.
             PICKUP: The  goods  are  picked  up  from  the starting location.
             CLEARANCE_START: The goods will be cleared.
+            TRANSSHIPMENT_ARRIVAL: The goods have arrived at the transshipment port
+              and are ready for further transportation
         type:
           type: string
           description: The event type of this shipment event. The event type describes

@@ -920,6 +920,155 @@ paths:
                 $ref: '#/components/schemas/APIErrorResponse'
       security:
       - JavaWebToken: []
+  /cargosoft/shipment/{shipmentId}/event:
+    post:
+      tags:
+      - Shipment Events
+      summary: Create a shipment event
+      description: 'Create a shipment event of the given event type. '
+      operationId: create_4
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        schema:
+          type: string
+          description: The following list will give an overview about the event types
+            and a short description.
+          enum:
+          - ACTUAL
+          - ESTIMATED
+          x-enumDescriptions:
+            ESTIMATED: Estimated date and time
+            ACTUAL: Actual date and time.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipmentEvent'
+            examples:
+              ShipmentEventExample:
+                summary: Example of a shipment event
+                description: TBD
+                $ref: ./resources/Lookup_shipment_example.yaml
+      responses:
+        "200":
+          description: The event has been created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentEvent'
+              examples:
+                ShipmentEventExample:
+                  summary: Example of a shipment event
+                  description: TBD
+                  $ref: ./resources/Lookup_shipment_example.yaml
+      security:
+      - JavaWebToken: []
+  /cargosoft/shipment/{shipmentId}/event/{id}:
+    put:
+      tags:
+      - Shipment Events
+      summary: Update a shipment event
+      description: 'Update the event of the given event type. '
+      operationId: update
+      parameters:
+      - name: shipmentId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        schema:
+          type: string
+          description: The following list will give an overview about the event types
+            and a short description.
+          enum:
+          - ACTUAL
+          - ESTIMATED
+          x-enumDescriptions:
+            ESTIMATED: Estimated date and time
+            ACTUAL: Actual date and time.
+      - name: id
+        in: path
+        description: Database id of the record you want to update.
+        required: true
+        schema:
+          type: string
+          description: The following list will give an overview about the shipment
+            events and a short description.
+          enum:
+          - DISPATCH
+          - PICKUP
+          - WAREHOUSE
+          - POL_ARRIVAL
+          - LOADING_START
+          - LOADING_END
+          - POL_DEPARTURE
+          - POD_ARRIVAL
+          - CLEARANCE_START
+          - CLEARANCE_END
+          - CUSTOMS_CLEARANCE
+          - AVAILABLE
+          - ACCEPTANCE
+          - FINAL_DESTINATION
+          - TRANSSHIPMENT
+          - GATE_OUT
+          - POD_DEPARTURE
+          - CUSTOMS_RELEASE
+          - DELIVERY_DATE
+          - POL_DEPARTURE_REVISED
+          - POD_ARRIVAL_REVISED
+          - TRANSSHIPMENT_ARRIVAL
+          - TRANSSHIPMENT_DEPARTURE
+          - DIFF_BL_DATE
+          x-enumDescriptions:
+            DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
+            GATE_OUT: TBD.
+            TRANSSHIPMENT_DEPARTURE: The  goods  have  departed  from  thetransshipment  port  and  are  on  theirway
+              to the next destination.
+            WAREHOUSE: The goods are within the warehouse.
+            CLEARANCE_END: The goods are cleared.
+            FINAL_DESTINATION: The goods are at the final destination.
+            TRANSSHIPMENT: The  goods  are  at  the  transshipment port (seafreight
+              only).
+            DISPATCH: The goods were dispatched.
+            LOADING_START: The goods will be loaded into the vessel / airplane.
+            CUSTOMS_RELEASE: TBD.
+            LOADING_END: The goods are loaded into the vessel airplane.
+            POL_ARRIVAL: The goods arrived the port of loading.
+            CUSTOMS_CLEARANCE: The goods are cleared by customs.
+            AVAILABLE: The goods are available at the port.
+            POD_DEPARTURE: TBD.
+            POL_DEPARTURE: The  goods  are  departured  (ETD  and ATD).
+            POL_DEPARTURE_REVISED: The  goods  are  departured  (revised Date).
+            DELIVERY_DATE: TBD.
+            POD_ARRIVAL_REVISED: The goods arrived at the port of discharge (revised
+              Date).
+            POD_ARRIVAL: The goods arrived at the port of discharge (ETA and ATA).
+            ACCEPTANCE: The goods can be picked up at the port.
+            PICKUP: The  goods  are  picked  up  from  the starting location.
+            CLEARANCE_START: The goods will be cleared.
+            TRANSSHIPMENT_ARRIVAL: The goods have arrived at the transshipment port
+              and are ready for further transportation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+      responses:
+        "200":
+          description: The event has been updated successfully.
+      security:
+      - JavaWebToken: []
   /cargosoft/good/{id}/measurements:
     get:
       tags:
@@ -2230,20 +2379,8 @@ components:
           description: The date.
         time:
           format: ISO-8601
+          $ref: '#/components/schemas/LocalTime'
           description: The time.
-          properties:
-            hour:
-              type: integer
-              format: int32
-            minute:
-              type: integer
-              format: int32
-            second:
-              type: integer
-              format: int32
-            nano:
-              type: integer
-              format: int32
         zone_offset:
           format: ISO-8601
           description: The UTC time zone of this date and time.
@@ -2275,11 +2412,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2310,6 +2442,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:

@@ -955,7 +955,7 @@ paths:
               ShipmentEventExample:
                 summary: Example of a shipment event
                 description: TBD
-                $ref: ./resources/Lookup_shipment_example.yaml
+                $ref: ./resources/Shipment_event_example_object.yaml
       responses:
         "200":
           description: The event has been created successfully.
@@ -967,7 +967,7 @@ paths:
                 ShipmentEventExample:
                   summary: Example of a shipment event
                   description: TBD
-                  $ref: ./resources/Lookup_shipment_example.yaml
+                  $ref: ./resources/Shipment_event_example_object.yaml
       security:
       - JavaWebToken: []
   /cargosoft/shipment/{shipmentId}/event/{id}:
@@ -1067,6 +1067,15 @@ paths:
       responses:
         "200":
           description: The event has been updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentEvent'
+              examples:
+                ShipmentEventExample:
+                  summary: Example of a shipment event
+                  description: TBD
+                  $ref: ./resources/Shipment_event_example_object.yaml
       security:
       - JavaWebToken: []
   /cargosoft/good/{id}/measurements:
@@ -2379,8 +2388,20 @@ components:
           description: The date.
         time:
           format: ISO-8601
-          $ref: '#/components/schemas/LocalTime'
           description: The time.
+          properties:
+            hour:
+              type: integer
+              format: int32
+            minute:
+              type: integer
+              format: int32
+            second:
+              type: integer
+              format: int32
+            nano:
+              type: integer
+              format: int32
         zone_offset:
           format: ISO-8601
           description: The UTC time zone of this date and time.
@@ -2412,6 +2433,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2442,11 +2468,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:

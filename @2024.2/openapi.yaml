@@ -1065,11 +1065,11 @@ paths:
               $ref: '#/components/schemas/ShipmentEvent'
             examples:
               ShipmentEventUpdateExample:
-                summary: Example of a shipment event
+                summary: Full update
                 description: Update DTO
                 $ref: ./resources/Shipment_event_example_object.yaml
               ShipmentEventMinimalUpdateExample:
-                summary: Example of a shipment event
+                summary: Minimal update
                 description: Minimal update DTO example
                 $ref: ./resources/Shipment_event_update_example.yaml
       responses:
@@ -2441,11 +2441,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2476,6 +2471,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:

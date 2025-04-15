@@ -2910,6 +2910,14 @@ components:
         total_gross_weight:
           type: number
           description: The gross weight of the shipment.
+        self_pickup:
+          type: string
+          description: Indicates whether the recipient will pick up the goods directly
+            from the warehouse or terminal.
+        self_delivery:
+          type: string
+          description: Indicates whether the sender will deliver the goods to the
+            carrier or warehouse by themselves.
         goods:
           type: array
           description: The description of the transported goods.

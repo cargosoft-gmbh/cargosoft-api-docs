@@ -204,34 +204,6 @@ paths:
                 $ref: '#/components/schemas/APIErrorResponse'
       security:
       - JavaWebToken: []
-  /cargosoft/accounting/invoice:
-    post:
-      tags:
-      - Invoice
-      summary: Create record
-      description: Create a new record
-      operationId: create_1
-      requestBody:
-        description: Model of the record you want to create
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Invoice'
-      responses:
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APIErrorResponse'
-        "200":
-          description: Record created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Invoice'
-      security:
-      - JavaWebToken: []
   /cargosoft/accounting/invoice/{id}/lines:
     get:
       tags:
@@ -296,7 +268,7 @@ paths:
       - Voucher Lines
       summary: Create record
       description: Create a new record
-      operationId: create_2
+      operationId: create_1
       requestBody:
         description: Model of the record you want to create
         content:
@@ -476,7 +448,7 @@ paths:
       - Voucher
       summary: Create record
       description: Create a new record
-      operationId: create_3
+      operationId: create_2
       requestBody:
         description: Model of the record you want to create
         content:
@@ -792,7 +764,6 @@ paths:
   /cargosoft/shipment/{id}/airmaincarriage:
     get:
       tags:
-      - Shipment - Transport
       - Shipment
       summary: Retrieve airfreight shipment main carriage
       description: 'Retrieve the airfreight main carriage of the shipment with additional
@@ -926,7 +897,7 @@ paths:
       - Shipment Events
       summary: Create a shipment event
       description: 'Create a shipment event of the given event type. '
-      operationId: create_4
+      operationId: create_3
       parameters:
       - name: shipmentId
         in: path
@@ -1084,25 +1055,6 @@ paths:
                   summary: Example of a shipment event
                   description: TBD
                   $ref: ./resources/Shipment_event_example_object.yaml
-      security:
-      - JavaWebToken: []
-  /cargosoft/good/{id}/measurements:
-    get:
-      tags:
-      - Shipment goods description
-      operationId: retrieveMeasurements
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        default:
-          description: default response
-          content:
-            application/json: {}
       security:
       - JavaWebToken: []
   /auth/token:
@@ -1487,213 +1439,6 @@ components:
       description: This identifier combines a list of identifier with the logical
         or.
       title: OrIdentifier
-    Invoice:
-      description: Description of the Invoice DTO Schema
-      properties:
-        id:
-          type: integer
-          format: int32
-          description: The technical id of the Invoice
-        client:
-          type: string
-          description: The CargoSoft client
-        office:
-          type: string
-          description: The CargoSoft office
-        corporation:
-          type: string
-          description: The CargoSoft corporation
-        language:
-          type: string
-          description: The language of the invoice
-        barcode:
-          type: string
-          description: The barcode of the invoice
-        currency:
-          type: string
-          description: "The currency of the invoice, represented in ISO codes"
-        amount:
-          type: number
-          description: The net amount of the invoice.
-        shipment_number:
-          type: string
-          description: The shipment number for the CargoSoft shipment. Do not fill
-            in the shipment number when importing incoming invoices.
-        invoice_type:
-          type: string
-          description: 'The invoice type within CargoSoft for an invoice. The following
-            types are permitted:'
-          enum:
-          - R
-          - G
-          - SR
-          - SG
-          - SK
-          - SP
-          - SS
-          - SO
-          - GK
-          - GP
-          - GS
-          - GO
-          - LR
-          - LG
-          - SE
-          - SL
-          - R1
-          - R2
-          - R3
-          - R4
-          - R5
-          - R6
-          - R7
-          - R8
-          - R9
-          - SR1
-          - SR2
-          - SR3
-          - SR4
-          - SR5
-          - SR6
-          - SR7
-          - SR8
-          - U
-          - B
-          - UR
-          - UG
-          - E
-          x-enumDescriptions:
-            SE: Cancellation of incoming invoice
-            LR: Incoming invoice
-            SL: Cancellation of incoming credit note
-            LG: Incoming credit note
-        invoice_number:
-          type: integer
-          format: int64
-          description: The CargoSoft invoice number can be generated via a number
-            range during import.
-        invoice_date:
-          type: string
-          format: date
-          description: The invoice date
-        accounting_period:
-          type: integer
-          format: int32
-          description: The accounting periode in format YYYYMM
-        invoice_address:
-          $ref: '#/components/schemas/PrintedMatchcodeAddress'
-          description: The invoice address with the CargoSoft address number
-        invoice_reference:
-          type: string
-          description: The invoice reference of the invoicing party.
-        exchange_rate:
-          type: number
-          description: The exchange rate of the invoice
-        processed_flag:
-          type: string
-          description: A flag to determine whether the 'Batchfaktura' background process
-            should process the invoice. This technical flag should not be filled in.
-        tax_amount:
-          type: number
-          description: The total tax amount of an invoice in the currency of the invoice.
-        gross_amount:
-          type: number
-          description: The gross amount of an invoice in the invoice's currency.
-        created_date_time:
-          type: string
-          format: date-time
-          description: The creation date of the invoice
-        sequential_number:
-          type: integer
-          format: int32
-          description: A sequential number for an invoice. This is a technical number
-            and should not be filled in.
-        employee_login:
-          type: string
-          description: The CargoSoft login name of the user who records the invoice.
-        collective_invoice:
-          type: boolean
-          description: A flag to determine if an invoice is a collective invoice.
-            All invoices are collective invoices ('true').
-        posting_text:
-          type: string
-          description: The posting text of the invoice
-        booked:
-          type: boolean
-          description: A flag to determine if an invoice is booked. All invoices are
-            not booked ('false').
-        cancelled_invoice:
-          type: boolean
-          description: "A flag to determine if an invoice is a cancellation. For invoice\
-            \ types LR/LG, it's 'false'; for types SE/SL, it's 'true'."
-        cancelled_invoice_number:
-          type: integer
-          format: int64
-          description: The CargoSoft invoice number of an invoice that needs to be
-            cancelled - the original CargoSoft invoice number.
-        corrected_invoice:
-          type: boolean
-          description: A flag to determine if an invoice is corrected.
-        corrected_invoice_number:
-          type: number
-          description: The CargoSoft invoice number of an invoice that needs to be
-            corrected - the original CargoSoft invoice number.
-        allocation:
-          type: string
-          description: "The allocation of an invoice: 'AUFW' for costs, 'ERL' for\
-            \ revenue."
-        paid:
-          type: boolean
-          description: A flag to determine if an invoice has already been paid.
-        payment_condition:
-          type: string
-          description: The CargoSoft payment code of an invoice.
-        due_date_time:
-          type: string
-          format: date-time
-          description: The due date of the invoice.
-        service_date:
-          type: string
-          format: date-time
-          description: The service date of the invoice
-        cancelled_invoice_reference:
-          type: string
-          description: The invoice reference from the invoicing party that needs to
-            be cancelled.
-        invoice_lines:
-          type: array
-          description: The associated invoice lines.
-          items:
-            $ref: '#/components/schemas/InvoiceLine'
-      required:
-      - client
-      - currency
-      - invoiceType
-      - taxAmount
-    PrintedAddress:
-      properties:
-        line_1:
-          type: string
-        line_2:
-          type: string
-        line_3:
-          type: string
-        line_4:
-          type: string
-        line_5:
-          type: string
-    PrintedMatchcodeAddress:
-      properties:
-        address_type:
-          type: string
-          description: The CargoSoft address type.
-        address_number:
-          type: integer
-          format: int32
-          description: The CargoSoft address number.
-        printed_address:
-          $ref: '#/components/schemas/PrintedAddress'
-          description: The address exactly as entered in the shipment record.
     VoucherLine:
       properties:
         id:
@@ -2441,11 +2186,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -2476,6 +2216,11 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
+                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -2815,6 +2560,18 @@ components:
           type: string
         measurement_unit:
           type: string
+    PrintedAddress:
+      properties:
+        line_1:
+          type: string
+        line_2:
+          type: string
+        line_3:
+          type: string
+        line_4:
+          type: string
+        line_5:
+          type: string
     RailCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
@@ -2989,6 +2746,16 @@ components:
           type: string
           format: date-time
           description: Timestamp of the last modification of the shipment.
+        created_date_time:
+          type: string
+          format: date-time
+          description: Timestamp of the creation of the shipment.
+        order_date_time:
+          type: string
+          format: date-time
+          description: The order date.
+        project_matchcode:
+          type: string
     ShipmentAddress:
       properties:
         qualifier:

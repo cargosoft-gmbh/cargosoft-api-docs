@@ -16,14 +16,6 @@ servers:
 - url: https://api-demo.cargosoft.de
   description: Test CargoSoft API server.
 tags:
-- name: Invoice Lines
-  description: CargoSoft Invoice Lines functionality
-- name: Invoice
-  description: CargoSoft Invoice funcionality
-- name: Voucher Lines
-  description: CargoSoft Voucher funcionality
-- name: Voucher
-  description: CargoSoft Voucher funcionality
 - name: Shipment
   description: The following chapter will give you an overview about the shipment
     endpoints and their function.

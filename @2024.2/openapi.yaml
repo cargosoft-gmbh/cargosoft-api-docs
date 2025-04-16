@@ -879,6 +879,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -909,11 +914,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -1449,6 +1449,8 @@ components:
           description: The order date.
         project_matchcode:
           type: string
+          description: Customizable field used to classify or categorize the order
+            based on business-specific criteria.
     ShipmentAddress:
       properties:
         qualifier:

@@ -972,6 +972,175 @@ components:
                         $ref: '#/components/schemas/LocalTime'
                       midnightEndOfDay:
                         type: boolean
+    EventDateAndTime:
+      properties:
+        date:
+          type: string
+          format: ISO-8601
+          description: The date.
+        time:
+          format: ISO-8601
+          description: The time.
+          properties:
+            hour:
+              type: integer
+              format: int32
+            minute:
+              type: integer
+              format: int32
+            second:
+              type: integer
+              format: int32
+            nano:
+              type: integer
+              format: int32
+        zone_offset:
+          format: ISO-8601
+          description: The UTC time zone of this date and time.
+          properties:
+            totalSeconds:
+              type: integer
+              format: int32
+            id:
+              type: string
+            rules:
+              properties:
+                fixedOffset:
+                  type: boolean
+                transitions:
+                  type: array
+                  items:
+                    properties:
+                      offsetBefore:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
+                      duration:
+                        properties:
+                          seconds:
+                            type: integer
+                            format: int64
+                          zero:
+                            type: boolean
+                          nano:
+                            type: integer
+                            format: int32
+                          negative:
+                            type: boolean
+                          positive:
+                            type: boolean
+                          units:
+                            type: array
+                            items:
+                              properties:
+                                durationEstimated:
+                                  type: boolean
+                                timeBased:
+                                  type: boolean
+                                dateBased:
+                                  type: boolean
+                      gap:
+                        type: boolean
+                      dateTimeAfter:
+                        type: string
+                        format: date-time
+                      dateTimeBefore:
+                        type: string
+                        format: date-time
+                transitionRules:
+                  type: array
+                  items:
+                    properties:
+                      month:
+                        type: string
+                        enum:
+                        - JANUARY
+                        - FEBRUARY
+                        - MARCH
+                        - APRIL
+                        - MAY
+                        - JUNE
+                        - JULY
+                        - AUGUST
+                        - SEPTEMBER
+                        - OCTOBER
+                        - NOVEMBER
+                        - DECEMBER
+                      timeDefinition:
+                        type: string
+                        enum:
+                        - UTC
+                        - WALL
+                        - STANDARD
+                      standardOffset:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetBefore:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      dayOfWeek:
+                        type: string
+                        enum:
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
+                        - SUNDAY
+                      dayOfMonthIndicator:
+                        type: integer
+                        format: int32
+                      localTime:
+                        $ref: '#/components/schemas/LocalTime'
+                      midnightEndOfDay:
+                        type: boolean
+        until:
+          format: ISO-8601
+          description: "Optional time range. Only for Event types: PICKUP and FINAL_DESTINATION"
+          properties:
+            hour:
+              type: integer
+              format: int32
+            minute:
+              type: integer
+              format: int32
+            second:
+              type: integer
+              format: int32
+            nano:
+              type: integer
+              format: int32
     GenericCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
@@ -1185,161 +1354,6 @@ components:
       required:
       - code
       - type
-    LocationDateAndTime:
-      properties:
-        until:
-          $ref: '#/components/schemas/LocalTime'
-        date:
-          type: string
-          format: ISO-8601
-          description: The date.
-        time:
-          format: ISO-8601
-          description: The time.
-          properties:
-            hour:
-              type: integer
-              format: int32
-            minute:
-              type: integer
-              format: int32
-            second:
-              type: integer
-              format: int32
-            nano:
-              type: integer
-              format: int32
-        zone_offset:
-          format: ISO-8601
-          description: The UTC time zone of this date and time.
-          properties:
-            totalSeconds:
-              type: integer
-              format: int32
-            id:
-              type: string
-            rules:
-              properties:
-                fixedOffset:
-                  type: boolean
-                transitions:
-                  type: array
-                  items:
-                    properties:
-                      offsetBefore:
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      offsetAfter:
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      overlap:
-                        type: boolean
-                      instant:
-                        type: string
-                        format: date-time
-                      duration:
-                        properties:
-                          seconds:
-                            type: integer
-                            format: int64
-                          zero:
-                            type: boolean
-                          nano:
-                            type: integer
-                            format: int32
-                          negative:
-                            type: boolean
-                          positive:
-                            type: boolean
-                          units:
-                            type: array
-                            items:
-                              properties:
-                                durationEstimated:
-                                  type: boolean
-                                timeBased:
-                                  type: boolean
-                                dateBased:
-                                  type: boolean
-                      gap:
-                        type: boolean
-                      dateTimeAfter:
-                        type: string
-                        format: date-time
-                      dateTimeBefore:
-                        type: string
-                        format: date-time
-                transitionRules:
-                  type: array
-                  items:
-                    properties:
-                      month:
-                        type: string
-                        enum:
-                        - JANUARY
-                        - FEBRUARY
-                        - MARCH
-                        - APRIL
-                        - MAY
-                        - JUNE
-                        - JULY
-                        - AUGUST
-                        - SEPTEMBER
-                        - OCTOBER
-                        - NOVEMBER
-                        - DECEMBER
-                      timeDefinition:
-                        type: string
-                        enum:
-                        - UTC
-                        - WALL
-                        - STANDARD
-                      standardOffset:
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      offsetBefore:
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      offsetAfter:
-                        properties:
-                          totalSeconds:
-                            type: integer
-                            format: int32
-                          id:
-                            type: string
-                      dayOfWeek:
-                        type: string
-                        enum:
-                        - MONDAY
-                        - TUESDAY
-                        - WEDNESDAY
-                        - THURSDAY
-                        - FRIDAY
-                        - SATURDAY
-                        - SUNDAY
-                      dayOfMonthIndicator:
-                        type: integer
-                        format: int32
-                      localTime:
-                        $ref: '#/components/schemas/LocalTime'
-                      midnightEndOfDay:
-                        type: boolean
     LocationDateTime:
       description: The carriage leg in detail.
       properties:
@@ -1750,7 +1764,7 @@ components:
           format: int32
           description: The id of the Shipment.
         date_time:
-          $ref: '#/components/schemas/LocationDateAndTime'
+          $ref: '#/components/schemas/EventDateAndTime'
           description: The date and time of this event.
         location:
           $ref: '#/components/schemas/Location'

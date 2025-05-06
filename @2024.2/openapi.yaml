@@ -392,6 +392,7 @@ paths:
           - TRANSSHIPMENT_ARRIVAL
           - TRANSSHIPMENT_DEPARTURE
           - DIFF_BL_DATE
+          - VGM_CLOSING
           x-enumDescriptions:
             DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
             GATE_OUT: TBD.
@@ -1184,6 +1185,161 @@ components:
       required:
       - code
       - type
+    LocationDateAndTime:
+      properties:
+        until:
+          $ref: '#/components/schemas/LocalTime'
+        date:
+          type: string
+          format: ISO-8601
+          description: The date.
+        time:
+          format: ISO-8601
+          description: The time.
+          properties:
+            hour:
+              type: integer
+              format: int32
+            minute:
+              type: integer
+              format: int32
+            second:
+              type: integer
+              format: int32
+            nano:
+              type: integer
+              format: int32
+        zone_offset:
+          format: ISO-8601
+          description: The UTC time zone of this date and time.
+          properties:
+            totalSeconds:
+              type: integer
+              format: int32
+            id:
+              type: string
+            rules:
+              properties:
+                fixedOffset:
+                  type: boolean
+                transitions:
+                  type: array
+                  items:
+                    properties:
+                      offsetBefore:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
+                      duration:
+                        properties:
+                          seconds:
+                            type: integer
+                            format: int64
+                          zero:
+                            type: boolean
+                          nano:
+                            type: integer
+                            format: int32
+                          negative:
+                            type: boolean
+                          positive:
+                            type: boolean
+                          units:
+                            type: array
+                            items:
+                              properties:
+                                durationEstimated:
+                                  type: boolean
+                                timeBased:
+                                  type: boolean
+                                dateBased:
+                                  type: boolean
+                      gap:
+                        type: boolean
+                      dateTimeAfter:
+                        type: string
+                        format: date-time
+                      dateTimeBefore:
+                        type: string
+                        format: date-time
+                transitionRules:
+                  type: array
+                  items:
+                    properties:
+                      month:
+                        type: string
+                        enum:
+                        - JANUARY
+                        - FEBRUARY
+                        - MARCH
+                        - APRIL
+                        - MAY
+                        - JUNE
+                        - JULY
+                        - AUGUST
+                        - SEPTEMBER
+                        - OCTOBER
+                        - NOVEMBER
+                        - DECEMBER
+                      timeDefinition:
+                        type: string
+                        enum:
+                        - UTC
+                        - WALL
+                        - STANDARD
+                      standardOffset:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetBefore:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      offsetAfter:
+                        properties:
+                          totalSeconds:
+                            type: integer
+                            format: int32
+                          id:
+                            type: string
+                      dayOfWeek:
+                        type: string
+                        enum:
+                        - MONDAY
+                        - TUESDAY
+                        - WEDNESDAY
+                        - THURSDAY
+                        - FRIDAY
+                        - SATURDAY
+                        - SUNDAY
+                      dayOfMonthIndicator:
+                        type: integer
+                        format: int32
+                      localTime:
+                        $ref: '#/components/schemas/LocalTime'
+                      midnightEndOfDay:
+                        type: boolean
     LocationDateTime:
       description: The carriage leg in detail.
       properties:
@@ -1549,6 +1705,7 @@ components:
           - TRANSSHIPMENT_ARRIVAL
           - TRANSSHIPMENT_DEPARTURE
           - DIFF_BL_DATE
+          - VGM_CLOSING
           x-enumDescriptions:
             DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
             GATE_OUT: TBD.
@@ -1593,7 +1750,7 @@ components:
           format: int32
           description: The id of the Shipment.
         date_time:
-          $ref: '#/components/schemas/DateAndTime'
+          $ref: '#/components/schemas/LocationDateAndTime'
           description: The date and time of this event.
         location:
           $ref: '#/components/schemas/Location'

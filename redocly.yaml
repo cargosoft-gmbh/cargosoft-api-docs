@@ -8,3 +8,8 @@ footer:
         - label: facebook
           href: 'https://www.facebook.com/CargoSoftGmbH/?locale=de_DE'
           external: true
+style:
+  x-parser-schema-id-template: '{{schemaName}}'
+resolve:
+  dedupe:
+    schemas: true

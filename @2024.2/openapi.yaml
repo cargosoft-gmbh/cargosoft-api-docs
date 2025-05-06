@@ -394,31 +394,32 @@ paths:
           - DIFF_BL_DATE
           - VGM_CLOSING
           x-enumDescriptions:
-            DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
             GATE_OUT: TBD.
-            TRANSSHIPMENT_DEPARTURE: The  goods  have  departed  from  thetransshipment  port  and  are  on  theirway
-              to the next destination.
-            WAREHOUSE: The goods are within the warehouse.
-            CLEARANCE_END: The goods are cleared.
-            FINAL_DESTINATION: The goods are at the final destination.
             TRANSSHIPMENT: The  goods  are  at  the  transshipment port (seafreight
               only).
-            DISPATCH: The goods were dispatched.
             LOADING_START: The goods will be loaded into the vessel / airplane.
-            CUSTOMS_RELEASE: TBD.
             LOADING_END: The goods are loaded into the vessel airplane.
             POL_ARRIVAL: The goods arrived the port of loading.
             CUSTOMS_CLEARANCE: The goods are cleared by customs.
-            AVAILABLE: The goods are available at the port.
             POD_DEPARTURE: TBD.
             POL_DEPARTURE: The  goods  are  departured  (ETD  and ATD).
             POL_DEPARTURE_REVISED: The  goods  are  departured  (revised Date).
-            DELIVERY_DATE: TBD.
             POD_ARRIVAL_REVISED: The goods arrived at the port of discharge (revised
               Date).
             POD_ARRIVAL: The goods arrived at the port of discharge (ETA and ATA).
             ACCEPTANCE: The goods can be picked up at the port.
             PICKUP: The  goods  are  picked  up  from  the starting location.
+            VGM_CLOSING: VGM Closing Date and Time
+            DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
+            TRANSSHIPMENT_DEPARTURE: The  goods  have  departed  from  thetransshipment  port  and  are  on  theirway
+              to the next destination.
+            WAREHOUSE: The goods are within the warehouse.
+            CLEARANCE_END: The goods are cleared.
+            FINAL_DESTINATION: The goods are at the final destination.
+            DISPATCH: The goods were dispatched.
+            CUSTOMS_RELEASE: TBD.
+            AVAILABLE: The goods are available at the port.
+            DELIVERY_DATE: TBD.
             CLEARANCE_START: The goods will be cleared.
             TRANSSHIPMENT_ARRIVAL: The goods have arrived at the transshipment port
               and are ready for further transportation
@@ -1721,31 +1722,32 @@ components:
           - DIFF_BL_DATE
           - VGM_CLOSING
           x-enumDescriptions:
-            DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
             GATE_OUT: TBD.
-            TRANSSHIPMENT_DEPARTURE: The  goods  have  departed  from  thetransshipment  port  and  are  on  theirway
-              to the next destination.
-            WAREHOUSE: The goods are within the warehouse.
-            CLEARANCE_END: The goods are cleared.
-            FINAL_DESTINATION: The goods are at the final destination.
             TRANSSHIPMENT: The  goods  are  at  the  transshipment port (seafreight
               only).
-            DISPATCH: The goods were dispatched.
             LOADING_START: The goods will be loaded into the vessel / airplane.
-            CUSTOMS_RELEASE: TBD.
             LOADING_END: The goods are loaded into the vessel airplane.
             POL_ARRIVAL: The goods arrived the port of loading.
             CUSTOMS_CLEARANCE: The goods are cleared by customs.
-            AVAILABLE: The goods are available at the port.
             POD_DEPARTURE: TBD.
             POL_DEPARTURE: The  goods  are  departured  (ETD  and ATD).
             POL_DEPARTURE_REVISED: The  goods  are  departured  (revised Date).
-            DELIVERY_DATE: TBD.
             POD_ARRIVAL_REVISED: The goods arrived at the port of discharge (revised
               Date).
             POD_ARRIVAL: The goods arrived at the port of discharge (ETA and ATA).
             ACCEPTANCE: The goods can be picked up at the port.
             PICKUP: The  goods  are  picked  up  from  the starting location.
+            VGM_CLOSING: VGM Closing Date and Time
+            DIFF_BL_DATE: The  B/L  date  has  changed  from  theinitial value
+            TRANSSHIPMENT_DEPARTURE: The  goods  have  departed  from  thetransshipment  port  and  are  on  theirway
+              to the next destination.
+            WAREHOUSE: The goods are within the warehouse.
+            CLEARANCE_END: The goods are cleared.
+            FINAL_DESTINATION: The goods are at the final destination.
+            DISPATCH: The goods were dispatched.
+            CUSTOMS_RELEASE: TBD.
+            AVAILABLE: The goods are available at the port.
+            DELIVERY_DATE: TBD.
             CLEARANCE_START: The goods will be cleared.
             TRANSSHIPMENT_ARRIVAL: The goods have arrived at the transshipment port
               and are ready for further transportation

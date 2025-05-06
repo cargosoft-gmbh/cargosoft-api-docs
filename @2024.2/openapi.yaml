@@ -300,15 +300,7 @@ paths:
       - name: type
         in: query
         schema:
-          type: string
-          description: The following list will give an overview about the event types
-            and a short description.
-          enum:
-          - ACTUAL
-          - ESTIMATED
-          x-enumDescriptions:
-            ESTIMATED: Estimated date and time
-            ACTUAL: Actual date and time.
+          $ref: '#/components/schemas/EventType'
       requestBody:
         content:
           application/json:
@@ -350,15 +342,7 @@ paths:
       - name: type
         in: query
         schema:
-          type: string
-          description: The following list will give an overview about the event types
-            and a short description.
-          enum:
-          - ACTUAL
-          - ESTIMATED
-          x-enumDescriptions:
-            ESTIMATED: Estimated date and time
-            ACTUAL: Actual date and time.
+          $ref: '#/components/schemas/EventType'
       - name: id
         in: path
         description: Database id of the record you want to update.
@@ -1084,6 +1068,16 @@ components:
             nano:
               type: integer
               format: int32
+    EventType:
+      type: string
+      description: The following list will give an overview about the event types
+        and a short description.
+      enum:
+      - ACTUAL
+      - ESTIMATED
+      x-enumDescriptions:
+        ESTIMATED: Estimated date and time
+        ACTUAL: Actual date and time.
     GenericCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'
@@ -1638,15 +1632,9 @@ components:
           description: The event code of this shipment event. The code describes the
             functional meaning of the event date and time.
         type:
-          type: string
+          $ref: '#/components/schemas/EventType'
           description: The event type of this shipment event. The event type describes
             if the event date and time is estimated or actual.
-          enum:
-          - ACTUAL
-          - ESTIMATED
-          x-enumDescriptions:
-            ESTIMATED: Estimated date and time
-            ACTUAL: Actual date and time.
         shipment_id:
           type: integer
           format: int32

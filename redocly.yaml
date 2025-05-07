@@ -9,5 +9,4 @@ footer:
           href: 'https://www.facebook.com/CargoSoftGmbH/?locale=de_DE'
           external: true
 openapi:
-  showExtensions:
-    - x-enumDescriptions
+  showExtensions: false

@@ -1075,9 +1075,6 @@ components:
       enum:
       - ACTUAL
       - ESTIMATED
-      x-enumDescriptions:
-        ESTIMATED: Estimated date and time
-        ACTUAL: Actual date and time.
     GenericCarriageLeg:
       allOf:
       - $ref: '#/components/schemas/CarriageLeg'

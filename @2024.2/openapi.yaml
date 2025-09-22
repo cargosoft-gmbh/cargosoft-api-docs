@@ -210,6 +210,11 @@ paths:
         schema:
           type: integer
           format: int32
+      - name: cascade
+        in: query
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           description: Record retrieved

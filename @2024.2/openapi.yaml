@@ -210,6 +210,11 @@ paths:
         schema:
           type: integer
           format: int32
+      - name: cascade
+        in: query
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           description: Record retrieved
@@ -799,6 +804,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -829,11 +839,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -952,6 +957,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -982,11 +992,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -1550,6 +1555,10 @@ components:
           type: string
           description: Customizable field used to classify or categorize the order
             based on business-specific criteria.
+        depot_matchcode:
+          type: string
+        shipment_closed:
+          type: boolean
         booking_party_address_qualifier:
           type: string
           description: The address qualifier of the booking party of the shipment.

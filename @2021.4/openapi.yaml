@@ -14,7 +14,7 @@ info:
     url: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2021.4/resources/CargoSoftLogo.jpg
 servers:
 - url: https://api-demo.cargosoft.de
-  description: Test CargoSoft API server.
+  description: Test CargoSoft API server
 tags:
 - name: Accounting
   description: CargoSoft Accounting funcionality

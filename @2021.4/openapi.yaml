@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: CargoSoft API
+  title: CargoSoft ApI
   description: 
     $ref: ./resources/api_info_description.md
   contact:

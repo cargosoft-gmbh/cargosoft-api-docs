@@ -20,7 +20,7 @@ tags:
   description: CargoSoft Accounting funcionality
 - name: Shipment
   description: The following chapter will give you an overview about the shipment
-    endpoints and their function
+    endpoints and their function.
 paths:
   /cargosoft/accounting/invoice:
     post:

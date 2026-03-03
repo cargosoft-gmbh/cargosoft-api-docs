@@ -804,6 +804,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -834,11 +839,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:
@@ -957,6 +957,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      overlap:
+                        type: boolean
+                      instant:
+                        type: string
+                        format: date-time
                       duration:
                         properties:
                           seconds:
@@ -987,11 +992,6 @@ components:
                         type: string
                         format: date-time
                       dateTimeBefore:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
-                      instant:
                         type: string
                         format: date-time
                 transitionRules:

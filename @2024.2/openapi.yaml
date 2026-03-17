@@ -25,10 +25,12 @@ paths:
       tags:
       - Shipment
       summary: Lookup for shipments
-      description: This endpoint looks up shipments. The result should be limit by
-        using search criterias in the request body. For a complete list of search
-        criteria see the ShipmentIdentifier enumeration below. Depending on the search
-        criteria you will receive zero up to n shipments.
+      description: "This endpoint looks up shipments. The result should be limit by\
+        \ using search criterias in the request body. For a complete list of search\
+        \ criteria see the ShipmentIdentifier enumeration below. Depending on the\
+        \ search criteria you will receive zero up to n shipments. This endpoint only\
+        \ returns the base shipment. If you need the full shipment details, use the\
+        \ shipment id to retrieve them separately."
       operationId: lookup
       parameters:
       - name: page_no
@@ -150,7 +152,7 @@ paths:
                 ShipmentExample:
                   summary: Example of a shipment
                   description: TBD
-                  $ref: ./resources/Shipment_example_object.yaml
+                  $ref: ./resources/Shipment_lookup_example_object.yaml
       security:
       - JavaWebToken: []
   /cargosoft/shipment/{id}/airmaincarriage:

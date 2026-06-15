@@ -1127,6 +1127,8 @@ components:
           description: Details of dangerous goods information of this good.
           items:
             $ref: '#/components/schemas/DangerousGood'
+        container:
+          type: boolean
         id:
           type: integer
           format: int32
@@ -1448,6 +1450,9 @@ components:
         house_reference:
           type: string
           description: The shipment house bl number.
+        order_type:
+          type: string
+          description: The order type of the shipment.
         bl_type:
           type: string
           description: Bl type of the shipment.
@@ -1564,6 +1569,8 @@ components:
         booking_party_address_qualifier:
           type: string
           description: The address qualifier of the booking party of the shipment.
+        full_container_load:
+          type: boolean
     ShipmentAddress:
       properties:
         qualifier:

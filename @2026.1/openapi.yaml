@@ -218,34 +218,6 @@ paths:
                 $ref: '#/components/schemas/EFile'
       security:
       - JavaWebToken: []
-    put:
-      tags:
-      - E-File
-      summary: Update an E-File document.
-      description: Updates an E-File document by its document ID.
-      operationId: update
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int32
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EFile'
-      responses:
-        "200":
-          description: Record updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EFile'
-      security:
-      - JavaWebToken: []
     delete:
       tags:
       - E-File
@@ -680,7 +652,7 @@ paths:
       - Shipment
       summary: Update a shipment event
       description: 'Update the event of the given event type. '
-      operationId: update_1
+      operationId: update
       parameters:
       - name: shipmentId
         in: path
@@ -1485,6 +1457,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      instant:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
                       duration:
                         properties:
                           seconds:
@@ -1517,11 +1494,6 @@ components:
                       dateTimeBefore:
                         type: string
                         format: date-time
-                      instant:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
                 transitionRules:
                   type: array
                   items:
@@ -1638,6 +1610,11 @@ components:
                             format: int32
                           id:
                             type: string
+                      instant:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
                       duration:
                         properties:
                           seconds:
@@ -1670,11 +1647,6 @@ components:
                       dateTimeBefore:
                         type: string
                         format: date-time
-                      instant:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
                 transitionRules:
                   type: array
                   items:

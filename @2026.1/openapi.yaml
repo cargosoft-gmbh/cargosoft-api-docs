@@ -1189,6 +1189,20 @@ components:
         container_iso_code:
           type: string
           description: The ISO code representing the type and size of this container.
+        reefer_temperature:
+          type: number
+          description: The constant reefer temperature set for this container.
+        reefer_temperature_lower_bound:
+          type: number
+          description: The lower bound of the reefer temperature range set for this
+            container.
+        reefer_temperature_upper_bound:
+          type: number
+          description: The upper bound of the reefer temperature range set for this
+            container.
+        reefer_temperature_unit:
+          type: string
+          description: The physical unit of the reefer temperature.
         shippers_own:
           type: boolean
           description: Indicates whether the container is owned by the shipper rather

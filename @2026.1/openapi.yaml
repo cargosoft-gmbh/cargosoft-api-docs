@@ -2106,6 +2106,8 @@ components:
           description: Automated Export System (AES) proposals.
           items:
             $ref: '#/components/schemas/AES'
+        dangerousGoods:
+          type: boolean
         shipment_number:
           type: string
           description: The CargoSoft shipment number of this shipment.

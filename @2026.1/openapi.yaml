@@ -1471,11 +1471,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      instant:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
                       duration:
                         properties:
                           seconds:
@@ -1508,6 +1503,11 @@ components:
                       dateTimeBefore:
                         type: string
                         format: date-time
+                      instant:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
                 transitionRules:
                   type: array
                   items:
@@ -1624,11 +1624,6 @@ components:
                             format: int32
                           id:
                             type: string
-                      instant:
-                        type: string
-                        format: date-time
-                      overlap:
-                        type: boolean
                       duration:
                         properties:
                           seconds:
@@ -1661,6 +1656,11 @@ components:
                       dateTimeBefore:
                         type: string
                         format: date-time
+                      instant:
+                        type: string
+                        format: date-time
+                      overlap:
+                        type: boolean
                 transitionRules:
                   type: array
                   items:

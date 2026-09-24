@@ -1,0 +1,44 @@
+:root table {
+  --md-table-border-width: 0px;
+  --md-table-header-bg-color: #e9eef5;
+  --md-table-head-font-weight: 700;
+  border-collapse: collapse;
+}
+
+/* Table headers */
+:root table thead th {
+  font-weight: 700 !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Alternating row colors */
+:root table tbody tr:nth-child(even) > td {
+  background-color: #f6f8fa;
+}
+
+/* Remove vertical borders */
+:root table td {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Horizontal row separators */
+:root table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Dark mode */
+:root.dark {
+  --md-table-header-bg-color: #2f3542;
+  --md-table-stripe-bg-color: #242933;
+  --md-table-head-font-weight: 700;
+}
+
+:root.dark table tbody tr:nth-child(even) > td {
+  background-color: #242933;
+}
+
+:root.dark table tbody tr {
+  border-bottom-color: #3b4250;
+}

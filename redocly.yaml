@@ -10,3 +10,5 @@ footer:
           external: true
 openapi:
   showExtensions: false
+reunite:
+  ignoreLinkChecker: true

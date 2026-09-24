@@ -32,7 +32,7 @@ The following chapter will explain the authorization prozess to access the Cargo
 
 ![Authorization][SeqAuthorization]
 
-[SeqAuthorization]: ./resources/Seq_authentifizierung.svg "Use case Authorization"
+[SeqAuthorization]: Seq_authentifizierung.svg "Use case Authorization"
 
 ### Retrieve a token
 

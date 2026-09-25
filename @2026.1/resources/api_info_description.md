@@ -7,10 +7,10 @@
 ## Changelog
 This page documents all business-relevant changes to our API.
 
-| Category       | Endpoint / Area | Change                                                                                              | Impact and required action                                       | Version |
-|----------------|-----------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------|---|
-| **Added**      | E-File          | Added new E-File endpoints.                                                                         | No changes to existing integrations are required.                | 2026.1 |
-| **Deprecated** | ShipmentEventQualifier      | The shipment event qualifer `TRANSSHIPMENT` is now deprecated and will remove in a feature version. | Use the `TRANSSHIPMENT_ARRIVAL` shipment event qualifer instead. | 2026.1 |
+| Category       | Endpoint / Area | Change                                                                                                 | Impact and required action                                       | Version |
+|----------------|-----------------|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|---|
+| **Added**      | E-File          | Added new E-File endpoints.                                                                            | No changes to existing integrations are required.                | 2026.1 |
+| **Deprecated** | ShipmentEventQualifier      | The shipment event qualifer `TRANSSHIPMENT` is now deprecated and will be removed in a future version. | Use the `TRANSSHIPMENT_ARRIVAL` shipment event qualifer instead. | 2026.1 |
 
 
 

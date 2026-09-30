@@ -20,320 +20,6 @@ tags:
   description: The following chapter will give you an overview about the shipment
     endpoints and their function.
 paths:
-  /cargosoft/efile:
-    post:
-      tags:
-      - E-File
-      summary: Create an E-File document.
-      description: Stores a base64 encoded document in E-File and links it to the
-        supplied references and roles.
-      operationId: create
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EFile'
-      responses:
-        "200":
-          description: Record created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EFile'
-      security:
-      - JavaWebToken: []
-  /cargosoft/efile/{id}/reference:
-    get:
-      tags:
-      - E-File
-      summary: Retrieve references from an E-File document.
-      description: Retrieves all references linked to an E-File document.
-      operationId: retrieveReferencesFromDocument
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: References retrieved.
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/EFileReference'
-      security:
-      - JavaWebToken: []
-    post:
-      tags:
-      - E-File
-      summary: Add a reference to an E-File document.
-      description: "Adds a reference, such as a shipment or address reference, to\
-        \ an existing E-File document."
-      operationId: createReferenceForDocument
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EFileReference'
-      responses:
-        "200":
-          description: Reference added.
-      security:
-      - JavaWebToken: []
-    delete:
-      tags:
-      - E-File
-      summary: Remove a reference from an E-File document.
-      description: Removes a reference from an existing E-File document.
-      operationId: deleteReferenceFromDocument
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EFileReference'
-      responses:
-        "200":
-          description: Reference removed.
-      security:
-      - JavaWebToken: []
-  /cargosoft/efile/{id}/role:
-    get:
-      tags:
-      - E-File
-      summary: Retrieve roles from an E-File document.
-      description: Retrieves all authorization roles linked to an E-File document.
-      operationId: retrieveRolesFromDocument
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: Roles retrieved.
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/EFileRole'
-      security:
-      - JavaWebToken: []
-    post:
-      tags:
-      - E-File
-      summary: Add a role to an E-File document.
-      description: Adds an authorization role to an existing E-File document.
-      operationId: createRoleForDocument
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          text/plain:
-            schema:
-              type: string
-      responses:
-        "200":
-          description: Role added.
-      security:
-      - JavaWebToken: []
-    delete:
-      tags:
-      - E-File
-      summary: Remove a role from an E-File document.
-      description: Removes an authorization role from an existing E-File document.
-      operationId: deleteRoleFromDocument
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EFileRole'
-      responses:
-        "200":
-          description: Role removed.
-      security:
-      - JavaWebToken: []
-  /cargosoft/efile/{id}:
-    get:
-      tags:
-      - E-File
-      summary: Retrieve an E-File document.
-      description: Retrieves a single E-File document by its document ID.
-      operationId: retrieveById
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: cascade
-        in: query
-        schema:
-          type: boolean
-          default: false
-      responses:
-        "200":
-          description: Record retrieved
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EFile'
-      security:
-      - JavaWebToken: []
-    delete:
-      tags:
-      - E-File
-      summary: Delete an E-File document.
-      description: Deletes an E-File document by its document ID.
-      operationId: delete
-      parameters:
-      - name: id
-        in: path
-        description: E-File document ID.
-        required: true
-        schema:
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: Record deleted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EFile'
-      security:
-      - JavaWebToken: []
-  /cargosoft/efile/lookup:
-    post:
-      tags:
-      - E-File
-      summary: Lookup E-File documents.
-      description: Looks up electronic documents such as PDF files by the supplied
-        lookup identifiers.
-      operationId: lookup
-      parameters:
-      - name: page_no
-        in: query
-        description: The page number for pagination.
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page_size
-        in: query
-        description: The page size for pagination.
-        schema:
-          type: integer
-          format: int32
-          default: 50
-      - name: order_by
-        in: query
-        description: The order by for ordering API results sending back as response.
-        schema:
-          type: array
-          items:
-            type: string
-            description: The following list will give an overview about the implemented
-              efile identifier and a short description.
-            enum:
-            - REFERENCE
-            - SHIPMENT_ID
-            title: EFileIdentifier
-            x-enumDescriptions:
-              SHIPMENT_ID: Unique database ID of the Shipment.
-              REFERENCE: "Reference of the efile. In most cases, this reference is\
-                \ not known by third party applications. For instance, use the SHIPMENT_ID\
-                \ identifier to search efile documents."
-      - name: order_mode
-        in: query
-        description: The order mode for ordering API results sending back as response.
-        schema:
-          type: array
-          items:
-            type: string
-            description: Description of the order mode for ordering API results sending
-              back as response
-            enum:
-            - ASC
-            - DESC
-            x-enumDescriptions:
-              ASC: ascending
-              DESC: descending
-      requestBody:
-        content:
-          application/json:
-            schema:
-              items:
-                $ref: '#/components/schemas/EFileLookupGenericClass'
-            examples:
-              LookupEFileIdentifierExample:
-                summary: Example of looking up electronic documents for a shipment.
-                description: LookupEFileIdentifierExample
-                $ref: ./resources/Lookup_efile_example.yaml
-      responses:
-        "200":
-          description: Records found
-          headers:
-            X-Page-Count:
-              description: The total number of pages for pagination.
-              required: true
-              style: simple
-              schema: {}
-            X-Row-Count:
-              description: The total number of found objects for pagination.
-              required: true
-              style: simple
-              schema: {}
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/EFile'
-              examples:
-                ShipmentEFileExample:
-                  summary: Example to retrieve shipment documents.
-                  description: Example response for shipment documents.
-                  $ref: ./resources/Efile_example_object.yaml
-      security:
-      - JavaWebToken: []
   /cargosoft/shipment/lookup:
     post:
       tags:
@@ -345,7 +31,7 @@ paths:
         \ search criteria you will receive zero up to n shipments. This endpoint only\
         \ returns the base shipment. If you need the full shipment details, use the\
         \ shipment id to retrieve them separately."
-      operationId: lookup_1
+      operationId: lookup
       parameters:
       - name: page_no
         in: query
@@ -517,7 +203,7 @@ paths:
       - Shipment
       summary: Retrieve shipment
       description: Retrieve a specific shipment with the CargoSoft database id.
-      operationId: retrieveById_1
+      operationId: retrieveById
       parameters:
       - name: id
         in: path
@@ -610,7 +296,7 @@ paths:
       - Shipment
       summary: Create a shipment event
       description: 'Create a shipment event of the given event type. '
-      operationId: create_1
+      operationId: create
       parameters:
       - name: shipmentId
         in: path
@@ -731,345 +417,6 @@ paths:
           description: Wrong username and/or password
 components:
   schemas:
-    EFile:
-      description: Description of the EFile DTO schema for electronic data like PDF's.
-      properties:
-        id:
-          type: integer
-          format: int64
-          description: The unique ID of this document.
-        client:
-          type: string
-          description: The CargoSoft client.
-        description:
-          type: string
-          description: Description of this document.
-        bytes:
-          type: string
-          format: Base64 encoded String
-          description: Base64 encoded content of this document.
-        roles:
-          type: array
-          description: The list of roles. The roles are a kind of authorization as
-            to who may view the documents.
-          items:
-            type: string
-        references:
-          type: array
-          description: A list of references.
-          items:
-            $ref: '#/components/schemas/EFileReference'
-        document_category:
-          type: integer
-          format: int32
-          description: The category of this document. The category is defined in the
-            CargoSoft basic data and is individual for each customer.
-        document_name:
-          type: string
-          description: The file name of this document.
-        document_date:
-          type: string
-          format: date-time
-          description: Date of creation of this document.
-    EFileReference:
-      description: Description of the EFileReference DTO schema for efile references.
-      properties:
-        reference_type:
-          type: string
-          description: "Each reference is typified. The type describes the reference\
-            \ value. For example [CSFILE, ADRFILE]. CSFILE = The document is attached\
-            \ to a shipment, ADRFILE = The document is attached to an address."
-          examples:
-          - CSFILE
-          - ADRFILE
-        reference_value:
-          type: string
-          description: The reference value.
-    EFileRole:
-      properties:
-        role:
-          type: string
-    ContainsIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: This identifier should use when value have to contain.
-      title: ContainsIdentifier
-    EFileLookupGenericClass:
-      anyOf:
-      - $ref: '#/components/schemas/EqualsIdentifier'
-      - $ref: '#/components/schemas/GreaterThanIdentifier'
-      - $ref: '#/components/schemas/GreaterEqualIdentifier'
-      properties:
-        key:
-          type: string
-          description: Identifier key. For instance a ShipmentIdentifier
-          enum:
-          - REFERENCE
-          - SHIPMENT_ID
-          title: EFileIdentifier
-          x-enumDescriptions:
-            SHIPMENT_ID: Unique database ID of the Shipment.
-            REFERENCE: "Reference of the efile. In most cases, this reference is not\
-              \ known by third party applications. For instance, use the SHIPMENT_ID\
-              \ identifier to search efile documents."
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-    EqualsIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: The equals identifier should use to match the value exactly.
-      title: EqualsIdentifier
-    GreaterEqualIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: This identifier should use when the value is greater or equals.
-      title: GreaterEqualIdentifier
-    GreaterThanIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: This identifier should use when the value is greater than.
-      title: GreaterThanIdentifier
-    Identifier:
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-      properties:
-        key:
-          description: Identifier key. For instance a ShipmentIdentifier
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-    IdentifierLookupIdentifier:
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-      properties:
-        key:
-          description: Identifier key. For instance a ShipmentIdentifier
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-    InIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          values:
-            type: array
-            description: A list of values of the identifier.
-            items:
-              type: string
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: This identifier should use when more than one value can be match.
-      title: InIdentifier
-    LessEqualIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: This identifier should use when the value is less or equals.
-      title: LessEqualsIdentifier
-    LessThanIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          value:
-            type: string
-            description: The value of the identifier.
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: This identifier should use when the value is less than.
-      title: LessThanIdentifier
-    LookupIdentifier: {}
-    OrIdentifier:
-      allOf:
-      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/Identifier'
-      - type: object
-        properties:
-          identifiers:
-            type: array
-            description: A list of identifier
-            items:
-              $ref: '#/components/schemas/IdentifierLookupIdentifier'
-      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
-      description: This identifier combines a list of identifier with the logical
-        or.
-      title: OrIdentifier
-    IdentifierEFileIdentifier:
-      description: Description of the Identifier DTO schema. This DTO contains the
-        match mode and identifiers of a functional object for instance the shipment
-        identifier.
-      discriminator:
-        propertyName: matchMode
-        mapping:
-          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
-          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
-          InIdentifierMapped: '#/components/schemas/InIdentifier'
-          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
-          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
-          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
-          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
-          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
-      properties:
-        key:
-          type: string
-          description: Identifier key. For instance a ShipmentIdentifier
-          enum:
-          - REFERENCE
-          - SHIPMENT_ID
-          title: EFileIdentifier
-          x-enumDescriptions:
-            SHIPMENT_ID: Unique database ID of the Shipment.
-            REFERENCE: "Reference of the efile. In most cases, this reference is not\
-              \ known by third party applications. For instance, use the SHIPMENT_ID\
-              \ identifier to search efile documents."
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
-    IdentifierListIdentifierEFileIdentifier:
-      type: array
-      items:
-        $ref: '#/components/schemas/IdentifierEFileIdentifier'
-      properties:
-        first:
-          $ref: '#/components/schemas/IdentifierEFileIdentifier'
-        last:
-          $ref: '#/components/schemas/IdentifierEFileIdentifier'
     AES:
       properties:
         id:
@@ -1191,20 +538,6 @@ components:
         container_iso_code:
           type: string
           description: The ISO code representing the type and size of this container.
-        reefer_temperature:
-          type: number
-          description: The constant reefer temperature set for this container.
-        reefer_temperature_lower_bound:
-          type: number
-          description: The lower bound of the reefer temperature range set for this
-            container.
-        reefer_temperature_upper_bound:
-          type: number
-          description: The upper bound of the reefer temperature range set for this
-            container.
-        reefer_temperature_unit:
-          type: string
-          description: The physical unit of the reefer temperature.
         shippers_own:
           type: boolean
           description: Indicates whether the container is owned by the shipper rather
@@ -2108,8 +1441,6 @@ components:
           description: Automated Export System (AES) proposals.
           items:
             $ref: '#/components/schemas/AES'
-        dangerousGoods:
-          type: boolean
         shipment_number:
           type: string
           description: The CargoSoft shipment number of this shipment.
@@ -2414,6 +1745,188 @@ components:
           description: A specific segment of the overall transport journey
           items:
             $ref: '#/components/schemas/CarriageLeg'
+    ContainsIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when value have to contain.
+      title: ContainsIdentifier
+    EqualsIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: The equals identifier should use to match the value exactly.
+      title: EqualsIdentifier
+    GreaterEqualIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when the value is greater or equals.
+      title: GreaterEqualIdentifier
+    GreaterThanIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when the value is greater than.
+      title: GreaterThanIdentifier
+    Identifier:
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+      properties:
+        key:
+          description: Identifier key. For instance a ShipmentIdentifier
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+    IdentifierLookupIdentifier:
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: '#/components/schemas/EqualsIdentifier'
+          ContainsIdentifierMapped: '#/components/schemas/ContainsIdentifier'
+          InIdentifierMapped: '#/components/schemas/InIdentifier'
+          OrIdentifierMapped: '#/components/schemas/OrIdentifier'
+          GreaterThanIdentifierMapped: '#/components/schemas/GreaterThanIdentifier'
+          LessThanIdentifierMapped: '#/components/schemas/LessThanIdentifier'
+          GreaterEqualIdentifierMapped: '#/components/schemas/GreaterEqualIdentifier'
+          LessEqualIdentifierMapped: '#/components/schemas/LessEqualIdentifier'
+      properties:
+        key:
+          description: Identifier key. For instance a ShipmentIdentifier
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+    InIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          values:
+            type: array
+            description: A list of values of the identifier.
+            items:
+              type: string
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when more than one value can be match.
+      title: InIdentifier
+    LessEqualIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when the value is less or equals.
+      title: LessEqualsIdentifier
+    LessThanIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          value:
+            type: string
+            description: The value of the identifier.
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier should use when the value is less than.
+      title: LessThanIdentifier
+    LookupIdentifier: {}
+    OrIdentifier:
+      allOf:
+      - $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/Identifier'
+      - type: object
+        properties:
+          identifiers:
+            type: array
+            description: A list of identifier
+            items:
+              $ref: '#/components/schemas/IdentifierLookupIdentifier'
+      - $ref: '#/components/schemas/IdentifierShipmentIdentifier'
+      description: This identifier combines a list of identifier with the logical
+        or.
+      title: OrIdentifier
     ShipmenLookupGenericClass:
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'

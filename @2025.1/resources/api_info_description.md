@@ -4,27 +4,6 @@
 
 > Attention: Since our API is still under development, endpoints may well change, or object structures may change. Of course, we try to avoid this as much as possible, but we cannot guarantee it. So that you have the possibility to react in time, we will soon offer you a possibility to subscribe to a newsletter. We would then inform all subscribers when something will change in the API. We are currently still looking for an integrable solution for newsletters, which can be used to subscribe and unsubscribe at this place. Until then, we would like to ask you to send us an email to support@cargosoft.de with the request that we inform you when there are planned changes to the API.
 
-## Changelog
-This page documents all business-relevant changes to our API.
-
-| Category       | Endpoint / Area | Change                                                                                                 | Impact and required action                                       | Version |
-|----------------|-----------------|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|---|
-| **Added**      | E-File          | Added new E-File endpoints.                                                                            | No changes to existing integrations are required.                | 2026.1 |
-| **Deprecated** | ShipmentEventQualifier      | The shipment event qualifer `TRANSSHIPMENT` is now deprecated and will be removed in a future version. | Use the `TRANSSHIPMENT_ARRIVAL` shipment event qualifer instead. | 2026.1 |
-
-
-
-### Category definitions
-
-| Category | Meaning |
-|---|---|
-| **Breaking change** | A non-backward-compatible change that may require integration updates |
-| **Added** | A new feature, endpoint, field, or supported value |
-| **Changed** | A backward-compatible change to existing behavior |
-| **Deprecated** | A feature is still available but will be removed in the future |
-| **Removed** | A feature, endpoint, or field has been removed |
-| **Fixed** | A bug fix without an intended breaking interface change |
-
 ## Authorization
 
 <p id='CHAPTER_AUTHORIZATION'></p>
@@ -32,7 +11,7 @@ The following chapter will explain the authorization prozess to access the Cargo
 
 ![Authorization][SeqAuthorization]
 
-[SeqAuthorization]: ./resources/Seq_authentifizierung.svg "Use case Authorization!"
+[SeqAuthorization]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2025.1/resources/Seq_authentifizierung.svg "Use case Authorization"
 
 ### Retrieve a token
 
@@ -186,7 +165,7 @@ figure simple, the authorization process is referred.
 
 ![RetrieveShipment][SeqRetrieveShipment]
 
-[SeqRetrieveShipment]: ./resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"
+[SeqRetrieveShipment]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2025.1/resources/Seq_retrieve_shipment.svg "Use case to retrieve a shipment"
 
 1. To access the lookup endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
 2. When a JWT is present, the shipment lookup endpoint can be called. Shipment identifier have to be sent in the request
@@ -201,7 +180,7 @@ exactly, the following graphic tries to clarify how the status message flow work
 
 ![ShipmentStatus][useCaseShipmentStatus]
 
-[useCaseShipmentStatus]: ./resources/Use_case_shipment_status.svg "Use case to retrieve shipment events"
+[useCaseShipmentStatus]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2025.1/resources/Use_case_shipment_status.svg "Use case to retrieve shipment events"
 
 ### Shipment provider status
 
@@ -242,4 +221,4 @@ by hand, but also by background processes.
 
 ![RetrieveShipmentEvents][SeqRetrieveShipmentEvents]
 
-[SeqRetrieveShipmentEvents]: ./resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"
+[SeqRetrieveShipmentEvents]: https://raw.githubusercontent.com/cargosoft-gmbh/cargosoft-api-docs/2025.1/resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"

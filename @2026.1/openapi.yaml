@@ -804,6 +804,8 @@ components:
     EFileLookupGenericClass:
       anyOf:
       - $ref: '#/components/schemas/EqualsIdentifier'
+      - $ref: '#/components/schemas/GreaterThanIdentifier'
+      - $ref: '#/components/schemas/GreaterEqualIdentifier'
       properties:
         key:
           type: string

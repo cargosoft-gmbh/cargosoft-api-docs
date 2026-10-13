@@ -348,6 +348,28 @@ paths:
                   $ref: ./resources/Efile_example_object.yaml
       security:
       - JavaWebToken: []
+  /cargosoft/shipment:
+    post:
+      tags:
+      - Shipment
+      summary: Create shipment
+      description: Create a new shipment.
+      operationId: create_1
+      requestBody:
+        description: Model of the record you want to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Shipment"
+      responses:
+        "200":
+          description: Record created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Shipment"
+      security:
+      - JavaWebToken: []
   /cargosoft/shipment/lookup:
     post:
       tags:
@@ -629,7 +651,7 @@ paths:
       - Shipment
       summary: Create a shipment event
       description: 'Create a shipment event of the given event type. '
-      operationId: create_1
+      operationId: create_2
       parameters:
       - name: shipmentId
         in: path

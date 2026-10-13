@@ -1,5 +1,4 @@
 value:
-  id: 327410
   client: '001'
   direction: E
   office: BRE
@@ -15,7 +14,6 @@ value:
     - addonfield_matchcode: CUSTOMS_REFERENCE
       value: REF-4711
   dangerous_goods: true
-  shipment_number: '0111230300003'
   master_reference:
   house_reference: '0111230300003'
   order_type:

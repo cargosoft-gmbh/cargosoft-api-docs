@@ -30,16 +30,12 @@ value:
       mrns: []
       subgoods:
         - measurements:
-            - id: 8384
-              client: '001'
-              counter: 1
+            - client: '001'
               weight:
               length: 100
               width: 100
               height: 100
               quantity: 1
-              goods_dto: 970652
-              shipment_number: '0111230300003'
               weight_unit: kg
               volume: 1
               volume_unit: cbm
@@ -48,9 +44,6 @@ value:
           mrns: []
           subgoods: []
           dangerousGoods:
-            - id: 11030
-              client: '001'
-              goods_dto: 970652
               dangerous_good_legislation: IMDG
               classification_code:
               un_number: '0121'
@@ -78,9 +71,6 @@ value:
               weight_unit: k
               gross_weight: 1.5
               contact:
-          id: 970652
-          client: '001'
-          shipment_number: '0111230300003'
           identifier: M
           counter: 1
           level: 2
@@ -103,14 +93,9 @@ value:
           container_number:
           container: false
           hs_codes:
-            - id: 6952
               client: '001'
               hsCode: '12345'
-              goods_dto: 970652
       dangerousGoods: []
-      id: 970650
-      client: '001'
-      shipment_number: '0111230300003'
       identifier: M
       counter: 1
       level: 1
@@ -250,7 +235,6 @@ value:
       un_location_code: DEBRE
       contact:
       references:
-        - id: 10182
           matchcode: DEF
           value: Testreferenz 123
           date_and_time:
@@ -401,7 +385,6 @@ value:
   events:
     - event: DISPATCH
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -416,7 +399,6 @@ value:
         longitude:
     - event: DISPATCH
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -431,7 +413,6 @@ value:
         longitude:
     - event: PICKUP
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-10-01'
         time: '11:00:00'
@@ -446,7 +427,6 @@ value:
         longitude:
     - event: PICKUP
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-05'
         time: '10:00:00'
@@ -461,7 +441,6 @@ value:
         longitude:
     - event: WAREHOUSE
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -476,7 +455,6 @@ value:
         longitude:
     - event: WAREHOUSE
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -491,7 +469,6 @@ value:
         longitude:
     - event: POL_ARRIVAL
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-03-05'
         time: '16:00:00'
@@ -506,7 +483,6 @@ value:
         longitude:
     - event: POL_ARRIVAL
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-05'
         time: '15:00:00'
@@ -521,7 +497,6 @@ value:
         longitude:
     - event: LOADING_START
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -536,7 +511,6 @@ value:
         longitude:
     - event: LOADING_START
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -551,7 +525,6 @@ value:
         longitude:
     - event: LOADING_END
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -566,7 +539,6 @@ value:
         longitude:
     - event: LOADING_END
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -581,7 +553,6 @@ value:
         longitude:
     - event: POL_DEPARTURE
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '11:00:00'
@@ -596,7 +567,6 @@ value:
         longitude:
     - event: POL_DEPARTURE
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '10:00:00'
@@ -611,7 +581,6 @@ value:
         longitude:
     - event: POD_ARRIVAL
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '20:00:00'
@@ -626,7 +595,6 @@ value:
         longitude:
     - event: POD_ARRIVAL
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '19:00:00'
@@ -641,7 +609,6 @@ value:
         longitude:
     - event: CLEARANCE_START
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '21:00:00'
@@ -656,7 +623,6 @@ value:
         longitude:
     - event: CLEARANCE_START
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '20:00:00'
@@ -671,7 +637,6 @@ value:
         longitude:
     - event: CLEARANCE_END
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '22:00:00'
@@ -686,7 +651,6 @@ value:
         longitude:
     - event: CLEARANCE_END
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-06'
         time: '21:00:00'
@@ -701,7 +665,6 @@ value:
         longitude:
     - event: CUSTOMS_CLEARANCE
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -716,7 +679,6 @@ value:
         longitude:
     - event: CUSTOMS_CLEARANCE
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -731,7 +693,6 @@ value:
         longitude:
     - event: AVAILABLE
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-03-07'
         time: '09:00:00'
@@ -746,7 +707,6 @@ value:
         longitude:
     - event: AVAILABLE
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-07'
         time: '09:00:00'
@@ -761,7 +721,6 @@ value:
         longitude:
     - event: ACCEPTANCE
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -776,7 +735,6 @@ value:
         longitude:
     - event: ACCEPTANCE
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -791,7 +749,6 @@ value:
         longitude:
     - event: FINAL_DESTINATION
       type: ACTUAL
-      shipment_id: 327410
       date_time:
         date: '2023-03-07'
         time: '16:00:00'
@@ -806,7 +763,6 @@ value:
         longitude:
     - event: FINAL_DESTINATION
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date: '2023-03-07'
         time: '15:00:00'
@@ -821,7 +777,6 @@ value:
         longitude:
     - event: POL_DEPARTURE_REVISED
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -836,7 +791,6 @@ value:
         longitude:
     - event: POD_ARRIVAL_REVISED
       type: ESTIMATED
-      shipment_id: 327410
       date_time:
         date:
         time:
@@ -868,93 +822,8 @@ value:
     insurer:
   credit_data:
   customs_data:
-  containers:
-    - containerAddresses:
-        - id: 11423
-          qualifier: SHP
-          street: Buschhöhe 10a
-          city: Bremen
-          order: 1
-          references: []
-          address_type: D
-          address_number: 1030
-          printed_address:
-            line_1: CargoSoft GmbH1 e-logistic solutions inf
-            line_2: Bremen 28199 28357 Postfach POST4711 HB
-            line_3: D Buschhöhe 10a +49 (421) 122-225-444
-            line_4:
-            line_5:
-            line_6:
-          postal_code: '28357'
-          country_matchcode: DE
-          un_location_code: DEBRE
-          from_date_and_time:
-          to_date_and_time:
-          contact:
-        - id: 11424
-          qualifier: CNE
-          street: Hollywood Blvd.
-          city: Los Angeles
-          order: 2
-          references: []
-          address_type: D
-          address_number: 100
-          printed_address:
-            line_1: Max Mustermann
-            line_2: Hollywood Blvd.
-            line_3: 90245 Los Angeles
-            line_4:
-            line_5:
-            line_6:
-          postal_code: '90245'
-          country_matchcode: US
-          un_location_code: USLAX
-          from_date_and_time:
-          to_date_and_time:
-          contact:
-        - id: 11425
-          qualifier: PUP
-          street: Hollywood Blvd.
-          city: Los Angeles
-          order: 3
-          references: []
-          address_type: D
-          address_number: 100
-          printed_address:
-            line_1: Max Mustermann
-            line_2: Hollywood Blvd.
-            line_3: 90245 Los Angeles
-            line_4:
-            line_5:
-            line_6:
-          postal_code: '90245'
-          country_matchcode: US
-          un_location_code: USLAX
-          from_date_and_time:
-          to_date_and_time:
-          contact:
-      id: 24720
-      good_id: 970650
-      client: '001'
-      shipment_number: '0111230300003'
-      container_number: SUDU2222222
-      seal_number1:
-      seal_number2:
-      seal_number3:
-      container_iso_code: 40G0
-      reefer_temperature:
-      reefer_temperature_lower_bound:
-      reefer_temperature_upper_bound:
-      reefer_temperature_unit:
-      shippers_own: false
-      addon_fields:
-        - addonfield_matchcode: CUSTOMS_REFERENCE
-          value: CONTAINER-REF-4711
   custom_fields:
-    - id: 197235
-      client: '001'
       value:
-      shipment_number: '0111230300003'
       running_number: 16
   last_modified_date_time: '2026-09-07T15:27:58'
   created_date_time: '2026-09-07T15:27:58'

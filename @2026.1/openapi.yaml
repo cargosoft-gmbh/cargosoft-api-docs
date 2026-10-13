@@ -356,11 +356,15 @@ paths:
       description: Create a new shipment.
       operationId: create_1
       requestBody:
-        description: Model of the record you want to create
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/Shipment"
+            examples:
+              CreateShipmentRequestExample:
+                summary: Example of a shipment creation request
+                description: CreateShipmentRequestExample
+                $ref: ./resources/Shipment_example_object.yaml
       responses:
         "200":
           description: Record created
@@ -368,6 +372,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Shipment"
+              examples:
+                CreateShipmentResponseExample:
+                  summary: Example of a created shipment
+                  description: CreateShipmentResponseExample
+                  $ref: ./resources/Shipment_example_object_response.yaml
       security:
       - JavaWebToken: []
   /cargosoft/shipment/lookup:

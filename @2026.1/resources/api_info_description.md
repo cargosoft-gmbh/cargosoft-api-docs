@@ -243,3 +243,64 @@ by hand, but also by background processes.
 ![RetrieveShipmentEvents][SeqRetrieveShipmentEvents]
 
 [SeqRetrieveShipmentEvents]: ./resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"
+## Create a shipment
+
+To create a new shipment, the [create](#operation/create) endpoint of the shipment functional group has to be
+used.
+
+1. To access the create endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
+2. Based on the authenticated API user, the CargoSoft API determines the EDI partner to associate with the new
+   shipment: the EDI partner's matchcode has to be identical to the API username. If no EDI partner exists for
+   the API user, the request is rejected and no shipment is created.
+3. The determined EDI partner's settings are used, where configured, to fill in values that are otherwise
+   required to generate the shipment number - see [EDI partner settings for shipment numbering](#CHAPTER_EDIPARTNER_SETTINGS)
+   below for the exact keys and their fallback rules.
+4. The shipment is created together with any nested data supplied in the same request body - goods, containers,
+   addon field values, order memo lines, and so on. A memo text longer than the maximum line length is
+   automatically wrapped across several consecutive memo lines - see the [lookup](#operation/lookup) endpoint
+   of the shipment memo functional group to retrieve them independently afterwards. If any of that nested data
+   fails validation (for example an addon field value referencing a matchcode that doesn't exist in the master
+   data), the whole shipment creation is rejected and nothing is created.
+
+### EDI partner settings for shipment numbering
+
+<p id='CHAPTER_EDIPARTNER_SETTINGS'></p>
+Generating a shipment number requires three pieces of information: the shipment number definition (posdef),
+the main department, and the sub department. Each of them can be configured individually as a setting on the
+EDI partner determined for the request (see step 2 above). A setting configured on the EDI partner always
+takes precedence; an empty or blank setting value is treated the same as if the setting wasn't configured at
+all. Each of the three keys is resolved independently of the other two - a missing/invalid value for one key
+never prevents the fallback for a different key from being used. Any other, unrelated qualifier configured on
+the EDI partner is ignored.
+
+| Key                            | Meaning                                     | Fallback if not configured (or blank) on the EDI partner                                                                    |
+|----------------------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `SHIPMENT_NUMBER_DEFINITION_VERSION`    | The shipment number definition version to use (`posdef_t.version`). | The `shipment_number_definition_version` supplied in the request body, if present; otherwise the CargoSoft client's own default (`firma_t.posnr_version`). |
+| `MAINDEPARTMENT`                | The main department to use for shipment numbering. | The `maindepartment` supplied in the request body. If neither is present, the request is rejected. |
+| `SUBDEPARTMENT`                 | The sub department to use for shipment numbering. | The `subdepartment` supplied in the request body. If neither is present, the request is rejected. |
+
+> Please note: if a request doesn't need to rely on the EDI partner's settings at all - for example while
+> testing - `shipment_number_definition_version`, `maindepartment` and `subdepartment` can simply be supplied
+> directly in the request body instead.
+
+## EDI code conversion
+
+An EDI code conversion translates an EDI partner's own code (for example for a charge type or packaging code)
+into the corresponding CargoSoft internal code, or vice versa, depending on direction. They are looked up with
+the [lookup](#operation/lookup) endpoint of the code conversion functional group, using a combination of the
+`EDIPARTNER`, `DIRECTION`, `CODETYPE` and `SOURCECODE` identifiers.
+
+Two identifier combinations are served from a cache instead of querying the database on every request, since
+this master data changes very rarely:
+
+- `EDIPARTNER` + `DIRECTION` + `CODETYPE`: returns every code conversion configured for that EDI partner's
+  table/direction.
+- `EDIPARTNER` + `DIRECTION` + `CODETYPE` + `SOURCECODE`: returns the one specific conversion for that source
+  code.
+
+Omitting `EDIPARTNER` from a `DIRECTION` + `CODETYPE` + `SOURCECODE` lookup returns every matching conversion
+across all EDI partners that happen to share the same source code - also served from the cache. Any other
+identifier combination is looked up directly against the database.
+
+> Please note: the `DIRECTION` identifier's value must be the raw single-character code as stored in the
+> CargoSoft TMS (`E` or `S`), not the `direction` value (`RECEIVE`/`SEND`) shown on the response object.

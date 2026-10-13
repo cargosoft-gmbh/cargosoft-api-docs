@@ -8,11 +8,17 @@ value:
     last_modified_employee_matchcode: cargo
     created_employee_matchcode: cargo
     responsible_employee_matchcode: cargo
+  edipartner_matchcode: SAMPLEPARTNER
   memos: []
   aes: []
+  addon_fields:
+    - addonfield_matchcode: CUSTOMS_REFERENCE
+      value: REF-4711
+  dangerous_goods: true
   shipment_number: '0111230300003'
   master_reference:
   house_reference: '0111230300003'
+  order_type:
   bl_type: HBL
   mode_of_transport: SEA
   month_of_service: '202402'
@@ -28,12 +34,13 @@ value:
         - measurements:
             - id: 8384
               client: '001'
+              counter: 1
               weight:
               length: 100
               width: 100
               height: 100
               quantity: 1
-              goods_id: 970652
+              goods_dto: 970652
               shipment_number: '0111230300003'
               weight_unit: kg
               volume: 1
@@ -42,7 +49,37 @@ value:
           customs: []
           mrns: []
           subgoods: []
-          dangerousGoods: []
+          dangerousGoods:
+            - id: 11030
+              client: '001'
+              goods_dto: 970652
+              dangerous_good_legislation: IMDG
+              classification_code:
+              un_number: '0121'
+              release: ''
+              label_1:
+              label_2:
+              label_3:
+              label_4:
+              site:
+              flashpoint:
+              flashpoint_unit:
+              ems_number_1: F-B
+              ems_number_2: S-X
+              mfag_number_1:
+              mfag_number_2:
+              remarks:
+              authorisation_number:
+              packaging_group:
+              technical_name_1: IGNITERS
+              technical_name_2:
+              causing_substance_1: Fire
+              causing_substance_2:
+              issuer: CargoSoft GmbH
+              net_weight: 1
+              weight_unit: k
+              gross_weight: 1.5
+              contact:
           id: 970652
           client: '001'
           shipment_number: '0111230300003'
@@ -66,7 +103,12 @@ value:
           weight_unit: k
           chargable_weight:
           container_number:
-          hs_codes: []
+          container: false
+          hs_codes:
+            - id: 6952
+              client: '001'
+              hsCode: '12345'
+              goods_dto: 970652
       dangerousGoods: []
       id: 970650
       client: '001'
@@ -91,6 +133,7 @@ value:
       weight_unit: k
       chargable_weight:
       container_number: SUDU2222222
+      container: true
       hs_codes: []
   addresses:
     - qualifier: AGT
@@ -102,6 +145,7 @@ value:
         line_3:
         line_4: S 25246 Helsingborg
         line_5:
+        line_6:
       street: Faktorsgatan 5
       postal_code: '25246'
       city: Helsingborg
@@ -109,6 +153,10 @@ value:
       country_matchcode: SE
       un_location_code:
       contact:
+        name:
+        phone_number:
+        fax_number: olaf test xxxxxxxxxx0111230300003
+        email:
       references: []
     - qualifier: CAR
       address_type: G
@@ -119,6 +167,7 @@ value:
         line_3:
         line_4: DK 8230 ABYHOJ
         line_5:
+        line_6:
       street: Lokesvej 8
       postal_code: '8230'
       city: ABYHOJ
@@ -126,6 +175,10 @@ value:
       country_matchcode: DK
       un_location_code:
       contact:
+        name:
+        phone_number:
+        fax_number: olaf test xxxxxxxxxx0111230300003
+        email:
       references: []
     - qualifier: CNE
       address_type: D
@@ -136,6 +189,7 @@ value:
         line_3: 90245 Los Angeles
         line_4:
         line_5:
+        line_6:
       street: Hollywood Blvd.
       postal_code: '90245'
       city: Los Angeles
@@ -153,6 +207,7 @@ value:
         line_3: HAMBURG
         line_4:
         line_5:
+        line_6:
       street:
       postal_code:
       city: HAMBURG
@@ -170,6 +225,7 @@ value:
         line_3: 90245 Los Angeles
         line_4:
         line_5:
+        line_6:
       street: Hollywood Blvd.
       postal_code: '90245'
       city: Los Angeles
@@ -187,6 +243,7 @@ value:
         line_3: D Buschhöhe 10a +49 (421) 122-225-444
         line_4: "+49 (421) 122-225-288 etr j765j655ju u65"
         line_5: DE DE987654321 nicht !1ss cscs
+        line_6:
       street: Buschhöhe 10a
       postal_code: '28357'
       city: Bremen
@@ -230,9 +287,9 @@ value:
             time: '10:00:00'
             zone_offset: "+02:00"
           actual_datetime:
-            date: '2025-11-01'
-            time:
-            zone_offset:
+            date: '2023-10-01'
+            time: '11:00:00'
+            zone_offset: "+02:00"
           revised_datetime:
           estimated_datetime_until:
         destination:
@@ -344,13 +401,43 @@ value:
         haulage_type:
         haulage_reference:
   events:
+    - event: DISPATCH
+      type: ACTUAL
+      shipment_id: 327410
+      date_time:
+        date:
+        time:
+        zone_offset:
+        until:
+      location:
+        codes:
+          - type: UNLOC
+            code: DEHAM
+        name: Bremen
+        latitude:
+        longitude:
+    - event: DISPATCH
+      type: ESTIMATED
+      shipment_id: 327410
+      date_time:
+        date:
+        time:
+        zone_offset:
+        until:
+      location:
+        codes:
+          - type: UNLOC
+            code: DEHAM
+        name: Bremen
+        latitude:
+        longitude:
     - event: PICKUP
       type: ACTUAL
       shipment_id: 327410
       date_time:
-        date: '2025-11-01'
-        time:
-        zone_offset:
+        date: '2023-10-01'
+        time: '11:00:00'
+        zone_offset: "+02:00"
         until:
       location:
         codes:
@@ -366,6 +453,36 @@ value:
         date: '2023-03-05'
         time: '10:00:00'
         zone_offset: "+02:00"
+        until:
+      location:
+        codes:
+          - type: UNLOC
+            code: DEHAM
+        name: Bremen
+        latitude:
+        longitude:
+    - event: WAREHOUSE
+      type: ACTUAL
+      shipment_id: 327410
+      date_time:
+        date:
+        time:
+        zone_offset:
+        until:
+      location:
+        codes:
+          - type: UNLOC
+            code: DEHAM
+        name: Bremen
+        latitude:
+        longitude:
+    - event: WAREHOUSE
+      type: ESTIMATED
+      shipment_id: 327410
+      date_time:
+        date:
+        time:
+        zone_offset:
         until:
       location:
         codes:
@@ -769,6 +886,7 @@ value:
             line_3: D Buschhöhe 10a +49 (421) 122-225-444
             line_4:
             line_5:
+            line_6:
           postal_code: '28357'
           country_matchcode: DE
           un_location_code: DEBRE
@@ -789,6 +907,7 @@ value:
             line_3: 90245 Los Angeles
             line_4:
             line_5:
+            line_6:
           postal_code: '90245'
           country_matchcode: US
           un_location_code: USLAX
@@ -809,6 +928,7 @@ value:
             line_3: 90245 Los Angeles
             line_4:
             line_5:
+            line_6:
           postal_code: '90245'
           country_matchcode: US
           un_location_code: USLAX
@@ -824,9 +944,61 @@ value:
       seal_number2:
       seal_number3:
       container_iso_code: 40G0
+      reefer_temperature:
+      reefer_temperature_lower_bound:
+      reefer_temperature_upper_bound:
+      reefer_temperature_unit:
       shippers_own: false
-  custom_fields: []
-  last_modified_date_time: '2023-03-06T16:00:12'
-  created_date_time: '2023-03-06T16:00:12'
+      addon_fields:
+        - addonfield_matchcode: CUSTOMS_REFERENCE
+          value: CONTAINER-REF-4711
+  custom_fields:
+    - id: 197235
+      client: '001'
+      value:
+      shipment_number: '0111230300003'
+      running_number: 16
+  last_modified_date_time: '2026-09-07T15:27:58'
+  created_date_time: '2026-09-07T15:27:58'
   order_date_time: '2023-03-06T00:00:00'
   project_matchcode:
+  depot_matchcode:
+  shipment_closed: false
+  booking_party_address_qualifier: SHP
+  full_container_load: true
+  shipment_number_definition_version:
+  maindepartment: '01'
+  subdepartment: '11'
+  vehicle_temperature_code: COOL
+  calculations:
+    - voucher_type: R
+      invoice_party:
+        address_type: D
+        address_number: 1030
+      billing_category_matchcode: FRT
+      billing_text_line1: Ocean freight
+      billing_text_line2:
+      billing_text_line3:
+      billing_text_line4:
+      billing_text_line5:
+      total_amount: 250
+      quantity: 1
+      single_amount: 250
+      measure_unit_matchcode:
+      currency_matchcode: EUR
+      exchange_rate: 1
+      origin:
+        location_type: UNLOC
+        location_code: DEBRV
+        location_name: Bremerhaven
+        location_country: DE
+      destination:
+        location_type: UNLOC
+        location_code: NLRTM
+        location_name: Rotterdam
+        location_country: NL
+      collect_prepaid: P
+      contract_number:
+      quotation_number:
+      ecm_booking: false
+      ordering: 1

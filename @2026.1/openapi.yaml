@@ -16,12 +16,181 @@ servers:
 - url: https://api-demo.cargosoft.de
   description: Test CargoSoft API server.
 tags:
+- name: Code Conversion
+  description: "Lookup of EDI code conversions (edicodes_t): translates an EDI partner's\
+    \ own code into the corresponding CargoSoft internal code, or vice versa."
 - name: Shipment
   description: The following chapter will give you an overview about the shipment
     endpoints and their function.
 - name: ShipmentMemo
   description: Lookup of order memo lines (eamemo_t) attached to a shipment.
 paths:
+  /cargosoft/basicdata/codeconverter/lookup:
+    post:
+      tags:
+      - Code Conversion
+      summary: Lookup EDI code conversion
+      description: "Looks up EDI code conversions (edicodes_t) by EDI partner, direction,\
+        \ code table/type and/or source code. The DIRECTION identifier value must\
+        \ be the raw single-character edicodes_t.richtung code (\"E\" or \"S\"), not\
+        \ the EdiCodeDirectionEnum enum name used on the response. Two identifier\
+        \ combinations are served from a cache (see CodeConverterServiceBean) since\
+        \ this master data changes very rarely: EDIPARTNER+DIRECTION+CODETYPE (all\
+        \ code conversions for a partner's table/direction), and EDIPARTNER+DIRECTION+CODETYPE+SOURCECODE\
+        \ (a single, specific conversion). Omitting EDIPARTNER for a DIRECTION+CODETYPE+SOURCECODE\
+        \ lookup returns every matching conversion across all EDI partners that share\
+        \ the same source code, also served from a cache. Any other identifier combination\
+        \ runs directly against the database."
+      operationId: lookup
+      parameters:
+      - name: page_no
+        in: query
+        description: The page number for pagination.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        description: The page size for pagination.
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: order_by
+        in: query
+        description: The order by for ordering API results sending back as response.
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - CLIENT
+            - EDIPARTNER
+            - DIRECTION
+            - CODETYPE
+            - SOURCECODE
+      - name: order_mode
+        in: query
+        description: The order mode for ordering API results sending back as response.
+        schema:
+          type: array
+          items:
+            type: string
+            description: Description of the order mode for ordering API results sending
+              back as response
+            enum:
+            - ASC
+            - DESC
+            x-enumDescriptions:
+              ASC: ascending
+              DESC: descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Identifier"
+            examples:
+              LookupCodeConverterIdentifierExample:
+                summary: Example of looking up all EDI code conversions of an EDI
+                  partner for a direction and code table
+                description: LookupCodeConverterIdentifierExample
+                $ref: ./resources/Lookup_codeconverter_example.yaml
+      responses:
+        "200":
+          description: Records found
+          headers:
+            X-Page-Count:
+              description: The total number of pages for pagination.
+              required: true
+              style: simple
+              schema: {}
+            X-Row-Count:
+              description: The total number of found objects for pagination.
+              required: true
+              style: simple
+              schema: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CodeConvertion"
+              examples:
+                CodeConvertionExample:
+                  summary: Example of an EDI code conversion
+                  description: CodeConvertionExample
+                  $ref: ./resources/CodeConvertion_lookup_example_object.yaml
+      security:
+      - JavaWebToken: []
+  /cargosoft/basicdata/codeconverter:
+    get:
+      tags:
+      - Code Conversion
+      summary: Retrieve all EDI code conversions
+      description: Scroll through all existing EDI code conversion records.
+      operationId: retrieveAll
+      parameters:
+      - name: page_no
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: cascade
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          description: Records retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CodeConvertion"
+      security:
+      - JavaWebToken: []
+  /cargosoft/basicdata/codeconverter/{id}:
+    get:
+      tags:
+      - Code Conversion
+      summary: Retrieve EDI code conversion
+      description: Retrieve a specific EDI code conversion record with the CargoSoft
+        database id.
+      operationId: retrieveById
+      parameters:
+      - name: id
+        in: path
+        description: Database id of the record you want to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: cascade
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          description: Record retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CodeConvertion"
+      security:
+      - JavaWebToken: []
   /cargosoft/efile:
     post:
       tags:
@@ -199,7 +368,7 @@ paths:
       - E-File
       summary: Retrieve an E-File document.
       description: Retrieves a single E-File document by its document ID.
-      operationId: retrieveById
+      operationId: retrieveById_1
       parameters:
       - name: id
         in: path
@@ -252,7 +421,7 @@ paths:
       summary: Lookup E-File documents.
       description: Looks up electronic documents such as PDF files by the supplied
         lookup identifiers.
-      operationId: lookup
+      operationId: lookup_1
       parameters:
       - name: page_no
         in: query
@@ -396,7 +565,7 @@ paths:
         \ search criteria you will receive zero up to n shipments. This endpoint only\
         \ returns the base shipment. If you need the full shipment details, use the\
         \ shipment id to retrieve them separately."
-      operationId: lookup_1
+      operationId: lookup_2
       parameters:
       - name: page_no
         in: query
@@ -571,7 +740,7 @@ paths:
       - Shipment
       summary: Retrieve shipment
       description: Retrieve a specific shipment with the CargoSoft database id.
-      operationId: retrieveById_1
+      operationId: retrieveById_2
       parameters:
       - name: id
         in: path
@@ -761,7 +930,7 @@ paths:
       summary: Lookup shipment memo lines
       description: "Looks up order memo lines (eamemo_t) attached to a shipment, typically\
         \ by client and shipment_number together (the shipment they were created for)."
-      operationId: lookup_2
+      operationId: lookup_3
       parameters:
       - name: page_no
         in: query
@@ -848,7 +1017,7 @@ paths:
       - ShipmentMemo
       summary: Retrieve all shipment memo lines
       description: Scroll through all existing shipment memo line records.
-      operationId: retrieveAll
+      operationId: retrieveAll_1
       parameters:
       - name: page_no
         in: query
@@ -885,7 +1054,7 @@ paths:
       summary: Retrieve shipment memo line
       description: Retrieve a specific shipment memo line record with the CargoSoft
         database id.
-      operationId: retrieveById_2
+      operationId: retrieveById_3
       parameters:
       - name: id
         in: path
@@ -941,121 +1110,45 @@ paths:
           description: Wrong username and/or password
 components:
   schemas:
-    EFile:
+    CodeConvertion:
       type: object
-      description: Description of the EFile DTO schema for electronic data like PDF's.
+      description: "An EDI code conversion (edicodes_t) translates an external partner's\
+        \ own code (e.g. for a charge type or packaging code) into the corresponding\
+        \ CargoSoft internal code, or vice versa, depending on direction."
       properties:
         id:
           type: integer
-          format: int64
-          description: The unique ID of this document.
+          format: int32
+          description: The id of the EDI code conversion.
         client:
           type: string
-          description: The CargoSoft client.
-        description:
+          description: The CargoSoft client this EDI code conversion belongs to.
+        edipartner:
           type: string
-          description: Description of this document.
-        bytes:
+          description: The matchcode of the EDI partner this EDI code conversion applies
+            to.
+        direction:
           type: string
-          format: Base64 encoded String
-          description: Base64 encoded content of this document.
-        roles:
-          type: array
-          description: The list of roles. The roles are a kind of authorization as
-            to who may view the documents.
-          items:
-            type: string
-        references:
-          type: array
-          description: A list of references.
-          items:
-            $ref: "#/components/schemas/EFileReference"
-        document_category:
-          type: integer
-          format: int32
-          description: The category of this document. The category is defined in the
-            CargoSoft basic data and is individual for each customer.
-        document_name:
+          description: The direction the code conversion applies to.
+          enum:
+          - RECEIVE
+          - SEND
+        code_type:
           type: string
-          description: The file name of this document.
-        document_date:
+          description: The code table/type this conversion applies to (e.g. a charge
+            type or packaging code table).
+        source_code:
           type: string
-          format: date-time
-          description: Date of creation of this document.
-    EFileReference:
-      type: object
-      description: Description of the EFileReference DTO schema for efile references.
-      properties:
-        reference_type:
+          description: The source code to be converted.
+        target_code:
           type: string
-          description: "Each reference is typified. The type describes the reference\
-            \ value. For example [CSFILE, ADRFILE]. CSFILE = The document is attached\
-            \ to a shipment, ADRFILE = The document is attached to an address."
-          examples:
-          - CSFILE
-          - ADRFILE
-        reference_value:
-          type: string
-          description: The reference value.
-    EFileRole:
-      type: object
-      properties:
-        role:
-          type: string
+          description: "The CargoSoft internal (or, depending on direction, external)\
+            \ code the source code is converted to."
     ContainsIdentifier:
       allOf:
       - $ref: "#/components/schemas/IdentifierShipmentMemoIdentifier"
       description: This identifier should use when value have to contain.
       title: ContainsIdentifier
-    EFileLookupGenericClass:
-      type: object
-      anyOf:
-      - $ref: "#/components/schemas/EqualsIdentifier"
-      - $ref: "#/components/schemas/GreaterThanIdentifier"
-      - $ref: "#/components/schemas/GreaterEqualIdentifier"
-      properties:
-        key:
-          type: string
-          description: Identifier key. For instance a ShipmentIdentifier
-          enum:
-          - REFERENCE
-          - SHIPMENT_ID
-          - CLIENT
-          title: EFileIdentifier
-          x-enumDescriptions:
-            SHIPMENT_ID: Unique database ID of the Shipment.
-            REFERENCE: "Reference of the efile as <REFERENCE_TYPE>:<REFERENCE_VALUE>,\
-              \ for example EDIMON:4711 for the JSON file belonging to the edimonitordatei_t\
-              \ row 4711. Must always be combined with a CLIENT identifier - several\
-              \ configured efile clients can share the same backend, so searching\
-              \ without a client would return the same document once per matching\
-              \ client. In most cases, this reference is not known by third party\
-              \ applications. For instance, use the SHIPMENT_ID identifier to search\
-              \ efile documents."
-            CLIENT: "Mandant, required together with REFERENCE to scope the search\
-              \ to a single efile client."
-        match_mode:
-          type: string
-          default: EQUALS
-          description: The match mode.
-          enum:
-          - EQUALS
-          - CONTAINS
-          - IN
-          - OR
-          - GT
-          - LT
-          - GE
-          - LE
-          x-enumDescriptions:
-            OR: Or.
-            EQUALS: Equals.
-            IN: In.
-            LT: Lower than.
-            LE: Lower equals
-            CONTAINS: Contains
-            GT: Greater than.
-            GE: Greater equals
     EqualsIdentifier:
       allOf:
       - $ref: "#/components/schemas/IdentifierShipmentMemoIdentifier"
@@ -1175,6 +1268,173 @@ components:
       description: This identifier combines a list of identifier with the logical
         or.
       title: OrIdentifier
+    IdentifierCodeConverterIdentifier:
+      type: object
+      description: Description of the Identifier DTO schema. This DTO contains the
+        match mode and identifiers of a functional object for instance the shipment
+        identifier.
+      discriminator:
+        propertyName: matchMode
+        mapping:
+          EqualsIdentifierMapped: "#/components/schemas/EqualsIdentifier"
+          ContainsIdentifierMapped: "#/components/schemas/ContainsIdentifier"
+          InIdentifierMapped: "#/components/schemas/InIdentifier"
+          OrIdentifierMapped: "#/components/schemas/OrIdentifier"
+          GreaterThanIdentifierMapped: "#/components/schemas/GreaterThanIdentifier"
+          LessThanIdentifierMapped: "#/components/schemas/LessThanIdentifier"
+          GreaterEqualIdentifierMapped: "#/components/schemas/GreaterEqualIdentifier"
+          LessEqualIdentifierMapped: "#/components/schemas/LessEqualIdentifier"
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - CLIENT
+          - EDIPARTNER
+          - DIRECTION
+          - CODETYPE
+          - SOURCECODE
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
+    IdentifierListIdentifierCodeConverterIdentifier:
+      type: object
+      items:
+        $ref: "#/components/schemas/IdentifierCodeConverterIdentifier"
+      properties:
+        first:
+          $ref: "#/components/schemas/IdentifierCodeConverterIdentifier"
+        last:
+          $ref: "#/components/schemas/IdentifierCodeConverterIdentifier"
+    EFile:
+      type: object
+      description: Description of the EFile DTO schema for electronic data like PDF's.
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: The unique ID of this document.
+        client:
+          type: string
+          description: The CargoSoft client.
+        description:
+          type: string
+          description: Description of this document.
+        bytes:
+          type: string
+          format: Base64 encoded String
+          description: Base64 encoded content of this document.
+        roles:
+          type: array
+          description: The list of roles. The roles are a kind of authorization as
+            to who may view the documents.
+          items:
+            type: string
+        references:
+          type: array
+          description: A list of references.
+          items:
+            $ref: "#/components/schemas/EFileReference"
+        document_category:
+          type: integer
+          format: int32
+          description: The category of this document. The category is defined in the
+            CargoSoft basic data and is individual for each customer.
+        document_name:
+          type: string
+          description: The file name of this document.
+        document_date:
+          type: string
+          format: date-time
+          description: Date of creation of this document.
+    EFileReference:
+      type: object
+      description: Description of the EFileReference DTO schema for efile references.
+      properties:
+        reference_type:
+          type: string
+          description: "Each reference is typified. The type describes the reference\
+            \ value. For example [CSFILE, ADRFILE]. CSFILE = The document is attached\
+            \ to a shipment, ADRFILE = The document is attached to an address."
+          examples:
+          - CSFILE
+          - ADRFILE
+        reference_value:
+          type: string
+          description: The reference value.
+    EFileRole:
+      type: object
+      properties:
+        role:
+          type: string
+    EFileLookupGenericClass:
+      type: object
+      anyOf:
+      - $ref: "#/components/schemas/EqualsIdentifier"
+      - $ref: "#/components/schemas/GreaterThanIdentifier"
+      - $ref: "#/components/schemas/GreaterEqualIdentifier"
+      properties:
+        key:
+          type: string
+          description: Identifier key. For instance a ShipmentIdentifier
+          enum:
+          - REFERENCE
+          - SHIPMENT_ID
+          - CLIENT
+          title: EFileIdentifier
+          x-enumDescriptions:
+            SHIPMENT_ID: Unique database ID of the Shipment.
+            REFERENCE: "Reference of the efile as <REFERENCE_TYPE>:<REFERENCE_VALUE>,\
+              \ for example EDIMON:4711 for the JSON file belonging to the edimonitordatei_t\
+              \ row 4711. Must always be combined with a CLIENT identifier - several\
+              \ configured efile clients can share the same backend, so searching\
+              \ without a client would return the same document once per matching\
+              \ client. In most cases, this reference is not known by third party\
+              \ applications. For instance, use the SHIPMENT_ID identifier to search\
+              \ efile documents."
+            CLIENT: "Mandant, required together with REFERENCE to scope the search\
+              \ to a single efile client."
+        match_mode:
+          type: string
+          default: EQUALS
+          description: The match mode.
+          enum:
+          - EQUALS
+          - CONTAINS
+          - IN
+          - OR
+          - GT
+          - LT
+          - GE
+          - LE
+          x-enumDescriptions:
+            OR: Or.
+            EQUALS: Equals.
+            IN: In.
+            LT: Lower than.
+            LE: Lower equals
+            CONTAINS: Contains
+            GT: Greater than.
+            GE: Greater equals
     IdentifierEFileIdentifier:
       type: object
       description: Description of the Identifier DTO schema. This DTO contains the

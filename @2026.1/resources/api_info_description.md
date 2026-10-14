@@ -247,7 +247,11 @@ by hand, but also by background processes.
 ## Create a shipment
 
 To create a new shipment, the [create](#operation/createShipment) endpoint of the shipment functional group has to be
-used.
+used. The following figure shows the use case to create a shipment. To keep the figure simple, the authorization process is referred.
+
+![CreateShipment][SeqCreateShipment]
+
+[SeqCreateShipment]: ./resources/Seq_create_shipment.svg "Use case to create a shipment"
 
 1. To access the create endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
 2. Based on the authenticated API user, the CargoSoft API determines the EDI partner to associate with the new
@@ -262,6 +266,9 @@ used.
    of the shipment memo functional group to retrieve them independently afterwards. If any of that nested data
    fails validation (for example an addon field value referencing a matchcode that doesn't exist in the master
    data), the whole shipment creation is rejected and nothing is created.
+5. Once the shipment has been created, the shipment is returned as response to the request. 
+   The shipment response contains the unique shipment ID and the CargoSoft shipment number. 
+
 
 ### EDI-Partner settings
 

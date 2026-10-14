@@ -16,7 +16,7 @@ servers:
 - url: https://api-demo.cargosoft.de
   description: Test CargoSoft API server.
 tags:
-- name: Code Conversion
+- name: Basic data
   description: "Lookup of EDI code conversions (edicodes_t): translates an EDI partner's\
     \ own code into the corresponding CargoSoft internal code, or vice versa."
 - name: Shipment
@@ -28,7 +28,7 @@ paths:
   /cargosoft/basicdata/codeconverter/lookup:
     post:
       tags:
-      - Code Conversion
+      - Basic data
       summary: Lookup EDI code conversion
       description: "Looks up EDI code conversions (edicodes_t) by EDI partner, direction,\
         \ code table/type and/or source code. The DIRECTION identifier value must\
@@ -128,7 +128,7 @@ paths:
   /cargosoft/basicdata/codeconverter:
     get:
       tags:
-      - Code Conversion
+      - Basic data
       summary: Retrieve all EDI code conversions
       description: Scroll through all existing EDI code conversion records.
       operationId: retrieveAll
@@ -164,7 +164,7 @@ paths:
   /cargosoft/basicdata/codeconverter/{id}:
     get:
       tags:
-      - Code Conversion
+      - Basic data
       summary: Retrieve EDI code conversion
       description: Retrieve a specific EDI code conversion record with the CargoSoft
         database id.

@@ -7,10 +7,13 @@
 ## Changelog
 This page documents all business-relevant changes to our API.
 
-| Category       | Endpoint / Area | Change                                                                                                 | Impact and required action                                       | Version |
-|----------------|-----------------|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|---|
-| **Added**      | E-File          | Added new E-File endpoints.                                                                            | No changes to existing integrations are required.                | 2026.1 |
-| **Deprecated** | ShipmentEventQualifier      | The shipment event qualifer `TRANSSHIPMENT` is now deprecated and will be removed in a future version. | Use the `TRANSSHIPMENT_ARRIVAL` shipment event qualifer instead. | 2026.1 |
+| Category       | Endpoint / Area            | Change                                                                                                 | Impact and required action                                       | Version |
+|----------------|----------------------------|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|---|
+| **Added**      | `POST` /cargosoft/shipment | Added new shipment create endpoint.                                                                    | No changes to existing integrations are required.                | 2026.1 |
+| **Added**      | Use cases                  | Added new use case to create a shipment - [see](#CHAPTER_SHIPMENT)                          | No changes to existing integrations are required.                | 2026.1 |
+| **Added**      | Basic data                 | Added new edi code conversion endpoints.                                                               | No changes to existing integrations are required.                | 2026.1 |
+| **Added**      | E-File                     | Added new E-File endpoints.                                                                            | No changes to existing integrations are required.                | 2026.1 |
+| **Deprecated** | ShipmentEventQualifier     | The shipment event qualifer `TRANSSHIPMENT` is now deprecated and will be removed in a future version. | Use the `TRANSSHIPMENT_ARRIVAL` shipment event qualifer instead. | 2026.1 |
 
 
 
@@ -245,6 +248,8 @@ by hand, but also by background processes.
 [SeqRetrieveShipmentEvents]: ./resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"
 
 ## Create a shipment
+
+<p id='CHAPTER_SHIPMENT'></p>
 
 To create a new shipment, the [create](#operation/createShipment) endpoint of the shipment functional group has to be
 used. The following figure shows the use case to create a shipment. To keep the figure simple, the authorization process is referred.

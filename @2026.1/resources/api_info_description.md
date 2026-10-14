@@ -243,9 +243,10 @@ by hand, but also by background processes.
 ![RetrieveShipmentEvents][SeqRetrieveShipmentEvents]
 
 [SeqRetrieveShipmentEvents]: ./resources/Seq_retrieve_shipment_event.svg "Use case to retrieve shipment events"
+
 ## Create a shipment
 
-To create a new shipment, the [create](#operation/create) endpoint of the shipment functional group has to be
+To create a new shipment, the [create](#operation/createShipment) endpoint of the shipment functional group has to be
 used.
 
 1. To access the create endpoint a JWT is needed. For more details how to retrieve a JWT [see](#CHAPTER_AUTHORIZATION).
@@ -253,7 +254,7 @@ used.
    shipment: the EDI partner's matchcode has to be identical to the API username. If no EDI partner exists for
    the API user, the request is rejected and no shipment is created.
 3. The determined EDI partner's settings are used, where configured, to fill in values that are otherwise
-   required to generate the shipment number - see [EDI partner settings for shipment numbering](#CHAPTER_EDIPARTNER_SETTINGS)
+   required to generate the shipment number - see [EDI-Partner](#CHAPTER_EDIPARTNER_SETTINGS)
    below for the exact keys and their fallback rules.
 4. The shipment is created together with any nested data supplied in the same request body - goods, containers,
    addon field values, order memo lines, and so on. A memo text longer than the maximum line length is
@@ -262,7 +263,7 @@ used.
    fails validation (for example an addon field value referencing a matchcode that doesn't exist in the master
    data), the whole shipment creation is rejected and nothing is created.
 
-### EDI partner settings for shipment numbering
+### EDI-Partner settings
 
 <p id='CHAPTER_EDIPARTNER_SETTINGS'></p>
 Generating a shipment number requires three pieces of information: the shipment number definition (posdef),

@@ -354,17 +354,23 @@ paths:
       - Shipment
       summary: Create shipment
       description: Create a new shipment.
-      operationId: create_1
+      operationId: createShipment
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/Shipment"
             examples:
-              CreateShipmentRequestExample:
-                summary: Example of a shipment creation request
-                description: CreateShipmentRequestExample
-                $ref: ./resources/Shipment_example_object.yaml
+              CreateShipmentRequestExampleCollis:
+                summary: 'Example of a shipment creation request with addresses and
+                  2 collis '
+                description: CreateShipmentRequestExampleCollis
+                $ref: ./resources/shipment_endpoints/Create_Shipment_example_object_Addresses_2colli.yaml
+              CreateShipmentRequestExampleContainer:
+                summary: Example of a shipment creation request with addresses and
+                  container
+                description: CreateShipmentRequestExampleContainer
+                $ref: ./resources/shipment_endpoints/Create_Shipment_example_object_Addresses_Container.yaml
       responses:
         "200":
           description: Record created
@@ -660,7 +666,7 @@ paths:
       - Shipment
       summary: Create a shipment event
       description: 'Create a shipment event of the given event type. '
-      operationId: create_2
+      operationId: create_1
       parameters:
       - name: shipmentId
         in: path

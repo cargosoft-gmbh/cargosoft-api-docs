@@ -286,11 +286,12 @@ all. Each of the three keys is resolved independently of the other two - a missi
 never prevents the fallback for a different key from being used. Any other, unrelated qualifier configured on
 the EDI partner is ignored.
 
-| Key                            | Meaning                                     | Fallback if not configured (or blank) on the EDI partner                                                                    |
-|----------------------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| `SHIPMENT_NUMBER_DEFINITION_VERSION`    | The shipment number definition version to use (`posdef_t.version`). | The `shipment_number_definition_version` supplied in the request body, if present; otherwise the CargoSoft client's own default (`firma_t.posnr_version`). |
-| `MAINDEPARTMENT`                | The main department to use for shipment numbering. | The `maindepartment` supplied in the request body. If neither is present, the request is rejected. |
-| `SUBDEPARTMENT`                 | The sub department to use for shipment numbering. | The `subdepartment` supplied in the request body. If neither is present, the request is rejected. |
+| Key                            | Meaning                                                       | Fallback if not configured (or blank) on the EDI partner                                                                                                  |
+|----------------------------------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SHIPMENT_NUMBER_DEFINITION_VERSION`    | The shipment number definition version to use. | The `shipment_number_definition_version` supplied in the request body, if present; otherwise the CargoSoft client's own default. |
+| `MAINDEPARTMENT`                | The main department to use for shipment numbering.            | The `maindepartment` supplied in the request body. If neither is present, the request is rejected.                                                        |
+| `SUBDEPARTMENT`                 | The sub department to use for shipment numbering.             | The `subdepartment` supplied in the request body. If neither is present, the request is rejected.                                                         |
+| `ADDRESS_FORMAT`                 | The address format used to format the shipment addresses.     | The CargoSoft client's own default in the general company parameters.                                                                                     |
 
 > Please note: if a request doesn't need to rely on the EDI partner's settings at all - for example while
 > testing - `shipment_number_definition_version`, `maindepartment` and `subdepartment` can simply be supplied

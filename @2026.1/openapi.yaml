@@ -2743,6 +2743,9 @@ components:
           type: integer
           format: int32
           description: The sequence number controlling the order of calculation lines.
+        booked:
+          type: boolean
+          description: Indicates whether this calculation line is booked.
       required:
       - billing_category_matchcode
       - invoice_party

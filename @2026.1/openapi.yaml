@@ -2617,6 +2617,14 @@ components:
           - FACILIATOR
           - AGENT
           - CARRIER
+          - HDL
+          - SVC
+          - GWINV
+          - CINF
+          - VET
+          - VGM
+          - CNPUP
+          - CNDRO
         address_type:
           type: string
           description: The CargoSoft address type.

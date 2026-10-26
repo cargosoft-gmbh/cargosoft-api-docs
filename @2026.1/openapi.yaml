@@ -1617,6 +1617,10 @@ components:
       description: Description of the Container DTO. Each container refers to a good
         element because a container is part of the CargoSoft goods description.
       properties:
+        counter:
+          type: integer
+          format: int32
+          description: The sequential number of this container within the shipment.
         containerAddresses:
           type: array
           description: "List of container addresses. This list contains the three\
@@ -1785,6 +1789,9 @@ components:
           format: int32
           description: The identifier of the goods description this customs record
             belongs to.
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment.
         invoice_number:
           type: string
           description: The invoice number associated with the goods.
@@ -1827,6 +1834,11 @@ components:
           type: integer
           format: int32
           description: The id of this dangerous goods.
+        counter:
+          type: integer
+          format: int32
+          description: The sequential number of this dangerous goods record within
+            the goods description.
         goods_dto:
           type: integer
           format: int32
@@ -1835,6 +1847,9 @@ components:
         client:
           type: string
           description: The CargoSoft client.
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment.
         imdg_code:
           type: string
           description: The IMDG code assigned to the dangerous goods.
@@ -2121,6 +2136,10 @@ components:
         client:
           type: string
           description: The CargoSoft client.
+        counter:
+          type: integer
+          format: int32
+          description: The sequential number of this HS code within the goods description.
         hsCode:
           type: string
           description: The Harmonized System code assigned to the goods.
@@ -2129,6 +2148,9 @@ components:
           format: int32
           description: The identifier of the goods description this HS code belongs
             to.
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment.
     Insurance:
       type: object
       properties:
@@ -2244,6 +2266,9 @@ components:
           type: integer
           format: int32
           description: The identifier of the goods description this MRN belongs to.
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment.
     Measurement:
       type: object
       properties:
@@ -2675,6 +2700,9 @@ components:
         client:
           type: string
           description: The CargoSoft client.
+        shipment_number:
+          type: string
+          description: The CargoSoft shipment number of the shipment.
         voucher_type:
           type: string
           description: The CargoSoft voucher type of the calculation line.
